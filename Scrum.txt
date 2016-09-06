@@ -1,0 +1,12 @@
+2016.09.06------Quan Xing
+1.Implent the project draft, github account setup
+2.to update the database design and windows mainframe
+3. discuss with the partner
+
+ 2016.09.06------Guofeng Wu
+1.read the project proposal, find some useful link, github account setup
+2.creat a frmework for the project development(model class)
+3. discuss with the partner about the setup of database, and seperation of the work(UI, database operation, event handaling)
+
+ 
+
