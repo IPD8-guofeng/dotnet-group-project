@@ -11,16 +11,20 @@ namespace FrameWork
     class Database
     {
         //const string CONN_STRING = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\ipd\Documents\peopledb1.mdf;Integrated Security=True;Connect Timeout=30";
-
+        //Login: ipd8abbott@gmail.com Pass: Abbott2000
+        //Data Source=ipd8.database.windows.net;Initial Catalog=stocktrade;Integrated Security=False;User ID=ipd8abbott;Password=********;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False
+        const string CONN_STRING = @"Data Source=ipd8.database.windows.net;Initial Catalog=stocktrade;Integrated Security=False;User ID=ipd8abbott;Password=Abbott2000;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
         private SqlConnection conn;
-        private static string userName = "<**@********>";
-        private static string password = "<********>";
-        private static string dataSource = "<******.database.windows.net>";
-        private static string databaseName = "<******>";
-
+        /*
+        private static string userName = "ipd8abbott@gmail.com";
+        private static string password = "Abbott2000";
+        private static string dataSource = "ipd8.database.windows.net";
+        private static string databaseName = "stocktrade";
+        */
             
         public Database()
         {
+            /*
             SqlConnectionStringBuilder connString2Builder;
             connString2Builder = new SqlConnectionStringBuilder();
 
@@ -30,9 +34,10 @@ namespace FrameWork
             connString2Builder.TrustServerCertificate = false;
             connString2Builder.UserID = userName;
             connString2Builder.Password = password;
-
+           
             conn = new SqlConnection(connString2Builder.ConnectionString);
-            //conn = new SqlConnection(CONN_STRING);
+   */
+            conn = new SqlConnection(CONN_STRING);
             conn.Open();
         }
 

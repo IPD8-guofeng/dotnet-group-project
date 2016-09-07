@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FrameWork"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1000">
-    <Grid>
-        <Menu x:Name="menu" HorizontalAlignment="Left" Height="33" Margin="0,0,0,0" VerticalAlignment="Top" Background="White">
+        Title="Day Trade" Height="732.836" Width="1014.925">
+    <DockPanel>
+        <!--<Grid Width="992">-->
+        <!--<Menu x:Name="menu" HorizontalAlignment="Left" Height="33" Margin="0,0,0,0" VerticalAlignment="Top" Background="White">-->
+        <Menu DockPanel.Dock="Top">
             <MenuItem FontSize="16" Width="80" Height="33" Header="File" >
                 <MenuItem x:Name="menuOpen" Header="Open" FontSize="13" />
                 <MenuItem x:Name="menuSave" Header="Save" FontSize="13"/>
@@ -34,10 +36,22 @@
                 <MenuItem x:Name="menuAbout" Header="About" FontSize="13"/>
             </MenuItem>
         </Menu>
-        <TabControl x:Name="tabControl"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="590" Margin="5,60,5,5"  TabStripPlacement="Bottom">
-            <TabItem Header="default">
-            </TabItem>
-
+        <Menu DockPanel.Dock="Top" Height="31">
+            <MenuItem >
+                <MenuItem.Icon>
+                    <Image   Source="Images/flower.jpg"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="_Tool">
+            </MenuItem>
+            <MenuItem Header="_Window">
+            </MenuItem>
+            <MenuItem Header="_Help">
+            </MenuItem>
+        </Menu>
+        <TabControl x:Name="tabControl"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="590" Margin="5,0,5,5"  TabStripPlacement="Bottom">
+            <TabItem Header="default"/>
         </TabControl>
-    </Grid>
+        <!--</Grid>-->
+    </DockPanel>
 </Window>

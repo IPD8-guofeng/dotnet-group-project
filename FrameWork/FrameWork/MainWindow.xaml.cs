@@ -20,9 +20,23 @@ namespace FrameWork
     /// </summary>
     public partial class MainWindow : Window
     {
+        Database db;
         public MainWindow()
         {
+            try
+            {
+                db = new Database();
+                MessageBox.Show("database is connected", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception e)
+            {
+
+                MessageBox.Show("Fatal error: unable to connect to database", "Fatal Error", MessageBoxButton.OK, MessageBoxImage.Stop);
+                // TODO: Write details of the exception to log text file
+                throw e;
+            }
             InitializeComponent();
+            //Application.Current.MainWindow.WindowState = WindowState.Maximized;
         }
     }
 }
