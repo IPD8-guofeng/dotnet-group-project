@@ -1,0 +1,61 @@
+user story
+
+
+1: Get stock historial data  
+2: Plot chart with historial data
+3: Draw trend line for analst
+4: Create portfolio
+5: Make paper Trade 
+6: show portfolio performance
+7: print chart and portfolio
+
+
+technical steps
+
+preparation
+  a: create github account to store developement code
+  b: create azure account to host the sql database
+  c: create trello account for project management
+  d: search web for the project idea
+  e: write the simple proposal
+  f: discuss project to the teacher
+  g: design the database to fit the project 
+  h: MVVM
+  i: GUI- main window
+  j: GUI- menu and toolbar
+
+1: Get stock historial data  
+  a: google the stock API
+  b: download stock historial data 
+  c: create database TradeStock, import data to table StockPriceByDay
+
+2: Plot chart with historial data
+  a: search the library for chart
+  b: create canvas to plot chart
+  c: components of data in chart
+  d: plot chart
+ 
+3: Draw trend line for analst
+  a: create table TrendLine
+  b: create trend line toolbox for user
+  c: save to database from user drawing
+
+4: Create portfolio
+  a: create portfolio window
+  b: create portfolio search, sort function
+
+5: Make paper Trade 
+  a: create trade window
+  b: connect to live stock data source
+  c: add trade function
+
+6: show portfolio performance
+  a: create portfolio performance window
+  b: add portfolio performance functions
+
+7: print chart and portfolio
+  a: Creat print option menu
+  b: add search chart function 
+  c: add page setup
+  d: add page preview
+  e: add page print
