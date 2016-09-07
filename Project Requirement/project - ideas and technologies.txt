@@ -1,0 +1,38 @@
+Project ideas and technologies
+
+
+Project ideas:
+- CRM or HR system
+- Calendar / Planner
+- Point Of Sale
+- Warehouse Management (e.g. Blood bank management system)
+- Invoicing
+- Photo, Music or Video library
+- Bank / ATM (?)
+- School course & student registration system
+- Drawing (e.g. architectural plan making)
+- A game (not using game libraries)
+
+
+Technologies you MUST use:
+* WPF, C#
+* SQL Database via Azure (at least 2 tables)
+* Multiple windows (at least 2)
+
+Possible technologies (in no special order):
+* Drag and drop
+* MVVM (~MVC for WPF)
+* EntityFramework (OO database access)
+* Ribbon instead menus
+* StackPanel, GridSplitter (highly recommended)
+* TabControl, ToolBar, TreeView
+* Sound, Animation, Video playback
+* PDF-generation
+* Printing
+* Drawing on canvas (e.g. Charts with data)
+
+
+TODO:
+
+* Scrum daily (Agile Methodology)
+

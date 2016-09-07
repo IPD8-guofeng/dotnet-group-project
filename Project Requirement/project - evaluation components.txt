@@ -1,0 +1,9 @@
+In this course project is worth 40% of the final grade.
+Within these 40% here are the components of it.
+
+In chronological order:
+ 5% Proposal
+ 5% Project mid-way progress evaluation
+ 5% Proper team work and the use of Git
+20% Project realization and presentation
+ 5% Portfolio website design and content
