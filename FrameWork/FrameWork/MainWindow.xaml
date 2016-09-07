@@ -34,9 +34,8 @@
                 <MenuItem x:Name="menuAbout" Header="About" FontSize="13"/>
             </MenuItem>
         </Menu>
-        <TabControl x:Name="tabControl"  HorizontalAlignment="Left" Height="590" Margin="5,60,5,5" VerticalAlignment="Top" Width="970" TabStripPlacement="Bottom">
+        <TabControl x:Name="tabControl"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="590" Margin="5,60,5,5"  TabStripPlacement="Bottom">
             <TabItem Header="default">
-                <Grid Background="White"/>
             </TabItem>
 
         </TabControl>
