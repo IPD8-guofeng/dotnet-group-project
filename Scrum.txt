@@ -23,7 +23,7 @@
 
 
 2016.09.08------Quan Xing
-1.database design for table TrendLine,  
-2.update the database design, install and try the new library(? toolkit)
-3. discuss with the partner
+1.database design for new table TrendLine, setup trello, user story  
+2.update the database design, install and try the new library(Dynamic Data Display)
+3. stuck: need to active the toolbox for the library(Dynamic Data Display)
 

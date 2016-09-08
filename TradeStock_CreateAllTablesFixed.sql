@@ -1,37 +1,22 @@
 USE [StockTrade]
-GO
-
-/****** Object:  Table [dbo].[PortfolioPosition]    Script Date: 9/7/2016 10:32:25 AM ******/
 SET ANSI_NULLS ON
-GO
-
 SET QUOTED_IDENTIFIER ON
-GO
 
-/***PortfolioPosition***/
-CREATE TABLE [dbo].[PortfolioPosition](
+/******Transaction******/
+CREATE TABLE [dbo].[Transaction](
 	[TransID] [int] NOT NULL,
 	[StockID] [int] NOT NULL,
 	[Price] [float] NOT NULL,
 	[Unit] [int] NOT NULL,
-    [Action] [bit] NOT NULL,
+	[Action] [bit] NOT NULL,
  CONSTRAINT [PK_PortfolioPosition] PRIMARY KEY CLUSTERED 
 (
 	[TransID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
-GO
 
-USE [StockTrade]
-GO
-
-/****** Object:  Table [dbo].[PortfolioSummary]    Script Date: 9/7/2016 10:40:12 AM ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
+/******PortfolioSummary******/
 
 CREATE TABLE [dbo].[PortfolioSummary](
 	[PortfolioID] [int] NOT NULL,
@@ -42,8 +27,6 @@ CREATE TABLE [dbo].[PortfolioSummary](
 	[StockID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-
-GO
 
 
 
@@ -74,12 +57,7 @@ CREATE TABLE [dbo].[StockPriceByDay](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
-
-USE [StockTrade]
-GO
-
 /****** TrendLine******/
-
 CREATE TABLE [dbo].[TrendLine](
 	[TrendLineID] [int] NOT NULL,
 	[PositionStartX] [float] NOT NULL,
@@ -95,8 +73,6 @@ CREATE TABLE [dbo].[TrendLine](
 	[TrendLineID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-
-GO
 
 SET ANSI_PADDING OFF
 GO
