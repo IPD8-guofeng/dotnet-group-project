@@ -8,7 +8,7 @@
         <Label x:Name="lblQuantity"  Content="Quantity" HorizontalAlignment="Left" Margin="0,40,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblLimit"  Content="Limit"  HorizontalAlignment="Left" Margin="125,40,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblPrice"  Content="Price" HorizontalAlignment="Left" Margin="250,40,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbQuantity"  Text="1000" HorizontalAlignment="Left" Height="23" Margin="0,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
+        <TextBox x:Name="tbQuantity"  Text="1000" HorizontalAlignment="Left" Height="23" Margin="0,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" />
         <ComboBox x:Name="cbLimit" HorizontalAlignment="Left" Margin="125,80,0,0" VerticalAlignment="Top" Width="100"/>
         <TextBox x:Name="tbPrice" HorizontalAlignment="Left" Height="23" Margin="250,80,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="100"/>
         <Button x:Name="lblBuy"  Content="Buy" HorizontalAlignment="Left" Margin="370,80,0,0" VerticalAlignment="Top" Width="60" Background="Red" Click="lblBuy_Click"/>
