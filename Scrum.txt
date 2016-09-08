@@ -27,3 +27,8 @@
 2.update the database design, install and try the new library(Dynamic Data Display)
 3. stuck: need to active the toolbox for the library(Dynamic Data Display)
 
+ 2016.09.07------Guofeng Wu
+1.Get SP500 stock Ticker, name,brief company information
+2.Get history data (daily, 10 year) for one stock(Apple)
+3.plan to get history data for remaining SP500 stocks
+4.goin to import the company data and history data into database
