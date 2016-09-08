@@ -14,9 +14,16 @@
 2.update the database design, trello, user story
 3. discuss with the partner
 
- 2016.09.06------Guofeng Wu
+ 2016.09.07------Guofeng Wu
 1. create an Azura account, connecting to the database
 2. plan to use menu icon for image navigation
 3. ask teacher for how to use Ribbion control and mainwindow configuration
 4. google the way to get the stock histrory data from web using API(jason, xml)
+
+
+
+2016.09.08------Quan Xing
+1.database design for table TrendLine,  
+2.update the database design, install and try the new library(? toolkit)
+3. discuss with the partner
 

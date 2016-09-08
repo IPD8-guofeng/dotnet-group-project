@@ -36,23 +36,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DynamicDataDisplay.BingMaps.Silverlight">
-      <HintPath>C:\Users\xq\Downloads\DynamicDataDisplay.2.0.907\DynamicDataDisplay\DynamicDataDisplay.BingMaps.Silverlight.dll</HintPath>
-    </Reference>
     <Reference Include="DynamicDataDisplay.Silverlight">
-      <HintPath>C:\Users\xq\Downloads\DynamicDataDisplay.2.0.907\DynamicDataDisplay\DynamicDataDisplay.Silverlight.dll</HintPath>
+      <HintPath>C:\Users\student\Downloads\DynamicDataDisplay.2.0.907\DynamicDataDisplay\DynamicDataDisplay.Silverlight.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Maps.MapControl">
-      <HintPath>C:\Users\xq\Downloads\DynamicDataDisplay.2.0.907\DynamicDataDisplay\Microsoft.Maps.MapControl.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Maps.MapControl.Common">
-      <HintPath>C:\Users\xq\Downloads\DynamicDataDisplay.2.0.907\DynamicDataDisplay\Microsoft.Maps.MapControl.Common.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.Expression.SilverlightPlatform, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Reactive">
-      <HintPath>C:\Users\xq\Downloads\DynamicDataDisplay.2.0.907\DynamicDataDisplay\System.Reactive.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -74,9 +63,6 @@
     <Compile Include="StockChart.xaml.cs">
       <DependentUpon>StockChart.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TradeStockWindow.xaml.cs">
-      <DependentUpon>TradeStockWindow.xaml</DependentUpon>
-    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -91,10 +77,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="StockChart.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TradeStockWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

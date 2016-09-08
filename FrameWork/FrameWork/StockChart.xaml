@@ -3,12 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-        xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        
+        xmlns:d3="clr-namespace:Microsoft.Research.DynamicDataDisplay;assembly=DynamicDataDisplay"
+
         xmlns:local="clr-namespace:FrameWork"
         mc:Ignorable="d"
         Title="StockChart" Height="300" Width="300">
     <Grid>
-
+    <d3:Chart BottomTitle="Argument" LeftTitle="Function">
+        <d3:LineGraph x:Name="linegraph" Description="Simple linegraph" Stroke="Blue" StrokeThickness="3"/>
+    </d3:Chart>
     </Grid>
 </Window>
+
