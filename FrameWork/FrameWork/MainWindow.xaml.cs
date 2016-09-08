@@ -38,5 +38,11 @@ namespace FrameWork
             InitializeComponent();
             //Application.Current.MainWindow.WindowState = WindowState.Maximized;
         }
+
+        private void menuTrade_Click(object sender, RoutedEventArgs e)
+        {
+            StockTrade stockTradeWindow = new StockTrade();
+            stockTradeWindow.Show();
+        }
     }
 }
