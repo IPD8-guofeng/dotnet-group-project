@@ -4,6 +4,14 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace FrameWork
 {
@@ -13,6 +21,12 @@ namespace FrameWork
         //const string CONN_STRING = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\ipd\Documents\peopledb1.mdf;Integrated Security=True;Connect Timeout=30";
         //Login: ipd8abbott@gmail.com Pass: Abbott2000
         //Data Source=ipd8.database.windows.net;Initial Catalog=stocktrade;Integrated Security=False;User ID=ipd8abbott;Password=********;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False
+        //const string CONN_STRING = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=H:\x\dotnet-group-project\StockTrade.mdf;Integrated Security=True;Connect Timeout=30";
+        
+        // Connection for the school computer 213-18
+        //const string CONN_STRING = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=H:\x\dotnet-group-project\StockTradeVS.mdf;Integrated Security=True;Connect Timeout=30";
+
+        // Coonection for azure
         const string CONN_STRING = @"Data Source=ipd8.database.windows.net;Initial Catalog=stocktrade;Integrated Security=False;User ID=ipd8abbott;Password=Abbott2000;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
         private SqlConnection conn;
         /*
@@ -119,8 +133,21 @@ namespace FrameWork
          */
         }
 
+        public void buyStockByticker(Transaction t)
+        {
 
-
+            using (SqlCommand cmd = new SqlCommand("INSERT INTO [Transaction] (StockTicker,Price,Quantity, ActionType) VALUES (@StockTicker,@Price,@Quantity, @ActionType)"))
+                       {
+                           cmd.CommandType = System.Data.CommandType.Text;
+                           cmd.Connection = conn;
+                           cmd.Parameters.AddWithValue("@StockTicker", t.StockTicker);
+                           cmd.Parameters.AddWithValue("@Price", t.Price);
+                           cmd.Parameters.AddWithValue("@Quantity", t.Quantity);
+                           cmd.Parameters.AddWithValue("@ActionType", t.Action);
+                           MessageBox.Show(cmd.CommandText.ToString());
+                           cmd.ExecuteNonQuery();
+                       }
+        }
 
 
 

@@ -19,6 +19,7 @@ namespace FrameWork
     /// </summary>
     public partial class StockTrade : Window
     {
+        Database db = new Database();
         public StockTrade()
         {
             InitializeComponent();
@@ -61,8 +62,8 @@ namespace FrameWork
                 {
                     case "Market":
                     case "Limit":
-                        Transaction t = new Transaction() { StockTicker = ticker, Quantity = quantity, Price = price, Action = true };
-                        //buyStockByticker(t);
+                        Transaction t = new Transaction() { StockTicker = ticker, Quantity = quantity, Price = price, Action = 1 };
+                        db.buyStockByticker(t);
                         MessageBox.Show("Success bought the stock " + ticker + " " + quantity + " share at $" + price + ".");
                         break;
                     case "Stop":

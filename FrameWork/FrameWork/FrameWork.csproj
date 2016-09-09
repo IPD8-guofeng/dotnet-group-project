@@ -17,7 +17,7 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -36,24 +36,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DynamicDataDisplay.BingMaps.Silverlight">
-      <HintPath>C:\Users\xq\Downloads\DynamicDataDisplay.2.0.907\DynamicDataDisplay\DynamicDataDisplay.BingMaps.Silverlight.dll</HintPath>
+    <Reference Include="DynamicDataDisplay.BingMaps.Silverlight, Version=2.0.907.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DynamicDataDisplay\DynamicDataDisplay.BingMaps.Silverlight.dll</HintPath>
     </Reference>
-    <Reference Include="DynamicDataDisplay.Silverlight">
-      <HintPath>C:\Users\xq\Downloads\DynamicDataDisplay.2.0.907\DynamicDataDisplay\DynamicDataDisplay.Silverlight.dll</HintPath>
+    <Reference Include="DynamicDataDisplay.Silverlight, Version=2.0.907.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DynamicDataDisplay\DynamicDataDisplay.Silverlight.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.SilverlightPlatform, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86" />
-    <Reference Include="Microsoft.Maps.MapControl">
-      <HintPath>C:\Users\xq\Downloads\DynamicDataDisplay.2.0.907\DynamicDataDisplay\Microsoft.Maps.MapControl.dll</HintPath>
+    <Reference Include="Microsoft.Maps.MapControl, Version=1.0.1.0, Culture=neutral, PublicKeyToken=498d0d22d7936b73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DynamicDataDisplay\Microsoft.Maps.MapControl.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Maps.MapControl.Common">
-      <HintPath>C:\Users\xq\Downloads\DynamicDataDisplay.2.0.907\DynamicDataDisplay\Microsoft.Maps.MapControl.Common.dll</HintPath>
+    <Reference Include="Microsoft.Maps.MapControl.Common, Version=1.0.1.0, Culture=neutral, PublicKeyToken=498d0d22d7936b73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DynamicDataDisplay\Microsoft.Maps.MapControl.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Reactive">
-      <HintPath>C:\Users\xq\Downloads\DynamicDataDisplay.2.0.907\DynamicDataDisplay\System.Reactive.dll</HintPath>
+    <Reference Include="System.Reactive, Version=1.0.10621.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DynamicDataDisplay\System.Reactive.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -130,6 +136,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DynamicDataDisplay.BingMaps.Silverlight.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

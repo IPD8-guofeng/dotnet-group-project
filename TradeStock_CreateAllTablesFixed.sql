@@ -4,29 +4,20 @@ SET QUOTED_IDENTIFIER ON
 
 /******Transaction******/
 CREATE TABLE [dbo].[Transaction](
-	[TransID] [int] NOT NULL,
+	[TransID] [int] IDENTITY(1,1) PRIMARY KEY,
 	[StockTicker] [varchar](10) NOT NULL,
 	[Price] [float] NOT NULL,
 	[Quantity] [int] NOT NULL,
-	[Action] [bit] NOT NULL,
- CONSTRAINT [PK_Transaction] PRIMARY KEY CLUSTERED 
-(
-	[TransID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+	[ActionType] [int] NOT NULL,
+)
 
 
 /******PortfolioSummary******/
 
 CREATE TABLE [dbo].[PortfolioSummary](
-	[PortfolioID] [int] NOT NULL,
+	[PortfolioID] [int] IDENTITY(1,1) PRIMARY KEY,
 	[StockTicker] [varchar](10) NOT NULL,
- CONSTRAINT [PK_PortfolioSummary] PRIMARY KEY CLUSTERED 
-(
-	[PortfolioID] ASC,
-	[StockTicker] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+)
 
 
 
@@ -36,11 +27,7 @@ CREATE TABLE [dbo].[Stock](
 	[StockName] [varchar](50) NOT NULL,
 	[StockCatagory] [varchar](50) NULL,
     [StockCommonShare] [int] NULL,
- CONSTRAINT [PK_Stock] PRIMARY KEY CLUSTERED 
-(
-	[StockTicker] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+)
 
 
 /****** StockPriceByDay ******/
@@ -52,17 +39,11 @@ CREATE TABLE [dbo].[StockPriceByDay](
 	[HighestPrice] [float] NOT NULL,
 	[LowestPrice] [float] NOT NULL,
 	[TransAmount] [float] NOT NULL,
-
- CONSTRAINT [PK_StockPriceByDay] PRIMARY KEY CLUSTERED 
-(
-	[StockTicker] ASC,
-	[PriceDate] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+)
 
 /****** TrendLine******/
 CREATE TABLE [dbo].[TrendLine](
-	[TrendLineID] [int] NOT NULL,
+	[TrendLineID] [int] IDENTITY(1,1) PRIMARY KEY,
 	[PositionStartX] [float] NOT NULL,
 	[PositionStartY] [float] NOT NULL,
 	[PositionEndX] [float] NOT NULL,
@@ -71,11 +52,7 @@ CREATE TABLE [dbo].[TrendLine](
 	[Color] [varchar](50) NOT NULL,
 	[Width] [int] NOT NULL,
 	[StockTicker] [varchar](10) NOT NULL,
- CONSTRAINT [PK_TrendLine] PRIMARY KEY CLUSTERED 
-(
-	[TrendLineID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+)
 
 SET ANSI_PADDING OFF
 GO
