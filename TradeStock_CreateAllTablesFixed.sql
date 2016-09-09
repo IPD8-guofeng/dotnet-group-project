@@ -7,7 +7,7 @@ CREATE TABLE [dbo].[Transaction](
 	[TransID] [int] NOT NULL,
 	[StockTicker] [varchar](10) NOT NULL,
 	[Price] [float] NOT NULL,
-	[Unit] [int] NOT NULL,
+	[Quantity] [int] NOT NULL,
 	[Action] [bit] NOT NULL,
  CONSTRAINT [PK_Transaction] PRIMARY KEY CLUSTERED 
 (
@@ -54,7 +54,8 @@ CREATE TABLE [dbo].[StockPriceByDay](
 	[PriceDate] [date] NOT NULL,
  CONSTRAINT [PK_StockPriceByDay] PRIMARY KEY CLUSTERED 
 (
-	[StockTicker] ASC
+	[StockTicker] ASC,
+	[PriceDate] [date] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 

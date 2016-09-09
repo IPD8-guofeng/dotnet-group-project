@@ -8,7 +8,7 @@
 
         xmlns:local="clr-namespace:FrameWork"
         mc:Ignorable="d"
-        Title="StockChart" Height="300" Width="300">
+        Title="StockChart" Height="400" Width="600">
     <Grid>
         <!--<d3:Chart BottomTitle="Argument" LeftTitle="Function">
 

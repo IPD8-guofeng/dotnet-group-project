@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="StockTrade" Height="200" Width="600">
     <Grid Margin="10,10,10,10">
-        <TextBox x:Name="tbName" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="100"/>
+        <TextBox x:Name="tbTicker" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="100"/>
         <Button x:Name="tbSearch" Content="Search" HorizontalAlignment="Left" Margin="125,0,0,0" VerticalAlignment="Top" Width="100" Click="tbSearch_Click"/>
         <Label x:Name="lblQuantity"  Content="Quantity" HorizontalAlignment="Left" Margin="0,40,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblLimit"  Content="Limit"  HorizontalAlignment="Left" Margin="125,40,0,0" VerticalAlignment="Top"/>

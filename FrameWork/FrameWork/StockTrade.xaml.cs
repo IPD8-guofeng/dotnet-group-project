@@ -28,22 +28,37 @@ namespace FrameWork
                 cbLimit.Items.Add(limit);
             }
             cbLimit.SelectedIndex = 0;
-
-
         }
 
         private void tbSearch_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("search function is not done yet");
-            //tbPrice.Text = getCurrentPrice(tbName.Text);
+            //tbPrice.Text = getCurrentPrice(tbticker.Text);
         }
 
+        private bool IsValidTradeInput()
+        {
+            if (!IsValidTicker(tbTicker.Text)) return false;
+            int quantity;
+            if (!int.TryParse(tbQuantity.Text, out quantity)) return false;
+            double price;
+            if (!double.TryParse(tbPrice.Text, out price)) return false;
+            return true;
+        }
+        
+
+        // Todo check stock ticker is in the database StockTrade
+        private bool IsValidTicker(string stockTicker)
+        {
+            MessageBox.Show("IsValidTicker is in progress");
+            return true;
+        }
         private void lblBuy_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("buy function is in progress");
-            try
+            if (IsValidTradeInput())
             {
-                string name = tbName.Text;
+                string ticker = tbTicker.Text;
                 int quantity = int.Parse(tbQuantity.Text);
                 string limit = cbLimit.SelectedValue.ToString();
                 double price = double.Parse(tbPrice.Text);
@@ -51,8 +66,8 @@ namespace FrameWork
                 {
                     case "Market":
                     case "Limit":
-                        //buyStockByName(name,price,quantity,limit,action);
-                        MessageBox.Show("Success bought the stock " + name + " " + quantity + "share at $" + price + ".");
+                        //buyStockByticker(ticker,price,quantity,limit,action);
+                        MessageBox.Show("Success bought the stock " + ticker + " " + quantity + " share at $" + price + ".");
                         break;
                     case "Stop":
                         MessageBox.Show("stop function can not be use to buy stock"); break;
@@ -60,11 +75,7 @@ namespace FrameWork
                         MessageBox.Show("some error choosing Limit"); break;
                 }
             }
-            catch (FormatException ex)
-            {
-                MessageBox.Show("format error");
-            }
-            
+           
         }
 
         private void lblSell_Click(object sender, RoutedEventArgs e)

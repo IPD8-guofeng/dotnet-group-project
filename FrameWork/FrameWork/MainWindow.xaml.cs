@@ -36,13 +36,30 @@ namespace FrameWork
                 throw e;
             }
             InitializeComponent();
-            //Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            Application.Current.MainWindow.WindowState = WindowState.Maximized;
         }
 
         private void menuTrade_Click(object sender, RoutedEventArgs e)
         {
+            // open Trade  window and put it in the center 
             StockTrade stockTradeWindow = new StockTrade();
+            stockTradeWindow.Owner = Application.Current.MainWindow; 
+            stockTradeWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             stockTradeWindow.Show();
+        }
+
+        private void menuExit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void menuChart_Click(object sender, RoutedEventArgs e)
+        {
+            // open Trade  window and put it in the center 
+            StockChart stockChartWindow = new StockChart();
+            stockChartWindow.Owner = Application.Current.MainWindow;
+            stockChartWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            stockChartWindow.Show();
         }
     }
 }
