@@ -46,16 +46,17 @@ CREATE TABLE [dbo].[Stock](
 /****** StockPriceByDay ******/
 CREATE TABLE [dbo].[StockPriceByDay](
 	[StockTicker] [varchar](10) NOT NULL,
+    [PriceDate] [date] NOT NULL,
 	[OpenPrice] [float] NOT NULL,
 	[ClosePrice] [float] NOT NULL,
 	[HighestPrice] [float] NOT NULL,
 	[LowestPrice] [float] NOT NULL,
 	[TransAmount] [float] NOT NULL,
-	[PriceDate] [date] NOT NULL,
+
  CONSTRAINT [PK_StockPriceByDay] PRIMARY KEY CLUSTERED 
 (
 	[StockTicker] ASC,
-	[PriceDate] [date] ASC
+	[PriceDate] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 

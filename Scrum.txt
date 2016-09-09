@@ -27,8 +27,18 @@
 2.update the database design, install and try the new library(Dynamic Data Display)
 3. stuck: need to active the toolbox for the library(Dynamic Data Display)
 
- 2016.09.07------Guofeng Wu
+2016.09.08------Guofeng Wu
 1.Get SP500 stock Ticker, name,brief company information
 2.Get history data (daily, 10 year) for one stock(Apple)
 3.plan to get history data for remaining SP500 stocks
 4.goin to import the company data and history data into database
+
+2016.09.09------Quan Xing
+1.finish database design,import stock table data to azure, finish the GUI of trade window   
+2.install and try the new library(Dynamic Data Display), trade window model,
+3.stuck: need to active the toolbox for the library(Dynamic Data Display)
+
+2016.09.08------Guofeng Wu
+1.upload the stock company data and one company history data to Azure
+2.find way to download sp500 stock history data to one file and upload to Azure
+3.start to design the portfolio interface
