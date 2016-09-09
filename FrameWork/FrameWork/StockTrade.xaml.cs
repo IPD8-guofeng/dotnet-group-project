@@ -30,12 +30,6 @@ namespace FrameWork
             cbLimit.SelectedIndex = 0;
         }
 
-        private void tbSearch_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("search function is not done yet");
-            //tbPrice.Text = getCurrentPrice(tbticker.Text);
-        }
-
         private bool IsValidTradeInput()
         {
             if (!IsValidTicker(tbTicker.Text)) return false;
@@ -50,6 +44,7 @@ namespace FrameWork
         // Todo check stock ticker is in the database StockTrade
         private bool IsValidTicker(string stockTicker)
         {
+            
             MessageBox.Show("IsValidTicker is in progress");
             return true;
         }
@@ -66,7 +61,8 @@ namespace FrameWork
                 {
                     case "Market":
                     case "Limit":
-                        //buyStockByticker(ticker,price,quantity,limit,action);
+                        Transaction t = new Transaction() { StockTicker = ticker, Quantity = quantity, Price = price, Action = true };
+                        //buyStockByticker(t);
                         MessageBox.Show("Success bought the stock " + ticker + " " + quantity + " share at $" + price + ".");
                         break;
                     case "Stop":
@@ -74,6 +70,10 @@ namespace FrameWork
                     default:
                         MessageBox.Show("some error choosing Limit"); break;
                 }
+            }
+            else
+            {
+                MessageBox.Show("Please check your input", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
            
         }

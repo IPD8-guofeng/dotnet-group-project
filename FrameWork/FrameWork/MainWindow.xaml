@@ -21,7 +21,7 @@
                 <MenuItem x:Name="menuChart" Header="Chart" FontSize="13" Click="menuChart_Click" />
                 <MenuItem x:Name="menuWatchList" Header="Watch List" FontSize="13"/>
                 <MenuItem x:Name="menuTrade" Header="Trade" FontSize="13" Click="menuTrade_Click"/>
-                <MenuItem x:Name="menuAccount" Header="Account" FontSize="13"/>
+                <MenuItem x:Name="menuPortfolio" Header="Portfolio" FontSize="13"/>
                 <MenuItem x:Name="menuStockDetail" Header="Stock detail" FontSize="13"/>
                 <MenuItem x:Name="menuStockNews" Header="Stock news" FontSize="13"/>
             </MenuItem>

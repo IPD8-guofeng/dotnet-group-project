@@ -78,6 +78,7 @@
     <Compile Include="StockTrade.xaml.cs">
       <DependentUpon>StockTrade.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Transaction.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
