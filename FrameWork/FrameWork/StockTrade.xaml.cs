@@ -20,6 +20,7 @@ namespace FrameWork
     public partial class StockTrade : Window
     {
         Database db = new Database();
+        const int defaultTransQuantity = 100;
         public StockTrade()
         {
             InitializeComponent();
@@ -29,6 +30,7 @@ namespace FrameWork
                 cbLimit.Items.Add(limit);
             }
             cbLimit.SelectedIndex = 0;
+            tbQuantity.Text = defaultTransQuantity.ToString();
         }
 
         private bool IsValidTradeInput()
