@@ -23,7 +23,7 @@ CREATE TABLE [dbo].[PortfolioSummary](
 
 /****stock******/
 CREATE TABLE [dbo].[Stock](
-	[StockTicker] [varchar](10) NOT NULL,
+	[StockTicker] [varchar](10) NOT NULL PRIMARY KEY,
 	[StockName] [varchar](50) NOT NULL,
 	[StockCatagory] [varchar](50) NULL,
     [StockCommonShare] [int] NULL,
@@ -32,13 +32,14 @@ CREATE TABLE [dbo].[Stock](
 
 /****** StockPriceByDay ******/
 CREATE TABLE [dbo].[StockPriceByDay](
-	[StockTicker] [varchar](10) NOT NULL,
-    [PriceDate] [date] NOT NULL,
+	[StockTicker] [varchar](10) NOT NULL ,
+    [PriceDate] [date] NOT NULL ,
 	[OpenPrice] [float] NOT NULL,
 	[ClosePrice] [float] NOT NULL,
 	[HighestPrice] [float] NOT NULL,
 	[LowestPrice] [float] NOT NULL,
 	[TransAmount] [float] NOT NULL,
+	primary key (StockTicker, PriceDate),
 )
 
 /****** TrendLine******/

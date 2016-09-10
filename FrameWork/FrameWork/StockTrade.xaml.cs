@@ -23,7 +23,7 @@ namespace FrameWork
         public StockTrade()
         {
             InitializeComponent();
-            string[] limitArray = {"Market","Limit","Stop"};
+            string[] limitArray = { "Market", "Limit", "Stop" };
             foreach (string limit in limitArray)
             {
                 cbLimit.Items.Add(limit);
@@ -40,15 +40,81 @@ namespace FrameWork
             if (!double.TryParse(tbPrice.Text, out price)) return false;
             return true;
         }
-        
+
 
         // Todo check stock ticker is in the database StockTrade
         private bool IsValidTicker(string stockTicker)
         {
-            
+
             MessageBox.Show("IsValidTicker is in progress");
             return true;
         }
+
+        /*****************  for stock ticker check option ********************************************/
+        private void tbTicker_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            lbSuggestion.Items.Clear();
+            if (tbTicker.Text != "")
+            {
+                //List<Stock> namelist = CustomerGatewayObj.listShow(tbTicker.Text);
+                List<string> tickerList = db.getTicker(tbTicker.Text);
+                if (tickerList.Count > 0)
+                {
+                    lbSuggestion.Visibility = Visibility.Visible;
+                    foreach (var obj in tickerList)
+                    {
+                        lbSuggestion.Items.Add(obj);
+                    }
+                }
+            }
+            else
+            {
+                lbSuggestion.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void tbTicker_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Down)
+            {
+                lbSuggestion.Focus();
+            }
+        }
+
+
+        private void lbSuggestion_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (lbSuggestion.SelectedIndex == 0 && e.Key == Key.Up)
+            {
+                tbTicker.Focus();
+            }
+        }
+
+        private void lbSuggestion_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lbSuggestion.SelectedIndex > -1)
+            {
+                //???????? if (e.Key == Key.Enter)
+                {
+                    tbTicker.Text = lbSuggestion.SelectedItem.ToString();
+                    lbSuggestion.Visibility = Visibility.Hidden;
+
+                }
+            }
+        }
+        private void lbSuggestion_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (lbSuggestion.SelectedIndex > -1)
+            {
+                tbTicker.Text = lbSuggestion.SelectedItem.ToString();
+                lbSuggestion.Visibility = Visibility.Hidden;
+            }
+        }
+
+        /********* End stock ticker check option **************************************************************/
+
+
         private void lblBuy_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("buy function is in progress");
@@ -76,12 +142,14 @@ namespace FrameWork
             {
                 MessageBox.Show("Please check your input", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-           
+
         }
 
         private void lblSell_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("sell function is not done yet");
         }
+
+
     }
 }

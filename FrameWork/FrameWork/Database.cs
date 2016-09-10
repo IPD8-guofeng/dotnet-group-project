@@ -22,12 +22,12 @@ namespace FrameWork
         //Login: ipd8abbott@gmail.com Pass: Abbott2000
         //Data Source=ipd8.database.windows.net;Initial Catalog=stocktrade;Integrated Security=False;User ID=ipd8abbott;Password=********;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False
         //const string CONN_STRING = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=H:\x\dotnet-group-project\StockTrade.mdf;Integrated Security=True;Connect Timeout=30";
-        
-        // Connection for the school computer 213-18
-        //const string CONN_STRING = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=H:\x\dotnet-group-project\StockTradeVS.mdf;Integrated Security=True;Connect Timeout=30";
+
+        // Quan: Connection for the school computer 213-18 and home
+        const string CONN_STRING = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\xingquan\JohnAbbott\Courses\12CSharp\StockTradeMS.mdf;Integrated Security = True; Connect Timeout = 30";
 
         // Coonection for azure
-        const string CONN_STRING = @"Data Source=ipd8.database.windows.net;Initial Catalog=stocktrade;Integrated Security=False;User ID=ipd8abbott;Password=Abbott2000;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
+        //const string CONN_STRING = @"Data Source=ipd8.database.windows.net;Initial Catalog=stocktrade;Integrated Security=False;User ID=ipd8abbott;Password=Abbott2000;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
         private SqlConnection conn;
         /*
         private static string userName = "ipd8abbott@gmail.com";
@@ -135,7 +135,6 @@ namespace FrameWork
 
         public void buyStockByticker(Transaction t)
         {
-
             using (SqlCommand cmd = new SqlCommand("INSERT INTO [Transaction] (StockTicker,Price,Quantity, ActionType) VALUES (@StockTicker,@Price,@Quantity, @ActionType)"))
                        {
                            cmd.CommandType = System.Data.CommandType.Text;
@@ -149,8 +148,25 @@ namespace FrameWork
                        }
         }
 
-
-
+        // get StockTicker list from table Stock if there is partOfTicker in the StockTicker string 
+        public List<string> getTicker(string partOfTicker)
+        {
+            List<string> tickerList = new List<string>();
+            SqlCommand cmd = new SqlCommand("SELECT StockTicker FROM [Stock] WHERE StockTicker LIKE '%' + @Ticker + '%' ", conn);
+            cmd.Parameters.AddWithValue("@Ticker", partOfTicker);
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        string ticker = reader.GetString(reader.GetOrdinal("StockTicker"));
+                        tickerList.Add(ticker);
+                    }
+                }
+            }
+            return tickerList;
+        }
 
 
 
