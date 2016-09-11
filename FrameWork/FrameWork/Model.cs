@@ -49,4 +49,12 @@ namespace FrameWork
         public string StockTicker { get; set; }
 
     }
+
+
+
+    class StockOwned
+    {
+        public string StockTicker { get; set; }
+        public int Quantity { get; set; }
+    }
 }

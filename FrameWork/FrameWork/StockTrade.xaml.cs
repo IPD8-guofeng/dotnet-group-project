@@ -31,6 +31,7 @@ namespace FrameWork
             }
             cbLimit.SelectedIndex = 0;
             tbQuantity.Text = defaultTransQuantity.ToString();
+            lblBalance.Content = "Balance: $" + GlobalVariable.Balance.ToString();
         }
 
         /*****************  for stock ticker check option ********************************************/
@@ -125,23 +126,62 @@ namespace FrameWork
                 return null;
             }
         }
-        private void tryBuyTransaction(Transaction t)
+        private void tryTradeTransaction(Transaction t)
         {
-            if (GlobalVariable.Balance >= (t.Quantity * t.Price))
+            if (t.ActionType == 1)
             {
-                db.stockActionByTicker(t);
-                GlobalVariable.Balance -= t.Quantity * t.Price;
-                MessageBox.Show("Success bought the stock " + t.StockTicker + " " + t.Quantity + " share at $" + t.Price + ".\n"
-                                 + "Total price: $" + t.Quantity * t.Price +"\n" + " Account balance: $" + GlobalVariable.Balance);
+                if (GlobalVariable.Balance >= (t.Quantity * t.Price))
+                {
+                    db.stockActionByTicker(t);
+                    GlobalVariable.Balance -= t.Quantity * t.Price;
+                    MessageBox.Show("Success bought the stock " + t.StockTicker + " " + t.Quantity + " share at $" + t.Price + ".\n"
+                                     + "Total price: $" + t.Quantity * t.Price + "\n" + " Account balance: $" + GlobalVariable.Balance);
+                }
+                else
+                {
+                    MessageBox.Show("Your have $" + GlobalVariable.Balance + ", it needs $" + t.Quantity * t.Price);
+                }
             }
-            else
+
+            if (t.ActionType == 2)
             {
-                MessageBox.Show("Your have $" + GlobalVariable.Balance + ", it needs $" + t.Quantity * t.Price);
+                List<StockOwned> sList = db.getAllStockOwned();
+                if (sList != null)
+                {
+                    bool ableSell = false;
+                    foreach (StockOwned s in sList)
+                    {
+                        if ((s.StockTicker == tbTicker.Text) && (s.Quantity >= int.Parse(tbQuantity.Text)))
+                        {
+                            ableSell = true;
+                            break;
+                        }
+                    }
+                    if (ableSell)
+                    {
+                        db.stockActionByTicker(t);
+                        GlobalVariable.Balance += t.Quantity * t.Price;
+                        MessageBox.Show("Success sold the stock " + t.StockTicker + " " + t.Quantity + " share at $" + t.Price + ".\n"
+                                         + "Total price: $" + t.Quantity * t.Price + "\n" + " Account balance: $" + GlobalVariable.Balance);
+                    }
+                    else
+                    {
+                        MessageBox.Show("You do not have the stock or try to sell more than you owned");
+                    }
+
+                }
             }
+
         }
-        private void btnBuy_Click(object sender, RoutedEventArgs e)
+        private void btnTrade_Click(object sender, RoutedEventArgs e)
         {
-            Transaction t = getTransObj(1);  // buy action type is 1
+            Transaction t =  new Transaction();
+            if ((bool)rbBuy.IsChecked) { t = getTransObj(1); } // buy action type is 1
+            else if ((bool)rbSell.IsChecked) { t = getTransObj(2); } // sell action type is 2
+            else {
+                MessageBox.Show("Your have to choose buy or sell" );
+                return;
+            }
             if (t != null)
             {
                 double closePrice = db.getLatestPriceByTicker(t.StockTicker); // get latest close price
@@ -150,21 +190,37 @@ namespace FrameWork
                     switch (cbLimit.SelectedValue.ToString())
                     {
                         case "Limit":
-                            if (t.Price >= closePrice)
+                            if(t.ActionType == 1)
                             {
-                                t.Price = closePrice;
-                                tryBuyTransaction(t);
-                            }
-                            else
+                                if (t.Price >= closePrice)
+                                {
+                                    t.Price = closePrice;
+                                    tryTradeTransaction(t);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Your buy order is waiting to perform");
+                                }
+                            };
+                            if (t.ActionType == 2)
                             {
-                                MessageBox.Show("Your buy order is waiting to perform");
+                                if (t.Price <= closePrice)
+                                {
+                                    t.Price = closePrice;
+                                    tryTradeTransaction(t);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Your sell order is waiting to perform");
+                                }
                             }
+
                             break;
                         case "Market":
                             if (t.Price >= closePrice)
                             {
                                 t.Price = closePrice;
-                                tryBuyTransaction(t);
+                                tryTradeTransaction(t);
                             }
                             break;
                         case "Stop":
@@ -183,12 +239,10 @@ namespace FrameWork
                 MessageBox.Show("Please check your input format or value", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+
+            lblBalance.Content = "Balance: $" + GlobalVariable.Balance.ToString();
         }
 
-        private void btnSell_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("sell function is not done yet");
-        }
 
         private void cbLimit_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -210,6 +264,22 @@ namespace FrameWork
             {
                 tbPrice.IsEnabled = true;
             }
+        }
+
+        private void rbSell_Checked(object sender, RoutedEventArgs e)
+        {
+            List<StockOwned> sList = db.getAllStockOwned();
+            if (sList != null)
+            {
+                foreach (StockOwned s in sList)
+                {
+                    lbSuggestion.Items.Clear();
+                    lbSuggestion.Items.Add(s.StockTicker);
+                    tbQuantity.Text = s.Quantity.ToString();
+                }
+                lbSuggestion.Visibility = Visibility.Visible;
+            }
+
         }
     }
 }

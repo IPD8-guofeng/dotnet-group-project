@@ -40,7 +40,7 @@ namespace FrameWork
             Application.Current.MainWindow.WindowState = WindowState.Maximized;
             GlobalVariable.defaultStartBalance = defaultStartBalance;
             GlobalVariable.Balance = db.getBalance();
-            MessageBox.Show("balance: "+db.getBalance());
+            //MessageBox.Show("balance: "+db.getBalance());
         }
 
         private void menuTrade_Click(object sender, RoutedEventArgs e)

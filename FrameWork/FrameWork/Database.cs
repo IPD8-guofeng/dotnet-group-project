@@ -236,5 +236,26 @@ namespace FrameWork
             return balance;
         }
 
+
+        public List<StockOwned> getAllStockOwned()
+        {
+            List<StockOwned> list = new List<StockOwned>();
+            SqlCommand cmd = new SqlCommand("SELECT StockTicker, ((SELECT SUM(Quantity) AS sumBuy FROM [Transaction] WHERE ActionType = 1 GROUP BY StockTicker, ActionType) - (SELECT SUM(Quantity) AS sumSell FROM[Transaction] WHERE ActionType = 2 GROUP BY StockTicker, ActionType)) AS StockQuantity FROM[Transaction] GROUP BY StockTicker", conn);
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        string ticker = reader.GetString(reader.GetOrdinal("StockTicker"));
+                        int quantity = reader.GetInt32(reader.GetOrdinal("StockQuantity"));
+                        StockOwned s = new StockOwned { StockTicker = ticker, Quantity = quantity };
+                        list.Add(s);
+                    }
+                }
+            }
+            return list;
+
+        }
     }//end Class Database
 }//end namespace FrameWork
