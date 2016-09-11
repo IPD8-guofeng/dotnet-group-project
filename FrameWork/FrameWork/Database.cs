@@ -35,7 +35,7 @@ namespace FrameWork
         private static string dataSource = "ipd8.database.windows.net";
         private static string databaseName = "stocktrade";
         */
-            
+
         public Database()
         {
             /*
@@ -133,19 +133,19 @@ namespace FrameWork
          */
         }
 
-        public void buyStockByticker(Transaction t)
+        public void stockActionByTicker(Transaction t)
         {
             using (SqlCommand cmd = new SqlCommand("INSERT INTO [Transaction] (StockTicker,Price,Quantity, ActionType) VALUES (@StockTicker,@Price,@Quantity, @ActionType)"))
-                       {
-                           cmd.CommandType = System.Data.CommandType.Text;
-                           cmd.Connection = conn;
-                           cmd.Parameters.AddWithValue("@StockTicker", t.StockTicker);
-                           cmd.Parameters.AddWithValue("@Price", t.Price);
-                           cmd.Parameters.AddWithValue("@Quantity", t.Quantity);
-                           cmd.Parameters.AddWithValue("@ActionType", t.Action);
-                           MessageBox.Show(cmd.CommandText.ToString());
-                           cmd.ExecuteNonQuery();
-                       }
+            {
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@StockTicker", t.StockTicker);
+                cmd.Parameters.AddWithValue("@Price", t.Price);
+                cmd.Parameters.AddWithValue("@Quantity", t.Quantity);
+                cmd.Parameters.AddWithValue("@ActionType", t.ActionType);
+                //MessageBox.Show(cmd.CommandText.ToString());
+                cmd.ExecuteNonQuery();
+            }
         }
 
         // get StockTicker list from table Stock if there is partOfTicker in the StockTicker string 
@@ -168,8 +168,73 @@ namespace FrameWork
             return tickerList;
         }
 
+        // check string is valid in table Stock incasesensitive 
+        public bool IsValidTicker(string ticker)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("SELECT StockTicker FROM [Stock] WHERE StockTicker = @Ticker ", conn);
+                cmd.Parameters.AddWithValue("@Ticker", ticker);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
 
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
 
+        }
+        public double getLatestPriceByTicker(string ticker)
+        {
+            // sql query -- get specific stock latest close price 
+            SqlCommand cmd = new SqlCommand(
+                "SELECT ClosePrice FROM (SELECT    ClosePrice, StockTicker, PriceDate, max_date = MAX(PriceDate) OVER(PARTITION BY StockTicker)   FROM[StockPriceByDay]) as s  WHERE StockTicker = @Ticker AND PriceDate = max_date", conn);
+            cmd.Parameters.AddWithValue("@Ticker", ticker);
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        return reader.GetDouble(reader.GetOrdinal("ClosePrice"));
+                    }
+                }
+            }
+            return 0;
+        }
+
+        public double getBalance()
+        {
+            // List<Transaction> list = new List<Transaction>();
+            double balance = GlobalVariable.defaultStartBalance;
+            SqlCommand cmd = new SqlCommand("SELECT Quantity, Price, ActionType FROM [Transaction]", conn);
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        // column by name - the better (preferred) way
+                        int quantity = reader.GetInt32(reader.GetOrdinal("Quantity"));
+                        double price = reader.GetDouble(reader.GetOrdinal("Price"));
+                        int actionType = reader.GetInt32(reader.GetOrdinal("ActionType"));
+                        if (actionType == 1) { balance -= (quantity * price); };   // if buy, minus the transaction amount
+                        if (actionType == 2) { balance += (quantity * price); };   // if sell, add the transaction amount
+                    }
+                }
+            }
+            return balance;
+        }
 
     }//end Class Database
 }//end namespace FrameWork

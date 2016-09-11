@@ -96,6 +96,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GlobalVariable..cs" />
     <Compile Include="StockChart.xaml.cs">
       <DependentUpon>StockChart.xaml</DependentUpon>
     </Compile>

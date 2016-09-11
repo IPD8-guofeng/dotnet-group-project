@@ -24,32 +24,13 @@ namespace FrameWork
         public StockTrade()
         {
             InitializeComponent();
-            string[] limitArray = { "Market", "Limit", "Stop" };
+            string[] limitArray = {  "Limit", "Market", "Stop" };
             foreach (string limit in limitArray)
             {
                 cbLimit.Items.Add(limit);
             }
             cbLimit.SelectedIndex = 0;
             tbQuantity.Text = defaultTransQuantity.ToString();
-        }
-
-        private bool IsValidTradeInput()
-        {
-            if (!IsValidTicker(tbTicker.Text)) return false;
-            int quantity;
-            if (!int.TryParse(tbQuantity.Text, out quantity)) return false;
-            double price;
-            if (!double.TryParse(tbPrice.Text, out price)) return false;
-            return true;
-        }
-
-
-        // Todo check stock ticker is in the database StockTrade
-        private bool IsValidTicker(string stockTicker)
-        {
-
-            MessageBox.Show("IsValidTicker is in progress");
-            return true;
         }
 
         /*****************  for stock ticker check option ********************************************/
@@ -59,6 +40,7 @@ namespace FrameWork
             lbSuggestion.Items.Clear();
             if (tbTicker.Text != "")
             {
+                tbPrice.Text = db.getLatestPriceByTicker(tbTicker.Text).ToString();
                 //List<Stock> namelist = CustomerGatewayObj.listShow(tbTicker.Text);
                 List<string> tickerList = db.getTicker(tbTicker.Text);
                 if (tickerList.Count > 0)
@@ -101,7 +83,6 @@ namespace FrameWork
                 {
                     tbTicker.Text = lbSuggestion.SelectedItem.ToString();
                     lbSuggestion.Visibility = Visibility.Hidden;
-
                 }
             }
         }
@@ -111,47 +92,124 @@ namespace FrameWork
             {
                 tbTicker.Text = lbSuggestion.SelectedItem.ToString();
                 lbSuggestion.Visibility = Visibility.Hidden;
+
             }
         }
 
         /********* End stock ticker check option **************************************************************/
-
-
-        private void lblBuy_Click(object sender, RoutedEventArgs e)
+        // check all the input are valid 
+        private bool IsValidFormatInput()
         {
-            MessageBox.Show("buy function is in progress");
-            if (IsValidTradeInput())
+            if (!db.IsValidTicker(tbTicker.Text)) return false;
+            int quantity;
+            if (!int.TryParse(tbQuantity.Text, out quantity)) return false;
+            if (quantity <= 0) return false;
+            double price;
+            if (!double.TryParse(tbPrice.Text, out price)) return false;
+            if (price <= 0) return false;
+            return true;
+        }
+        private Transaction getTransObj(int actionType)
+        {
+            if (IsValidFormatInput())
             {
                 string ticker = tbTicker.Text;
                 int quantity = int.Parse(tbQuantity.Text);
                 string limit = cbLimit.SelectedValue.ToString();
                 double price = double.Parse(tbPrice.Text);
-                switch (limit)
+                Transaction t = new Transaction() { StockTicker = ticker, Quantity = quantity, Price = price, ActionType = actionType };
+                return t;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        private void tryBuyTransaction(Transaction t)
+        {
+            if (GlobalVariable.Balance >= (t.Quantity * t.Price))
+            {
+                db.stockActionByTicker(t);
+                GlobalVariable.Balance -= t.Quantity * t.Price;
+                MessageBox.Show("Success bought the stock " + t.StockTicker + " " + t.Quantity + " share at $" + t.Price + ".\n"
+                                 + "Total price: $" + t.Quantity * t.Price +"\n" + " Account balance: $" + GlobalVariable.Balance);
+            }
+            else
+            {
+                MessageBox.Show("Your have $" + GlobalVariable.Balance + ", it needs $" + t.Quantity * t.Price);
+            }
+        }
+        private void btnBuy_Click(object sender, RoutedEventArgs e)
+        {
+            Transaction t = getTransObj(1);  // buy action type is 1
+            if (t != null)
+            {
+                double closePrice = db.getLatestPriceByTicker(t.StockTicker); // get latest close price
+                if (closePrice > 0)
                 {
-                    case "Market":
-                    case "Limit":
-                        Transaction t = new Transaction() { StockTicker = ticker, Quantity = quantity, Price = price, Action = 1 };
-                        db.buyStockByticker(t);
-                        MessageBox.Show("Success bought the stock " + ticker + " " + quantity + " share at $" + price + ".");
-                        break;
-                    case "Stop":
-                        MessageBox.Show("stop function can not be use to buy stock"); break;
-                    default:
-                        MessageBox.Show("some error choosing Limit"); break;
+                    switch (cbLimit.SelectedValue.ToString())
+                    {
+                        case "Limit":
+                            if (t.Price >= closePrice)
+                            {
+                                t.Price = closePrice;
+                                tryBuyTransaction(t);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Your buy order is waiting to perform");
+                            }
+                            break;
+                        case "Market":
+                            if (t.Price >= closePrice)
+                            {
+                                t.Price = closePrice;
+                                tryBuyTransaction(t);
+                            }
+                            break;
+                        case "Stop":
+                            MessageBox.Show("Stop option can not be use to buy stock"); break;
+                        default:
+                            MessageBox.Show("some error choosing Limit"); break;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("can not find stock market price");
                 }
             }
             else
             {
-                MessageBox.Show("Please check your input", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please check your input format or value", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
 
-        private void lblSell_Click(object sender, RoutedEventArgs e)
+        private void btnSell_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("sell function is not done yet");
         }
 
+        private void cbLimit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbLimit.SelectedItem.ToString() == "Market")
+            {
+                double closePrice = db.getLatestPriceByTicker(tbTicker.Text);
+                if (closePrice > 0)
+                {
+                    tbPrice.Text = closePrice.ToString();
+                    tbPrice.IsEnabled = false;
+                }
+                else
+                {
+                    MessageBox.Show("can not find stock market price");
+                }
 
+            }
+            else
+            {
+                tbPrice.IsEnabled = true;
+            }
+        }
     }
 }

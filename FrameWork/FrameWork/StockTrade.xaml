@@ -10,13 +10,13 @@
         <ListBox x:Name="lbSuggestion" Height="Auto" HorizontalAlignment="Left" Margin="5,58,0,0"  VerticalAlignment="Top" Width="100" Visibility="Hidden" 
                  PreviewKeyDown="lbSuggestion_PreviewKeyDown" KeyDown="lbSuggestion_KeyDown"  MouseDoubleClick="lbSuggestion_MouseDoubleClick"/>
         <Label x:Name="lblLimit"  Content="Limit"  HorizontalAlignment="Left" Margin="180,5,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbLimit" HorizontalAlignment="Left" Margin="180,35,0,0" VerticalAlignment="Top" Width="100"/>
+        <ComboBox x:Name="cbLimit" HorizontalAlignment="Left" Margin="180,35,0,0" VerticalAlignment="Top" Width="100"  SelectionChanged="cbLimit_SelectionChanged"/>
         <Label x:Name="lblQuantity"  Content="Quantity" HorizontalAlignment="Left" Margin="300,5,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tbQuantity"  Text="" HorizontalAlignment="Left" Height="23" Margin="300,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" />
         <Label x:Name="lblPrice"  Content="Price" HorizontalAlignment="Left" Margin="420,5,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tbPrice" HorizontalAlignment="Left" Height="23" Margin="420,35,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="100"/>
-        <Button x:Name="lblBuy"  Content="Buy" HorizontalAlignment="Left" Margin="300,100,0,0" VerticalAlignment="Top" Width="60" Background="LightGreen" Click="lblBuy_Click"/>
-        <Button x:Name="lblSell" Content="Sell" HorizontalAlignment="Left" Margin="420,100,0,0" VerticalAlignment="Top" Width="60" Background="Yellow" Click="lblSell_Click"/>
+        <Button x:Name="btnBuy"  Content="Buy" HorizontalAlignment="Left" Margin="300,100,0,0" VerticalAlignment="Top" Width="60" Background="LightGreen" Click="btnBuy_Click"/>
+        <Button x:Name="btnSell" Content="Sell" HorizontalAlignment="Left" Margin="420,100,0,0" VerticalAlignment="Top" Width="60" Background="Yellow" Click="btnSell_Click"/>
 
         
 
