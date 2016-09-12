@@ -35,9 +35,9 @@ CREATE TABLE [dbo].[StockPriceByDay](
 	[StockTicker] [varchar](10) NOT NULL ,
     [PriceDate] [date] NOT NULL ,
 	[OpenPrice] [float] NOT NULL,
-	[ClosePrice] [float] NOT NULL,
 	[HighestPrice] [float] NOT NULL,
 	[LowestPrice] [float] NOT NULL,
+    [ClosePrice] [float] NOT NULL,
 	[TransAmount] [float] NOT NULL,
 	primary key (StockTicker, PriceDate),
 )

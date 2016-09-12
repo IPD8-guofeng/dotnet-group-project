@@ -23,11 +23,13 @@ namespace FrameWork
         //Data Source=ipd8.database.windows.net;Initial Catalog=stocktrade;Integrated Security=False;User ID=ipd8abbott;Password=********;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False
         //const string CONN_STRING = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=H:\x\dotnet-group-project\StockTrade.mdf;Integrated Security=True;Connect Timeout=30";
 
-        // Quan: Connection for the school computer 213-18 and home
-        const string CONN_STRING = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\xingquan\JohnAbbott\Courses\12CSharp\StockTradeMS.mdf;Integrated Security = True; Connect Timeout = 30";
-
+        // Quan: Connection for home
+        //const string CONN_STRING = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\xingquan\JohnAbbott\Courses\12CSharp\StockTradeMS.mdf;Integrated Security = True; Connect Timeout = 30";
+        // Quan: Connection for school
+        //const string CONN_STRING = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=H:\x\dotnet-group-project\StockTradeVS.mdf;Integrated Security=True;Connect Timeout=30";
+        
         // Coonection for azure
-        //const string CONN_STRING = @"Data Source=ipd8.database.windows.net;Initial Catalog=stocktrade;Integrated Security=False;User ID=ipd8abbott;Password=Abbott2000;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
+        const string CONN_STRING = @"Data Source= ipd8vs.database.windows.net;Initial Catalog=StockTrade;Integrated Security=False;User ID=sqladmin;Password=IPD8rocks!;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
         private SqlConnection conn;
         /*
         private static string userName = "ipd8abbott@gmail.com";
@@ -217,7 +219,7 @@ namespace FrameWork
         {
             // List<Transaction> list = new List<Transaction>();
             double balance = GlobalVariable.defaultStartBalance;
-            SqlCommand cmd = new SqlCommand("SELECT Quantity, Price, ActionType FROM [Transaction]", conn);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM [Transaction]", conn);
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
                 if (reader.HasRows)

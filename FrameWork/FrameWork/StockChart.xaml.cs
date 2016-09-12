@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using OxyPlot;
+using OxyPlot.Series;
 
 namespace FrameWork
 {
@@ -21,7 +23,14 @@ namespace FrameWork
     {
         public StockChart()
         {
-            InitializeComponent();
+            //InitializeComponent();
+            MessageBox.Show("StockChart is ok");
+            this.MyModel = new PlotModel { Title = "Example 1" };
+            this.MyModel.Series.Add(new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)"));
         }
+
+        public PlotModel MyModel { get; private set; }
     }
+
+
 }

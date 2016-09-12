@@ -50,3 +50,7 @@
 2.install and try the new library, setup the layout of chart window
 3.stuck: trade window sql query or I have to coding for that, wait for the azure 
 
+2016.09.12------Quan Xing
+1.trade window almost finished except one sql query, create db at azure,installed new library "oxyplot"
+2. create chart window with "oxyplot", setup the layout of chart window, finish the watch list windows
+3.stuck: trade window sql query or I have to coding for that, "oxyplot" installed, but don't work properly
