@@ -27,7 +27,7 @@ namespace FrameWork
             try
             {
                 db = new Database();
-                MessageBox.Show("database is connected", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                //MessageBox.Show("database is connected", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception e)
             {

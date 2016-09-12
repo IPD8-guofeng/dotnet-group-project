@@ -27,7 +27,7 @@ namespace FrameWork
         //const string CONN_STRING = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\xingquan\JohnAbbott\Courses\12CSharp\StockTradeMS.mdf;Integrated Security = True; Connect Timeout = 30";
         // Quan: Connection for school
         //const string CONN_STRING = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=H:\x\dotnet-group-project\StockTradeVS.mdf;Integrated Security=True;Connect Timeout=30";
-        
+
         // Coonection for azure
         const string CONN_STRING = @"Data Source= ipd8vs.database.windows.net;Initial Catalog=StockTrade;Integrated Security=False;User ID=sqladmin;Password=IPD8rocks!;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
         private SqlConnection conn;
@@ -134,7 +134,60 @@ namespace FrameWork
         }
          */
         }
+        public List<Portfolio> GetAllPortfolios()
+        {
+            List<Portfolio> list = new List<Portfolio>();
 
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Portfolio", conn);
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        // column by name - the better (preferred) way
+                        int id = reader.GetInt32(reader.GetOrdinal("Id"));
+                        string name = reader.GetString(reader.GetOrdinal("Name"));
+                        Portfolio p = new Portfolio() { Id = id, Name = name };
+                        list.Add(p);
+                        // Console.WriteLine("Object[{0}]: {1} is {2} y/o", id, name, age);
+                    }
+                }
+            }
+            return list;
+
+        }
+        public void AddPortfolio(string name)
+        {
+                      using (SqlCommand cmd = new SqlCommand("INSERT INTO Portfolio (Name) VALUES (@Name)", conn))
+                       {
+                           cmd.CommandType = System.Data.CommandType.Text;
+                           //cmd.Connection = conn;
+                           cmd.Parameters.AddWithValue("@Name", name);
+                           cmd.ExecuteNonQuery();
+                       }
+            /*  */
+        }
+        public int PortIdByName(string name)
+        {
+            int id = 0;
+            using (SqlCommand cmd = new SqlCommand("SELECT ID FROM Portfolio WHERE Name = @name", conn))
+            {
+                cmd.Parameters.AddWithValue("@name", name);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            id = reader.GetInt32(reader.GetOrdinal("ID"));
+                        }
+                    }
+                }
+            }
+            return id;
+
+        }
         public void stockActionByTicker(Transaction t)
         {
             using (SqlCommand cmd = new SqlCommand("INSERT INTO [Transaction] (StockTicker,Price,Quantity, ActionType) VALUES (@StockTicker,@Price,@Quantity, @ActionType)"))
