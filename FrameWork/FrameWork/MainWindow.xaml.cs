@@ -61,9 +61,9 @@ namespace FrameWork
         {
             // open Trade  window and put it in the center 
             StockChart stockChartWindow = new StockChart();
-            //stockChartWindow.Owner = Application.Current.MainWindow;
-            //stockChartWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            stockChartWindow.Activate();
+            stockChartWindow.Owner = Application.Current.MainWindow;
+            stockChartWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            stockChartWindow.Show();
         }
 
         private void menuWatchList_Click(object sender, RoutedEventArgs e)
@@ -73,5 +73,16 @@ namespace FrameWork
             w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             w.Show();
         }
+
+        private void menuPortfolio_Click(object sender, RoutedEventArgs e)
+        {
+            PortfolioWin w = new PortfolioWin();
+            w.Owner = Application.Current.MainWindow;
+            w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            w.Show();
+        }
+
+        
+        
     }
 }
