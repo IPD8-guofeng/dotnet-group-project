@@ -1,0 +1,24 @@
+﻿<Window x:Class="FrameWork.Watch"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FrameWork"
+        mc:Ignorable="d"
+        Title="Watch List" Height="450" Width="600">
+    <Grid>
+        <DataGrid x:Name="dgWatchList" Margin="0,20,0,0" VerticalAlignment="Top" SelectionMode="Single" IsReadOnly="True" 
+                  AutoGenerateColumns="False"  MouseDoubleClick="dgWatchList_MouseDoubleClick" AlternatingRowBackground="LightGray"  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Stock" Width="1*" IsReadOnly="True"  Binding="{Binding Path=StockTicker, ValidatesOnExceptions=True}" Foreground="Blue"/>
+                <DataGridTextColumn Header="Current Price" Width="1.5*" IsReadOnly="True" Binding="{Binding Path=ClosePrice, ValidatesOnExceptions=True}" Foreground="Red"/>
+                <DataGridTextColumn Header="Open" Width="1*" IsReadOnly="True" Binding="{Binding Path=OpenPrice, ValidatesOnExceptions=True}"/>
+                <DataGridTextColumn Header="High" Width="1*" IsReadOnly="True"  Binding="{Binding Path=HighestPrice, ValidatesOnExceptions=True}"/>
+                <DataGridTextColumn Header="Low" Width="1*" IsReadOnly="True" Binding="{Binding Path=LowestPrice, ValidatesOnExceptions=True}"/>
+                <DataGridTextColumn Header="Close" Width="1*" IsReadOnly="True" Binding="{Binding Path=ClosePrice, ValidatesOnExceptions=True}"/>
+                <DataGridTextColumn Header="Amount" Width="1*" IsReadOnly="True" Binding="{Binding Path=TransAmount, ValidatesOnExceptions=True}"/>
+                <DataGridTextColumn Header="Date" Width="1*" IsReadOnly="True" Binding="{Binding Path=PriceDate, StringFormat=d, ValidatesOnExceptions=True}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

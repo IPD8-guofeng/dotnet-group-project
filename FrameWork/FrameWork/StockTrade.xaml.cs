@@ -24,7 +24,18 @@ namespace FrameWork
         public StockTrade()
         {
             InitializeComponent();
-            string[] limitArray = {  "Limit", "Market", "Stop" };
+            Initial();
+        }
+        public StockTrade(WatchList w)
+        {
+            InitializeComponent();
+            Initial();
+            tbTicker.Text = w.StockTicker;
+            tbPrice.Text = w.ClosePrice.ToString();
+        }
+        private void Initial()
+        {
+            string[] limitArray = { "Limit", "Market", "Stop" };
             foreach (string limit in limitArray)
             {
                 cbLimit.Items.Add(limit);
@@ -224,7 +235,7 @@ namespace FrameWork
                             }
                             break;
                         case "Stop":
-                            MessageBox.Show("Stop option can not be use to buy stock"); break;
+                            MessageBox.Show("Stop option is under construction"); break;
                         default:
                             MessageBox.Show("some error choosing Limit"); break;
                     }
@@ -269,7 +280,7 @@ namespace FrameWork
         private void rbSell_Checked(object sender, RoutedEventArgs e)
         {
             List<StockOwned> sList = db.getAllStockOwned();
-            if (sList != null)
+            if ( sList.Count != 0 )
             {
                 foreach (StockOwned s in sList)
                 {

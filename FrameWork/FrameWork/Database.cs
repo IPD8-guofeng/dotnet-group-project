@@ -240,7 +240,7 @@ namespace FrameWork
         public List<StockOwned> getAllStockOwned()
         {
             List<StockOwned> list = new List<StockOwned>();
-            SqlCommand cmd = new SqlCommand("SELECT StockTicker, ((SELECT SUM(Quantity) AS sumBuy FROM [Transaction] WHERE ActionType = 1 GROUP BY StockTicker, ActionType) - (SELECT SUM(Quantity) AS sumSell FROM[Transaction] WHERE ActionType = 2 GROUP BY StockTicker, ActionType)) AS StockQuantity FROM[Transaction] GROUP BY StockTicker", conn);
+            SqlCommand cmd = new SqlCommand("SELECT StockTicker, ((SELECT SUM(Quantity) AS sumBuy FROM [Transaction] WHERE ActionType = 1 GROUP BY StockTicker, ActionType) - (SELECT SUM(Quantity) AS sumSell FROM[Transaction] WHERE ActionType = 2 GROUP BY StockTicker, ActionType)) AS StockQuantity, ((SELECT SUM(Quantity*Price) AS sumBuyCost FROM [Transaction] WHERE ActionType = 1 GROUP BY StockTicker, ActionType) - (SELECT SUM(Quantity*Price) AS sumSellMoney FROM[Transaction] WHERE ActionType = 2 GROUP BY StockTicker, ActionType)) AS sumTotalCost FROM[Transaction] GROUP BY StockTicker", conn);
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
                 if (reader.HasRows)
@@ -249,13 +249,40 @@ namespace FrameWork
                     {
                         string ticker = reader.GetString(reader.GetOrdinal("StockTicker"));
                         int quantity = reader.GetInt32(reader.GetOrdinal("StockQuantity"));
-                        StockOwned s = new StockOwned { StockTicker = ticker, Quantity = quantity };
+                        double sumTotalCost = reader.GetDouble(reader.GetOrdinal("sumTotalCost"));
+                        StockOwned s = new StockOwned { StockTicker = ticker, Quantity = quantity, TotalCost = sumTotalCost };
                         list.Add(s);
                     }
                 }
             }
             return list;
 
+        }
+
+
+        public List<WatchList> getWatchList()
+        {
+            List<WatchList> list = new List<WatchList>();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM (SELECT *,max_date = MAX(PriceDate) OVER(PARTITION BY StockTicker)   FROM[StockPriceByDay]) as s  WHERE PriceDate = max_date", conn);
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        string ticker = reader.GetString(reader.GetOrdinal("StockTicker"));
+                        double openPrice = reader.GetDouble(reader.GetOrdinal("OpenPrice"));
+                        double closePrice = reader.GetDouble(reader.GetOrdinal("ClosePrice"));
+                        double highestPrice = reader.GetDouble(reader.GetOrdinal("HighestPrice"));
+                        double lowestPrice = reader.GetDouble(reader.GetOrdinal("LowestPrice"));
+                        double transAmount = reader.GetDouble(reader.GetOrdinal("TransAmount"));
+                        DateTime priceDate = reader.GetDateTime(reader.GetOrdinal("PriceDate"));
+                        WatchList w = new WatchList { StockTicker = ticker, OpenPrice = openPrice, ClosePrice = closePrice, HighestPrice = highestPrice, LowestPrice = lowestPrice, TransAmount = transAmount, PriceDate = priceDate };
+                        list.Add(w);
+                    }
+                }
+            }
+            return list;
         }
     }//end Class Database
 }//end namespace FrameWork

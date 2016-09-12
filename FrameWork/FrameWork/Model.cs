@@ -56,5 +56,17 @@ namespace FrameWork
     {
         public string StockTicker { get; set; }
         public int Quantity { get; set; }
+        public double TotalCost { get; set; }
+    }
+
+    public class WatchList
+    {
+        public string StockTicker { get; set; }
+        public DateTime PriceDate { get; set; }
+        public double OpenPrice { get; set; }
+        public double ClosePrice { get; set; }
+        public double HighestPrice { get; set; }
+        public double LowestPrice { get; set; }
+        public double TransAmount { get; set; }
     }
 }

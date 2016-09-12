@@ -3,24 +3,21 @@
 2.to update the database design and windows mainframe
 3. discuss with the partner
 
- 2016.09.06------Guofeng Wu
+2016.09.06------Guofeng Wu
 1.read the project proposal, find some useful link, github account setup
 2.creat a frmework for the project development(model class)
 3. discuss with the partner about the setup of database, and seperation of the work(UI, database operation, event handaling)
-
  
 2016.09.07------Quan Xing
 1.database design, basic windows menu items
 2.update the database design, trello, user story
 3. discuss with the partner
 
- 2016.09.07------Guofeng Wu
+2016.09.07------Guofeng Wu
 1. create an Azura account, connecting to the database
 2. plan to use menu icon for image navigation
 3. ask teacher for how to use Ribbion control and mainwindow configuration
 4. google the way to get the stock histrory data from web using API(jason, xml)
-
-
 
 2016.09.08------Quan Xing
 1.database design for new table TrendLine, setup trello, user story  
@@ -38,7 +35,18 @@
 2.install and try the new library(Dynamic Data Display), trade window model,
 3.stuck: need to active the toolbox for the library(Dynamic Data Display)
 
-2016.09.08------Guofeng Wu
+2016.09.09------Guofeng Wu
 1.upload the stock company data and one company history data to Azure
 2.find way to download sp500 stock history data to one file and upload to Azure
 3.start to design the portfolio interface
+
+2016.09.10------Quan Xing
+1.trade window rbSell_Checked/cbLimit_SelectionChanged/lbSuggestion_MouseDoubleClick event handlers 
+2.install and try the new library, finish the trade window
+3.stuck: new library for chart window, wait for the azure 
+
+2016.09.11------Quan Xing
+1.trade window almost finished except one sql query, add stockOwned class in Model, tested in the local DB   
+2.install and try the new library, setup the layout of chart window
+3.stuck: trade window sql query or I have to coding for that, wait for the azure 
+

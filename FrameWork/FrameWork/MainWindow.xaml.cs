@@ -65,5 +65,13 @@ namespace FrameWork
             stockChartWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             stockChartWindow.Show();
         }
+
+        private void menuWatchList_Click(object sender, RoutedEventArgs e)
+        {
+            Watch w = new Watch();
+            w.Owner = Application.Current.MainWindow;
+            w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            w.Show();
+        }
     }
 }
