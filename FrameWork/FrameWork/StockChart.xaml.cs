@@ -19,7 +19,7 @@ namespace FrameWork
     /// <summary>
     /// Interaction logic for StockChart.xaml
     /// </summary>
-    public partial class StockChart : Window
+    public partial class StockChart 
     {
         public StockChart()
         {
@@ -29,7 +29,7 @@ namespace FrameWork
             this.MyModel.Series.Add(new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)"));
         }
 
-        public PlotModel MyModel { get; private set; }
+        public PlotModel MyModel { get; set; }
     }
 
 
