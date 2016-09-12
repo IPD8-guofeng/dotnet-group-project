@@ -93,16 +93,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CashTransaction.xaml.cs">
+      <DependentUpon>CashTransaction.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GlobalVariable..cs" />
+    <Compile Include="PortfolioWin.xaml.cs">
+      <DependentUpon>PortfolioWin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StockChart.xaml.cs">
       <DependentUpon>StockChart.xaml</DependentUpon>
     </Compile>
     <Compile Include="StockTrade.xaml.cs">
       <DependentUpon>StockTrade.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StockTransaction.xaml.cs">
+      <DependentUpon>StockTransaction.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Watch.xaml.cs">
       <DependentUpon>Watch.xaml</DependentUpon>
     </Compile>
+    <Page Include="CashTransaction.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -116,11 +129,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PortfolioWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StockChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StockTrade.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StockTransaction.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
