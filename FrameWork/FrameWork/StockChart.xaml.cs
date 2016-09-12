@@ -31,9 +31,6 @@ namespace FrameWork
 
 
             model.Series.Add(new FunctionSeries(batFn1, 0, 1000, 0.001));
-            model.Series.Add(new FunctionSeries(batFn2, 0, 1000, 0.001));
-            model.Series.Add(new FunctionSeries(batFn3, 0, 1000, 0.001));
-            model.Series.Add(new FunctionSeries(batFn4, 0, 1000, 0.001));
 
             //model.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, MaximumPadding = 0.1, MinimumPadding = 0.1 });
             //model.Axes.Add(new LinearAxis { Position = AxisPosition.Left, MaximumPadding = 0.1, MinimumPadding = 0.1 });
