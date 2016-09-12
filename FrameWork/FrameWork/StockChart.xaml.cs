@@ -24,12 +24,25 @@ namespace FrameWork
         public StockChart()
         {
             //InitializeComponent();
-            MessageBox.Show("StockChart is ok");
-            this.MyModel = new PlotModel { Title = "Example 1" };
-            this.MyModel.Series.Add(new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)"));
+
+            var model = new PlotModel { Title = "Stock Name" };
+
+            Func<double, double> batFn1 = (x) => Math.Abs(x) - 1;// Math.Sqrt(-Math.Abs(Math.Abs(x) - 1) * Math.Abs(3 - Math.Abs(x)) / ((Math.Abs(x) - 1) * (3 - Math.Abs(x)))) * (1 + Math.Abs(Math.Abs(x) - 3) / (Math.Abs(x) - 3)) * Math.Sqrt(1 - Math.Pow((x / 7), 2)) + (5 + 0.97 * (Math.Abs(x - 0.5) + Math.Abs(x + 0.5)) - 3 * (Math.Abs(x - 0.75) + Math.Abs(x + 0.75))) * (1 + Math.Abs(1 - Math.Abs(x)) / (1 - Math.Abs(x)));
+
+
+            model.Series.Add(new FunctionSeries(batFn1, 0, 1000, 0.001));
+            model.Series.Add(new FunctionSeries(batFn2, 0, 1000, 0.001));
+            model.Series.Add(new FunctionSeries(batFn3, 0, 1000, 0.001));
+            model.Series.Add(new FunctionSeries(batFn4, 0, 1000, 0.001));
+
+            //model.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, MaximumPadding = 0.1, MinimumPadding = 0.1 });
+            //model.Axes.Add(new LinearAxis { Position = AxisPosition.Left, MaximumPadding = 0.1, MinimumPadding = 0.1 });
+
+            this.ChartModel = model;
+
         }
 
-        public PlotModel MyModel { get; set; }
+        public PlotModel ChartModel { get; set; }
     }
 
 
