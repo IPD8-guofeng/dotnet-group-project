@@ -134,11 +134,35 @@ namespace FrameWork
         }
          */
         }
+
+        public List<string> GetAllStockNames()
+        {
+            List<string> list = new List<string>();
+
+            SqlCommand cmd = new SqlCommand("SELECT StockTicker,StockName FROM Stock ORDER BY StockTicker", conn);
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        // column by name - the better (preferred) way
+                        string ticker = reader.GetString(reader.GetOrdinal("StockTicker"));
+                        string name = reader.GetString(reader.GetOrdinal("StockName"));
+                        string p = ticker + " | " + name;
+                        list.Add(p);
+                    }
+                }
+            }
+            return list;
+
+        }
+
         public List<Portfolio> GetAllPortfolios()
         {
             List<Portfolio> list = new List<Portfolio>();
 
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Portfolio", conn);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Portfolio ORDER BY ID", conn);
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
                 if (reader.HasRows)
@@ -159,13 +183,13 @@ namespace FrameWork
         }
         public void AddPortfolio(string name)
         {
-                      using (SqlCommand cmd = new SqlCommand("INSERT INTO Portfolio (Name) VALUES (@Name)", conn))
-                       {
-                           cmd.CommandType = System.Data.CommandType.Text;
-                           //cmd.Connection = conn;
-                           cmd.Parameters.AddWithValue("@Name", name);
-                           cmd.ExecuteNonQuery();
-                       }
+            using (SqlCommand cmd = new SqlCommand("INSERT INTO Portfolio (Name) VALUES (@Name)", conn))
+            {
+                cmd.CommandType = System.Data.CommandType.Text;
+                //cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@Name", name);
+                cmd.ExecuteNonQuery();
+            }
             /*  */
         }
         public int PortIdByName(string name)
@@ -357,28 +381,18 @@ namespace FrameWork
                         double highestPrice = reader.GetDouble(reader.GetOrdinal("HighestPrice"));
                         double lowestPrice = reader.GetDouble(reader.GetOrdinal("LowestPrice"));
                         double closePrice = reader.GetDouble(reader.GetOrdinal("ClosePrice"));
-                        double transAmount = reader.GetDouble(reader.GetOrdinal("transAmount")); 
-                        StockPriceByDay s = new StockPriceByDay() { StockTicker = ticker, PriceDate = priceDate, OpenPrice =openPrice,
-                            HighestPrice = highestPrice, LowestPrice=lowestPrice, ClosePrice = closePrice, TransAmount = transAmount };
+                        double transAmount = reader.GetDouble(reader.GetOrdinal("transAmount"));
+                        StockPriceByDay s = new StockPriceByDay()
+                        {
+                            StockTicker = ticker,
+                            PriceDate = priceDate,
+                            OpenPrice = openPrice,
+                            HighestPrice = highestPrice,
+                            LowestPrice = lowestPrice,
+                            ClosePrice = closePrice,
+                            TransAmount = transAmount
+                        };
                         list.Add(s);
-                    }
-                }
-            }
-            return list;
-        }
-
-
-        public List<string> GetStockTickerFromPriceTable()
-        {
-            List<string> list = new List<string>();
-            SqlCommand cmd = new SqlCommand("SELECT StockTicker FROM StockPriceByDay GROUP BY StockTicker", conn);
-            using (SqlDataReader reader = cmd.ExecuteReader())
-            {
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        list.Add(reader.GetString(reader.GetOrdinal("StockTicker")));
                     }
                 }
             }

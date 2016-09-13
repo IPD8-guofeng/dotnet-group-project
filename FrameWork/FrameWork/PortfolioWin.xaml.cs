@@ -19,21 +19,21 @@ namespace FrameWork
     /// </summary>
     public partial class PortfolioWin : Window
     {
-           Database db= new Database();
-         int currentPortId;
-        List<Transcation> portfolioList=new List<Transcation>();
+        Database db = new Database();
+        int currentPortId;
+        List<Transcation> portfolioList = new List<Transcation>();
         List<Transcation> transactionList = new List<Transcation>();
 
         public PortfolioWin()
         {
-  
+
             InitializeComponent();
             //get all portfolio name from Table "Portfolio", assign to listbox "lbPortfolio"
             //get the default portfolio name and assigne it to the Title "lblPortName"
-            
+
             getPortfolio();
             currentPortId = 1;
-            lblPortName.Content = lbPortfolio.Items.GetItemAt(currentPortId-1);
+            lblPortName.Content = lbPortfolio.Items.GetItemAt(currentPortId - 1);
 
             //get all transcation data for default portfolio from Table"Transcation", 
             //assign to data grid "dgTranscation"
@@ -45,10 +45,11 @@ namespace FrameWork
 
             //get all Company data from Table"Company", 
             //assign to combox "cmbStock"
+            getStockNames();
         }
         private void getPortfolio()
         {
-            List<Portfolio> list=null;
+            List<Portfolio> list = null;
             try
             {
                 list = db.GetAllPortfolios();
@@ -64,6 +65,24 @@ namespace FrameWork
                 lbPortfolio.Items.Add(p.Name);
             }
         }
+        private void getStockNames()
+        {
+            List<string> list = null;
+            try
+            {
+                list = db.GetAllStockNames();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to fetch records from database" + e.Message, "Database Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                //throw;
+            }
+            //dgToDoItems.Items.Refresh();
+            foreach (string p in list)
+            {
+                cmbStock.Items.Add(p);
+            }
+        }
 
         private void btCreatPortfolio_Click(object sender, RoutedEventArgs e)
         {
@@ -72,7 +91,7 @@ namespace FrameWork
             //the portfolio name must be more than 6 characters
             if (name.Length < 6)
             {
-                MessageBox.Show("the portfolio name must be more than 6 characters", "Input Error", 
+                MessageBox.Show("the portfolio name must be more than 6 characters", "Input Error",
                 MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -156,7 +175,7 @@ namespace FrameWork
             //check if an stock ticker is selected
             ComboBoxItem cmbItem = (ComboBoxItem)cmbStock.SelectedItem;
             string ticker = cmbItem.Content.ToString();
-            
+
             if (ticker == "")
             {
                 MessageBox.Show("Please select a sotck!", "Input Error",
@@ -164,7 +183,7 @@ namespace FrameWork
                 return;
             }
             string[] companyInfo = ticker.ToString().Split('|');
-           
+
             StockTransaction dialog = new StockTransaction(string.Join(" | ", companyInfo));
             if (dialog.ShowDialog() == false)
             { // if user pressed "Cancel"
@@ -200,7 +219,7 @@ namespace FrameWork
             if (ticker == "")
             {
                 MessageBox.Show("Please select a sotck!", "Input Error",
-              MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             string[] companyInfo = ticker.ToString().Split('|');
@@ -229,11 +248,11 @@ namespace FrameWork
 
             //find the portid from Table Portfolio and assigned to currentPortId;
             int id = db.PortIdByName(item);
-            MessageBox.Show("" + id, "Database Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            //MessageBox.Show("" + id, "Database Error", MessageBoxButton.OK, MessageBoxImage.Information);
             if (id == 0)
             {
                 MessageBox.Show("Cannot get the Portfolil Id!", "Database Error",
-           MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             currentPortId = id;
