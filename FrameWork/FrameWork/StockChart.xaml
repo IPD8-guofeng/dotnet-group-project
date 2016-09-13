@@ -11,7 +11,8 @@
         <local:StockChart/>
     </Window.DataContext>
     <Grid>
-        <oxy:PlotView Model="{Binding ChartModel}"/>
+        <oxy:PlotView Background="Cyan" Model="{Binding ChartModel}"/>
+
     </Grid>
 </Window>
 

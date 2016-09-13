@@ -60,10 +60,10 @@ namespace FrameWork
         private void menuChart_Click(object sender, RoutedEventArgs e)
         {
             // open Trade  window and put it in the center 
-            StockChart stockChartWindow = new StockChart();
-            stockChartWindow.Owner = Application.Current.MainWindow;
-            stockChartWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            stockChartWindow.Show();
+            StockChart c = new StockChart();
+            c.Owner = Application.Current.MainWindow;
+            c.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            c.Show();
         }
 
         private void menuWatchList_Click(object sender, RoutedEventArgs e)

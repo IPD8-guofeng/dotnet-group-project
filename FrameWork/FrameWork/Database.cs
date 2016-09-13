@@ -27,7 +27,7 @@ namespace FrameWork
         //const string CONN_STRING = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\xingquan\JohnAbbott\Courses\12CSharp\StockTradeMS.mdf;Integrated Security = True; Connect Timeout = 30";
         // Quan: Connection for school
         //const string CONN_STRING = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=H:\x\dotnet-group-project\StockTradeVS.mdf;Integrated Security=True;Connect Timeout=30";
-        
+
         // Coonection for azure
         const string CONN_STRING = @"Data Source= ipd8vs.database.windows.net;Initial Catalog=StockTrade;Integrated Security=False;User ID=sqladmin;Password=IPD8rocks!;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
         private SqlConnection conn;
@@ -281,6 +281,33 @@ namespace FrameWork
                         DateTime priceDate = reader.GetDateTime(reader.GetOrdinal("PriceDate"));
                         WatchList w = new WatchList { StockTicker = ticker, OpenPrice = openPrice, ClosePrice = closePrice, HighestPrice = highestPrice, LowestPrice = lowestPrice, TransAmount = transAmount, PriceDate = priceDate };
                         list.Add(w);
+                    }
+                }
+            }
+            return list;
+        }
+
+        public List<StockPriceByDay> GetStockPriceByDayByTicker(string ticker, DateTime startDate)
+        {
+            List<StockPriceByDay> list = new List<StockPriceByDay>();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM StockPriceByDay WHERE StockTicker = @Ticker AND PriceDate>@StartDate ORDER BY PriceDate", conn);
+            cmd.Parameters.AddWithValue("@Ticker", ticker);
+            cmd.Parameters.AddWithValue("@StartDate", startDate);
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        DateTime priceDate = reader.GetDateTime(reader.GetOrdinal("PriceDate"));
+                        double openPrice = reader.GetDouble(reader.GetOrdinal("OpenPrice"));
+                        double highestPrice = reader.GetDouble(reader.GetOrdinal("HighestPrice"));
+                        double lowestPrice = reader.GetDouble(reader.GetOrdinal("LowestPrice"));
+                        double closePrice = reader.GetDouble(reader.GetOrdinal("ClosePrice"));
+                        double transAmount = reader.GetDouble(reader.GetOrdinal("transAmount")); 
+                        StockPriceByDay s = new StockPriceByDay() { StockTicker = ticker, PriceDate = priceDate, OpenPrice =openPrice,
+                            HighestPrice = highestPrice, LowestPrice=lowestPrice, ClosePrice = closePrice, TransAmount = transAmount };
+                        list.Add(s);
                     }
                 }
             }
