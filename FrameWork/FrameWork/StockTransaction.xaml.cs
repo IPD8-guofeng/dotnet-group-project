@@ -19,7 +19,7 @@ namespace FrameWork
     /// </summary>
     public partial class StockTransaction : Window
     {
-        public Transcation trans = new Transcation();
+        public PortTransaction trans = new PortTransaction();
 
         public StockTransaction(string message)
         {

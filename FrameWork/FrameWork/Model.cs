@@ -14,10 +14,9 @@ namespace FrameWork
         public int Id { get; set; }
         public string Name { get; set; }
     }
-    public class Transcation
+    public class PortTransaction
     {
         public int portId { get; set; }
-        public string Name { get; set; }
         public string Symbol { get; set; }
         public TransType Type { get; set; }
         public DateTime Date { get; set; }

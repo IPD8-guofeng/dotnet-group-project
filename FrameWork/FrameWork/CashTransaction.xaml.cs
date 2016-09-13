@@ -19,7 +19,7 @@ namespace FrameWork
     /// </summary>
     public partial class CashTransaction : Window
     {
-        public Transcation trans = new Transcation();
+        public PortTransaction trans = new PortTransaction();
         public CashTransaction(string message)
         {
             InitializeComponent();
