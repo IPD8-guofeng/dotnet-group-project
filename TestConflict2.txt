@@ -12,11 +12,14 @@ two
 
 three
 
-<<<<<<< HEAD
+
 
 four 
 
 
 five
 =======
->>>>>>> 5b2377f4a4f70bc41a71c0c3d30288139e432d71
+
+
+
+5th
