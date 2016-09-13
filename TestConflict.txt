@@ -1,13 +1,3 @@
 
-<<<<<<< HEAD
-one line
-=======
-original file
-
-
->>>>>>> d2fabe8b4aa68625ad3582301ea00c283ff636a7
-
-ggggggg
-gdfgd
-
+one
 
