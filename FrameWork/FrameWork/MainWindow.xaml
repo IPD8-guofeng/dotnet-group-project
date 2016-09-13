@@ -36,20 +36,7 @@
                 <MenuItem x:Name="menuAbout" Header="About" FontSize="13"/>
             </MenuItem>
         </Menu>
-        <Menu DockPanel.Dock="Top" Height="31">
-            <MenuItem >
-                <MenuItem.Icon>
-                    <Image   Source="Images/flower.jpg"/>
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Header="_Tool">
-            </MenuItem>
-            <MenuItem Header="_Window">
-            </MenuItem>
-            <MenuItem Header="_Help">
-            </MenuItem>
-        </Menu>
-        <TabControl x:Name="tabControl"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="590" Margin="5,0,5,5"  TabStripPlacement="Bottom">
+        <TabControl x:Name="tabControl"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,0,5,5"  TabStripPlacement="Bottom">
             <TabItem Header="default"/>
         </TabControl>
         <!--</Grid>-->
