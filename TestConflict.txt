@@ -1,40 +1,7 @@
-ghghfghfg
-h
-fg
-h
-fgh
-f
 
-jkhjkjhk
-jkljhklh
-hjkjhkh
-
-hkjkhjk
-hjkhjk
-
-test file conflict  
-test 2222222222222222222222
-test 3333333333333333
+original file
 
 
-test 444444444444
-=======
-fg
-
-anorther try
-ljk
-=======
-
-test 444444444444
-test 55555555555555555
-1eeaa25bea94546b7acd1f08
-
-test 666666666666
-
-iii
-2nd modification
-
-ffrf
 
 
 
