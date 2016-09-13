@@ -5,3 +5,6 @@ h
 fgh
 f
 test file conflict  
+
+
+try the way to merge
