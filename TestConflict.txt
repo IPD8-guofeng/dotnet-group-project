@@ -4,3 +4,4 @@ fg
 h
 fgh
 f
+test file conflict  
