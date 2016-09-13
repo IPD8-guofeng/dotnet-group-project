@@ -5,7 +5,8 @@
 
              xmlns:local="clr-namespace:FrameWork"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             StartupUri="PortfolioWin.xaml">
+             StartupUri="MainWindow.xaml">
+
     <Application.Resources>
          
     </Application.Resources>
