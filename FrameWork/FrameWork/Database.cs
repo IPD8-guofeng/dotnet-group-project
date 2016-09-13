@@ -398,22 +398,5 @@ namespace FrameWork
             }
             return list;
         }
-        public List<string> GetStockTickerFromPriceTable()
-        {
-            List<string> list = new List<string>();
-            SqlCommand cmd = new SqlCommand("SELECT StockTicker FROM StockPriceByDay GROUP BY StockTicker", conn);
-            using (SqlDataReader reader = cmd.ExecuteReader())
-            {
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        string ticker = reader.GetString(reader.GetOrdinal("StockTicker"));
-                        list.Add(ticker);
-                    }
-                }
-            }
-            return list;
-        }
     }//end Class Database
 }//end namespace FrameWork
