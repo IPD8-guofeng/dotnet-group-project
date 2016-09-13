@@ -15,23 +15,9 @@ hjkhjk
 test file conflict  
 >>>>>>> 4d01b15b646c16ffd1af7e1681e3c866ed8535b5
 fg
-df
-g
-df
 
-gdf
-g
-df
-g
-df
-g
-df
-g
-df
-g
-df
-g
-df
-gd
-fg
+
+
+anorther try
+
 df
