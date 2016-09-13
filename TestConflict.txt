@@ -4,13 +4,16 @@ fg
 h
 fgh
 f
+<<<<<<< HEAD
+jkhjkjhk
+jkljhklh
+hjkjhkh
 
+hkjkhjk
+hjkhjk
+=======
 test file conflict  
 test 2222222222222222222222
 test 3333333333333333
-fg
-
-anorther try
-
-df
+test 444444444444
 
