@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+the first
+=======
 
 two
 
@@ -17,7 +20,11 @@ five
 six
 
 
+<<<<<<< HEAD
 seven
 
 eight
 
+=======
+>>>>>>> 19566820a50b5b8387690e27d9ff277ec48f886c
+>>>>>>> e7d068417d940b70261424ff3029743af31d9ae2
