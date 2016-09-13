@@ -134,7 +134,60 @@ namespace FrameWork
         }
          */
         }
+        public List<Portfolio> GetAllPortfolios()
+        {
+            List<Portfolio> list = new List<Portfolio>();
 
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Portfolio", conn);
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        // column by name - the better (preferred) way
+                        int id = reader.GetInt32(reader.GetOrdinal("Id"));
+                        string name = reader.GetString(reader.GetOrdinal("Name"));
+                        Portfolio p = new Portfolio() { Id = id, Name = name };
+                        list.Add(p);
+                        // Console.WriteLine("Object[{0}]: {1} is {2} y/o", id, name, age);
+                    }
+                }
+            }
+            return list;
+
+        }
+        public void AddPortfolio(string name)
+        {
+                      using (SqlCommand cmd = new SqlCommand("INSERT INTO Portfolio (Name) VALUES (@Name)", conn))
+                       {
+                           cmd.CommandType = System.Data.CommandType.Text;
+                           //cmd.Connection = conn;
+                           cmd.Parameters.AddWithValue("@Name", name);
+                           cmd.ExecuteNonQuery();
+                       }
+            /*  */
+        }
+        public int PortIdByName(string name)
+        {
+            int id = 0;
+            using (SqlCommand cmd = new SqlCommand("SELECT ID FROM Portfolio WHERE Name = @name", conn))
+            {
+                cmd.Parameters.AddWithValue("@name", name);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            id = reader.GetInt32(reader.GetOrdinal("ID"));
+                        }
+                    }
+                }
+            }
+            return id;
+
+        }
         public void stockActionByTicker(Transaction t)
         {
             using (SqlCommand cmd = new SqlCommand("INSERT INTO [Transaction] (StockTicker,Price,Quantity, ActionType) VALUES (@StockTicker,@Price,@Quantity, @ActionType)"))

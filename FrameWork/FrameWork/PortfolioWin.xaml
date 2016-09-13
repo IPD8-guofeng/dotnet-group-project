@@ -3,8 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Portfolio"  Height="738.789" Width="831.701">
     <Grid>
-        <ListBox x:Name="lbPortfolio" HorizontalAlignment="Left" Height="273" Margin="10,202,0,0" VerticalAlignment="Top" Width="181">
-            <ListBoxItem Content="My Portfolio"/>
+        <ListBox x:Name="lbPortfolio" HorizontalAlignment="Left" Height="273" Margin="10,202,0,0" VerticalAlignment="Top" Width="181" SelectionChanged="lbPortfolio_SelectionChanged">
         </ListBox>
         <Label x:Name="label" Content="Portfolios:" HorizontalAlignment="Left" Margin="10,151,0,0" VerticalAlignment="Top" Height="32" Width="144" FontWeight="Bold" RenderTransformOrigin="0.62,-0.307" FontSize="16"/>
         <Button x:Name="btCreatPortfolio" Content="Create new portfolio" HorizontalAlignment="Left" Margin="622,64,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.533,1.423" Click="btCreatPortfolio_Click" Height="33" Width="176"/>

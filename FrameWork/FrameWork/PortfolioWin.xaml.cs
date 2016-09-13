@@ -19,17 +19,21 @@ namespace FrameWork
     /// </summary>
     public partial class PortfolioWin : Window
     {
+           Database db= new Database();
          int currentPortId;
         List<Transcation> portfolioList=new List<Transcation>();
         List<Transcation> transactionList = new List<Transcation>();
 
         public PortfolioWin()
         {
+  
             InitializeComponent();
             //get all portfolio name from Table "Portfolio", assign to listbox "lbPortfolio"
             //get the default portfolio name and assigne it to the Title "lblPortName"
-            lblPortName.Content = "My Portfolio";
+            
+            getPortfolio();
             currentPortId = 1;
+            lblPortName.Content = lbPortfolio.Items.GetItemAt(currentPortId-1);
 
             //get all transcation data for default portfolio from Table"Transcation", 
             //assign to data grid "dgTranscation"
@@ -41,6 +45,24 @@ namespace FrameWork
 
             //get all Company data from Table"Company", 
             //assign to combox "cmbStock"
+        }
+        private void getPortfolio()
+        {
+            List<Portfolio> list=null;
+            try
+            {
+                list = db.GetAllPortfolios();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to fetch records from database" + e.Message, "Database Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                //throw;
+            }
+            //dgToDoItems.Items.Refresh();
+            foreach (Portfolio p in list)
+            {
+                lbPortfolio.Items.Add(p.Name);
+            }
         }
 
         private void btCreatPortfolio_Click(object sender, RoutedEventArgs e)
@@ -62,7 +84,11 @@ namespace FrameWork
                 return;
             }
             //insert it to table "Portfolio"
+            db.AddPortfolio(name);
             //get the portId for new portfolio, assign to the "currentPortId",
+            int id = db.PortIdByName(name);
+            currentPortId = id;
+
             //clear content of "dgPortfolio","dgTranscation"
             lblPortName.Content = name;
             lbPortfolio.Items.Add(name);
@@ -193,6 +219,24 @@ namespace FrameWork
 
             //insert the data to Table "Transcation
 
+        }
+
+        private void lbPortfolio_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string item = lbPortfolio.SelectedItem.ToString();
+            if (item == "") return;
+            lblPortName.Content = item;
+
+            //find the portid from Table Portfolio and assigned to currentPortId;
+            int id = db.PortIdByName(item);
+            MessageBox.Show("" + id, "Database Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (id == 0)
+            {
+                MessageBox.Show("Cannot get the Portfolil Id!", "Database Error",
+           MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            currentPortId = id;
         }
     }
 }
