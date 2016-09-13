@@ -42,33 +42,29 @@ namespace FrameWork
                         this.ChartModel = model;
 
             */
-            List<StockPriceByDay> list = db.GetStockPriceByDayByTicker("ABT", DateTime.Parse("2016-01-01"));
-            var model = new PlotModel { Title = "ABT: start date" + "   2016-01-01 \n" +"Candle line, Channel, Volumn"};
+            List<StockPriceByDay> list = db.GetStockPriceByDayByTicker("ABT", DateTime.Parse("2013-01-01"));
+            var model = new PlotModel { Title = "ABT: start date" + "   2013-01-01 \n" +"Candle line, Channel, Volumn"};
             model.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom });
             model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
-            var highestPriceLine = new LineSeries { Title = " Channel", MarkerType = MarkerType.Diamond,  Color = OxyColors.Beige};
-            var lowestPriceLine = new LineSeries {  MarkerType = MarkerType.Diamond, Color = OxyColors.AliceBlue };
+            var highestPriceLine = new LineSeries {  MarkerType = MarkerType.Diamond,  Color = OxyColors.Beige};
+            var lowestPriceLine = new LineSeries { Title = " Channel", MarkerType = MarkerType.Diamond, Color = OxyColors.AliceBlue };
+           
+            double i = (list[0].TransAmount / list[0].HighestPrice)*5;
+            //if (list[0].HighestPrice > 100) { while (i >= 100)    i /= 10; } else
+            //if (list[0].HighestPrice > 10) { while (i >= 10)    i /= 10; } else
+            //if (list[0].HighestPrice > 1) { while (i >= 1)    i /= 10; } else
+            //{ while (i >= 0.1)    i /= 10; }
             double x = 0;
             foreach (StockPriceByDay s in list)
             {
-                //double x = s.PriceDate.Day + s.PriceDate.Month * 100 + (s.PriceDate.Year  % 100) * 10000;
-                //highestPriceLine.Points.Add(new DataPoint(DateTimeAxis.ToDouble(s.PriceDate), s.HighestPrice));
-                //lowestPriceLine.Points.Add(new DataPoint(DateTimeAxis.ToDouble(s.PriceDate), s.LowestPrice));
-                highestPriceLine.Points.Add(new DataPoint(x, s.HighestPrice*1.05));
+                highestPriceLine.Points.Add(new DataPoint(x, s.HighestPrice*1.05));   
                 lowestPriceLine.Points.Add(new DataPoint(x, s.LowestPrice*0.95));
+                model.Series.Add(drawCandleLine(x, s.OpenPrice, s.HighestPrice, s.LowestPrice, s.ClosePrice));  // draw one single candle
+                model.Series.Add(drawTransAmountLine(x, s.TransAmount / i));  // draw one single volumn
                 x++;
             }
-            model.Series.Add(highestPriceLine);
-            model.Series.Add(lowestPriceLine);
-
-            double y = 0;
-            foreach (StockPriceByDay s in list)
-            {
-
-                model.Series.Add(drawCandleLine(y,s.OpenPrice, s.HighestPrice, s.LowestPrice, s.ClosePrice));
-                model.Series.Add(drawTransAmountLine(y, s.TransAmount / 4000000));
-                y++;
-            }
+            model.Series.Add(highestPriceLine); // draw the channel top line
+            model.Series.Add(lowestPriceLine); // draw the channel bottom line
 
             //var s1 = new BarSeries { StrokeColor = OxyColors.Black, StrokeThickness = 1 };
             //s1.Items.Add(new BarItem { Value = 25 });
@@ -79,22 +75,6 @@ namespace FrameWork
             //var valueAxis = new LinearAxis { Position = AxisPosition.Bottom, MinimumPadding = 0, MaximumPadding = 0.06, AbsoluteMinimum = 0 };
             //model.Series.Add(s1);
             //model.Axes.Add(valueAxis);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
             this.ChartModel = model;
@@ -136,13 +116,17 @@ namespace FrameWork
 
         private LineSeries drawTransAmountLine(double startX, double startY)
         {
-            var rect = new LineSeries { MarkerType = MarkerType.None, Color = OxyColors.DarkOrange };
-            rect.Points.Add(new DataPoint(startX, 30));
-            rect.Points.Add(new DataPoint(startX, 30+startY));
-            return rect;
+            var volumnLine = new LineSeries { MarkerType = MarkerType.None, Color = OxyColors.DarkOrange };
+            volumnLine.Points.Add(new DataPoint(startX, 30));
+            volumnLine.Points.Add(new DataPoint(startX, 30 + startY));
+            return volumnLine;
         }
 
-
+        private double getHeighChart(StockPriceByDay s)
+        {
+            double height = s.HighestPrice;
+            return height;
+        }
 
 
 
