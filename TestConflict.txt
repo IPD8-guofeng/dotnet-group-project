@@ -15,12 +15,9 @@ hjkhjk
 test file conflict  
 test 2222222222222222222222
 test 3333333333333333
-<<<<<<< HEAD
-test 444444444444
-=======
-fg
 
-anorther try
+test 444444444444
+test 55555555555555555
 
 
 
