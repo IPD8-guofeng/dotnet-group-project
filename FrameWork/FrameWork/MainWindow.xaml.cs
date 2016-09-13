@@ -63,7 +63,8 @@ namespace FrameWork
             StockChart c = new StockChart();
             c.Owner = Application.Current.MainWindow;
             c.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            c.Show();
+            // c.Show();
+            c.ShowDialog();
         }
 
         private void menuWatchList_Click(object sender, RoutedEventArgs e)
