@@ -21,8 +21,8 @@ namespace FrameWork
     {
         Database db = new Database();
         int currentPortId;
-        List<Transcation> portfolioList = new List<Transcation>();
-        List<Transcation> transactionList = new List<Transcation>();
+        List<PortTransaction> portfolioList = new List<PortTransaction>();
+        List<PortTransaction> transactionList = new List<PortTransaction>();
 
         public PortfolioWin()
         {
@@ -116,7 +116,7 @@ namespace FrameWork
         private void btCashDeposit_Click(object sender, RoutedEventArgs e)
         {
             //Cash Deposit
-            Transcation trans = new Transcation();
+            PortTransaction trans = new PortTransaction();
             CashTransaction dialog = new CashTransaction("Cash Deposit");
             if (dialog.ShowDialog() == false)
             { // if user pressed "Cancel"
@@ -125,8 +125,12 @@ namespace FrameWork
             }
             trans = dialog.trans;
             trans.portId = currentPortId;
+            trans.Symbol = ""
             trans.Type = TransType.Deposit;
             trans.Share = 1;
+
+            //insert the data to Table "Transcation"
+            db.AddPortTransaction(trans);
 
             //update the transcation data, dgTranscation
             transactionList.Add(trans);
@@ -136,15 +140,12 @@ namespace FrameWork
             portfolioList.Add(trans);
             dgPortfolio.Items.Refresh();
 
-            //insert the data to Table "Transcation"
-
-
         }
 
         private void btCashWithdraw_Click(object sender, RoutedEventArgs e)
         {
             //Cash Withdraw
-            Transcation trans = new Transcation();
+            PortTransaction trans = new PortTransaction();
             CashTransaction dialog = new CashTransaction("Cash Withdraw");
             if (dialog.ShowDialog() == false)
             { // if user pressed "Cancel"
@@ -156,6 +157,9 @@ namespace FrameWork
             trans.Type = TransType.Withdraw;
             trans.Share = -1;
 
+            //insert the data to Table "Transcation"
+            db.AddPortTransaction(trans);
+
             //update the transcation data, dgTranscation
             transactionList.Add(trans);
             dgTranscation.Items.Refresh();
@@ -164,13 +168,11 @@ namespace FrameWork
             portfolioList.Add(trans);
             dgPortfolio.Items.Refresh();
 
-            //insert the data to Table "Transcation"
-
         }
 
         private void btAddTrans_Click(object sender, RoutedEventArgs e)
         {
-            Transcation trans = new Transcation();
+            PortTransaction trans = new PortTransaction();
 
             //check if an stock ticker is selected
             ComboBoxItem cmbItem = (ComboBoxItem)cmbStock.SelectedItem;
@@ -195,7 +197,11 @@ namespace FrameWork
 
             trans.portId = currentPortId;
             trans.Symbol = companyInfo[0];
-            trans.Name = companyInfo[1];
+            //trans.Name = companyInfo[1];
+
+            //insert the data to Table "Transcation"
+            db.AddPortTransaction(trans);
+
 
             //update the transcation data, dgTranscation
             transactionList.Add(trans);
@@ -205,12 +211,11 @@ namespace FrameWork
             portfolioList.Add(trans);
             dgPortfolio.Items.Refresh();
 
-            //insert the data to Table "Transcation
         }
 
         private void btAddToPort_Click(object sender, RoutedEventArgs e)
         {
-            Transcation trans = new Transcation();
+            PortTransaction trans = new PortTransaction();
 
             //check if an stock ticker is selected
             ComboBoxItem cmbItem = (ComboBoxItem)cmbStock.SelectedItem;
@@ -226,7 +231,10 @@ namespace FrameWork
 
             trans.portId = currentPortId;
             trans.Symbol = companyInfo[0];
-            trans.Name = companyInfo[1];
+            //trans.Name = companyInfo[1];
+
+            //insert the data to Table "Transcation"
+            db.AddPortTransaction(trans);
 
             //update the transcation data, dgTranscation
             transactionList.Add(trans);

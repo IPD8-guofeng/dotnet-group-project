@@ -134,6 +134,31 @@ namespace FrameWork
         }
          */
         }
+        public void AddPortTransaction(PortTransaction p)
+        {
+            /* [portId]      INT           NOT NULL,
+    [StockTicker] VARCHAR (10)  NULL,
+    [Type]        INT           NULL,
+    [Date]        DATE          NOT NULL,
+    [Share]       INT           NULL,
+    [Price]       FLOAT (53)    NULL,
+    [Notes]       VARCHAR (250) NULL,*/
+            using (SqlCommand cmd = new SqlCommand("INSERT INTO PortTranscation (portId,StockTicker,Type,Date,Share,Price,Notes)"+
+                " VALUES (@portId,@StockTicker,@Type,@Date,@Share,@Price,@Notes)", conn))
+            {
+                cmd.CommandType = System.Data.CommandType.Text;
+                //cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@portId", p.portId);
+                cmd.Parameters.AddWithValue("@StockTicker", p.Symbol);
+                cmd.Parameters.AddWithValue("@Type", p.Type);
+                cmd.Parameters.AddWithValue("@Date", p.Date);
+                cmd.Parameters.AddWithValue("@Share", p.Share);
+                cmd.Parameters.AddWithValue("@Price", p.Price);
+                cmd.Parameters.AddWithValue("@Notes", p.Notes);
+                cmd.ExecuteNonQuery();
+            }
+            /*  */
+        }
 
         public List<string> GetAllStockNames()
         {
