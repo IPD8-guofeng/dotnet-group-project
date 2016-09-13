@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using OxyPlot;
 using OxyPlot.Series;
 using OxyPlot.Axes;
+using OxyPlot.Annotations;
 
 namespace FrameWork
 {
@@ -41,28 +42,63 @@ namespace FrameWork
                         this.ChartModel = model;
 
             */
-            var model = new PlotModel { Title = "A: start date" + "   2015-01-01" };
-
-            List<StockPriceByDay> list = db.GetStockPriceByDayByTicker("A",DateTime.Parse("2015-01-01"));
-            
+            List<StockPriceByDay> list = db.GetStockPriceByDayByTicker("A", DateTime.Parse("2016-01-01"));
+            var model = new PlotModel { Title = "A: start date" + "   2016-01-01" };
             model.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom });
             model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
             var highestPriceLine = new LineSeries { Title = " High price line", MarkerType = MarkerType.Diamond };
             var lowestPriceLine = new LineSeries { Title = "Low price line", MarkerType = MarkerType.Diamond };
+            double x = 0;
             foreach (StockPriceByDay s in list)
             {
-                double x = s.PriceDate.Day + s.PriceDate.Month * 100 + (s.PriceDate.Year  % 100) * 10000;
-                highestPriceLine.Points.Add(new DataPoint(DateTimeAxis.ToDouble(s.PriceDate), s.HighestPrice));
-                lowestPriceLine.Points.Add(new DataPoint(DateTimeAxis.ToDouble(s.PriceDate), s.LowestPrice));
+                //double x = s.PriceDate.Day + s.PriceDate.Month * 100 + (s.PriceDate.Year  % 100) * 10000;
+                //highestPriceLine.Points.Add(new DataPoint(DateTimeAxis.ToDouble(s.PriceDate), s.HighestPrice));
+                //lowestPriceLine.Points.Add(new DataPoint(DateTimeAxis.ToDouble(s.PriceDate), s.LowestPrice));
+                highestPriceLine.Points.Add(new DataPoint(x, s.HighestPrice));
+                lowestPriceLine.Points.Add(new DataPoint(x, s.LowestPrice));
+                x++;
             }
-            model.Series.Add(highestPriceLine);
-            model.Series.Add(lowestPriceLine);
+           // model.Series.Add(highestPriceLine);
+            //model.Series.Add(lowestPriceLine);
+
+            double y = 0;
+            foreach (StockPriceByDay s in list)
+            {
+                model.Series.Add(drawCandleLine(y,s.OpenPrice, s.HighestPrice, s.LowestPrice, s.ClosePrice));
+                y++;
+            }
+
             this.ChartModel = model;
-            
-            
+
             //SetUpModel();
 
 
+        }
+        private LineSeries drawCandleLine(double startX, double openPrice, double highestPrice, double lowestPrice, double closePrice)
+        {
+            double lowLine, highLine;
+            if (openPrice<= closePrice)
+            {
+                lowLine = openPrice;
+                highLine = closePrice;
+            }
+            else
+            {
+                lowLine = closePrice;
+                highLine = openPrice;
+            }
+            var rect = new LineSeries { MarkerType = MarkerType.None };
+            rect.Points.Add(new DataPoint(startX, lowestPrice));
+            rect.Points.Add(new DataPoint(startX, lowLine));
+            rect.Points.Add(new DataPoint(startX - 0.5,lowLine));
+            rect.Points.Add(new DataPoint(startX - 0.5, highLine));
+            rect.Points.Add(new DataPoint(startX, highLine));
+            rect.Points.Add(new DataPoint(startX, highestPrice));
+            rect.Points.Add(new DataPoint(startX, highLine));
+            rect.Points.Add(new DataPoint(startX + 0.5, highLine));
+            rect.Points.Add(new DataPoint(startX + 0.5, lowLine));
+            rect.Points.Add(new DataPoint(startX, lowLine));
+            return rect;
         }
         //private void SetUpModel()
         //{
