@@ -125,7 +125,7 @@ namespace FrameWork
             }
             trans = dialog.trans;
             trans.portId = currentPortId;
-            trans.Symbol = ""
+            trans.Symbol = "";
             trans.Type = TransType.Deposit;
             trans.Share = 1;
 

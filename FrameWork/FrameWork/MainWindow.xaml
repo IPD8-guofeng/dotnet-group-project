@@ -16,7 +16,6 @@
                 <MenuItem x:Name="menuSaveAs" Header="Save as" FontSize="13"/>
                 <MenuItem x:Name="menuClose" Header="Close" FontSize="13"/>
                 <MenuItem x:Name="menuExit" Header="Exit" FontSize="13" Click="menuExit_Click"/>
-                <MenuItem x:Name="Aaaaa"></MenuItem>
             </MenuItem>
             <MenuItem FontSize="16" Width="80" Height="33" Header="Tool">
                 <MenuItem x:Name="menuChart" Header="Chart" FontSize="13" Click="menuChart_Click" />
