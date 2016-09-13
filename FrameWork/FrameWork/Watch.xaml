@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FrameWork"
         mc:Ignorable="d"
-        Title="Watch List" Height="450" Width="600">
+        Title="Watch List" Height="220" Width="700">
     <Grid>
         <DataGrid x:Name="dgWatchList" Margin="0,20,0,0" VerticalAlignment="Top" SelectionMode="Single" IsReadOnly="True" 
                   AutoGenerateColumns="False"  MouseDoubleClick="dgWatchList_MouseDoubleClick" AlternatingRowBackground="LightGray"  >

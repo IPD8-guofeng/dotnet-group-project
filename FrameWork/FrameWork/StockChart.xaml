@@ -6,15 +6,15 @@
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:local="clr-namespace:FrameWork"
         mc:Ignorable="d"
-        Title="StockChart" Height="600" Width="800">
+        Title="StockChart" Height="740" Width="1080">
     <Window.DataContext>
         <local:StockChartModel/>
     </Window.DataContext>
     <Grid>
-        <Label x:Name="lblTicker" Content="Enter the stock ticker" HorizontalAlignment="Left" Margin="650,10,0,0" VerticalAlignment="Top" Width="125"/>
-        <TextBox x:Name="tbTicker" HorizontalAlignment="Left" Height="23" Margin="650,70,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="100"
+        <Label x:Name="lblTicker" Content="Enter the stock ticker" HorizontalAlignment="Left" Margin="900,10,0,0" VerticalAlignment="Top" Width="125"/>
+        <TextBox x:Name="tbTicker" HorizontalAlignment="Left" Height="23" Margin="900,70,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="100"
                  PreviewKeyDown="tbTicker_PreviewKeyDown" TextChanged="tbTicker_TextChanged" />
-        <ListBox x:Name="lbSuggestion" Height="Auto" HorizontalAlignment="Left" Margin="650,93,0,0"  VerticalAlignment="Top" Width="100" 
+        <ListBox x:Name="lbSuggestion" Height="Auto" HorizontalAlignment="Left" Margin="900,93,0,0"  VerticalAlignment="Top" Width="100" 
                  PreviewKeyDown="lbSuggestion_PreviewKeyDown" KeyDown="lbSuggestion_KeyDown"  MouseDoubleClick="lbSuggestion_MouseDoubleClick"/>
 
         <oxy:PlotView Background="Cyan" Model="{Binding ChartModel}" Margin="0,0,200,0"/>

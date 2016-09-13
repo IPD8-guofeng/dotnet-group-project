@@ -37,7 +37,7 @@
             </MenuItem>
         </Menu>
         <TabControl x:Name="tabControl"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,0,5,5"  TabStripPlacement="Bottom">
-            <TabItem Header="default"/>
+            <TabItem Header="WorkPlace1"/>
         </TabControl>
         <!--</Grid>-->
     </DockPanel>
