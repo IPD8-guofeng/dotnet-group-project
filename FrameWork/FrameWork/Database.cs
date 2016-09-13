@@ -143,7 +143,7 @@ namespace FrameWork
     [Share]       INT           NULL,
     [Price]       FLOAT (53)    NULL,
     [Notes]       VARCHAR (250) NULL,*/
-            using (SqlCommand cmd = new SqlCommand("INSERT INTO PortTranscation (portId,StockTicker,Type,Date,Share,Price,Notes)"+
+            using (SqlCommand cmd = new SqlCommand("INSERT INTO PortTransaction (portId,StockTicker,Type,Date,Share,Price,Notes)"+
                 " VALUES (@portId,@StockTicker,@Type,@Date,@Share,@Price,@Notes)", conn))
             {
                 cmd.CommandType = System.Data.CommandType.Text;
