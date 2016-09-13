@@ -54,3 +54,29 @@
 1.trade window almost finished except one sql query, create db at azure,installed new library "oxyplot"
 2. create chart window with "oxyplot", setup the layout of chart window, finish the watch list windows
 3.stuck: trade window sql query or I have to coding for that, "oxyplot" installed, but don't work properly
+
+2016.09.12------Guofeng Wu
+Done
+* setup the portfolio management window
+* combine the part to the Application
+* connect to Portfolio table
+Not Done
+* connect to Portfolio transcation table
+
+2016.09.13------Quan Xing
+DONE
+* Chart window: candle line,channel line, volumn
+NOT QUITE DONE
+* Chart window: y axies date, line mark, title
+TODO TODAY
+* Chart window: operation line, trend line
+NEED HELP
+* Chart window: y axies should be double, how to change to data 
+
+
+2016.09.13------Guofeng Wu
+To do:
+* connect to Portfolio transcation table
+* show the summarized data to the performance data grid
+
+ 
