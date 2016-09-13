@@ -4,9 +4,13 @@ fg
 h
 fgh
 f
+<<<<<<< HEAD
 jkhjkjhk
 jkljhklh
 hjkjhkh
 
 hkjkhjk
 hjkhjk
+=======
+test file conflict  
+>>>>>>> 4d01b15b646c16ffd1af7e1681e3c866ed8535b5
