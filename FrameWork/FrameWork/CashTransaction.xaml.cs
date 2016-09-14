@@ -52,7 +52,7 @@ namespace FrameWork
               MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            trans.Price = amt;
+            trans.Cashvalue = amt;
             trans.Notes = tbNotes.Text;
 
             this.DialogResult = true;

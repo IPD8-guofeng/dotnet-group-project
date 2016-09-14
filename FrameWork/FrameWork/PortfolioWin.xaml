@@ -36,7 +36,8 @@
                         <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat=d}" />
                         <DataGridTextColumn Header="Share" Binding="{Binding Share}" />
                         <DataGridTextColumn Header="Price" Binding="{Binding Price}" />
-                        <DataGridTextColumn Header="Cash value" Binding="{Binding Notes}" />
+                        <DataGridTextColumn Header="Cash value" Binding="{Binding Cashvalue}" />
+                        <DataGridTextColumn Header="Notes" Binding="{Binding Notes}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>

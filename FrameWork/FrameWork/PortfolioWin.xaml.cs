@@ -22,7 +22,7 @@ namespace FrameWork
         Database db = new Database();
         int currentPortId;
         List<PortTransaction> portfolioList = new List<PortTransaction>();
-        List<PortTransaction> transactionList = new List<PortTransaction>();
+        List<TransactionView> transactionList = new List<TransactionView>();
 
         public PortfolioWin()
         {
@@ -35,17 +35,34 @@ namespace FrameWork
             currentPortId = 1;
             lblPortName.Content = lbPortfolio.Items.GetItemAt(currentPortId - 1);
 
-            //get all transcation data for default portfolio from Table"Transcation", 
-            //assign to data grid "dgTranscation"
-            dgTranscation.ItemsSource = transactionList;
-
             //get sumarized transcation data for default portfolio from Table"Transcation", 
             //assign to data grid "dgPortfolio"
             dgPortfolio.ItemsSource = portfolioList;
 
+            //get all transcation data for default portfolio from Table"Transcation", 
+            //assign to data grid "dgTranscation"
+            getAllPortTransactions(currentPortId);
+            //dgTranscation.ItemsSource = transactionList;
+
+   
+
             //get all Company data from Table"Company", 
             //assign to combox "cmbStock"
             getStockNames();
+        }
+        private void getAllPortTransactions(int portId)
+        {
+            //List<TransactionView> list = new List<TransactionView>();
+            try
+            {
+                transactionList = db.GetAllTranscationsByPortId(portId);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to fetch records from database" + e.Message, "Database Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                //throw;
+            }
+            dgTranscation.ItemsSource = transactionList;
         }
         private void getPortfolio()
         {
@@ -127,17 +144,19 @@ namespace FrameWork
             trans.portId = currentPortId;
             trans.Symbol = "";
             trans.Type = TransType.Deposit;
-            trans.Share = 1;
+            //trans.Share = 1;
 
             //insert the data to Table "Transcation"
             db.AddPortTransaction(trans);
 
             //update the transcation data, dgTranscation
-            transactionList.Add(trans);
+            //transactionList.Add(trans);
+            //dgTranscation.Items.Clear();
+            getAllPortTransactions(currentPortId);
             dgTranscation.Items.Refresh();
 
             //update the portfolio data, dgPortfolio
-            portfolioList.Add(trans);
+            //portfolioList.Add(trans);
             dgPortfolio.Items.Refresh();
 
         }
@@ -154,18 +173,21 @@ namespace FrameWork
             }
             trans = dialog.trans;
             trans.portId = currentPortId;
+            trans.Symbol = "";
             trans.Type = TransType.Withdraw;
-            trans.Share = -1;
+            trans.Cashvalue *= -1;
+            //trans.Share = -1;
 
             //insert the data to Table "Transcation"
             db.AddPortTransaction(trans);
 
             //update the transcation data, dgTranscation
-            transactionList.Add(trans);
+            //transactionList.Add(trans);
+            getAllPortTransactions(currentPortId);
             dgTranscation.Items.Refresh();
 
             //update the portfolio data, dgPortfolio
-            portfolioList.Add(trans);
+            //portfolioList.Add(trans);
             dgPortfolio.Items.Refresh();
 
         }
@@ -175,8 +197,8 @@ namespace FrameWork
             PortTransaction trans = new PortTransaction();
 
             //check if an stock ticker is selected
-            ComboBoxItem cmbItem = (ComboBoxItem)cmbStock.SelectedItem;
-            string ticker = cmbItem.Content.ToString();
+            string ticker = cmbStock.SelectedItem.ToString();
+            //string ticker = cmbItem.Content.ToString();
 
             if (ticker == "")
             {
@@ -204,11 +226,12 @@ namespace FrameWork
 
 
             //update the transcation data, dgTranscation
-            transactionList.Add(trans);
+            //transactionList.Add(trans);
+            getAllPortTransactions(currentPortId);
             dgTranscation.Items.Refresh();
 
             //update the portfolio data, dgPortfolio
-            portfolioList.Add(trans);
+            //portfolioList.Add(trans);
             dgPortfolio.Items.Refresh();
 
         }
@@ -218,9 +241,9 @@ namespace FrameWork
             PortTransaction trans = new PortTransaction();
 
             //check if an stock ticker is selected
-            ComboBoxItem cmbItem = (ComboBoxItem)cmbStock.SelectedItem;
-            string ticker = cmbItem.Content.ToString();
-
+            //ComboBoxItem cmbItem = (ComboBoxItem)cmbStock.SelectedItem;
+            //string ticker = cmbItem.Content.ToString();
+            string ticker = cmbStock.SelectedItem.ToString();
             if (ticker == "")
             {
                 MessageBox.Show("Please select a sotck!", "Input Error",
@@ -231,17 +254,19 @@ namespace FrameWork
 
             trans.portId = currentPortId;
             trans.Symbol = companyInfo[0];
+            trans.Date = null;
             //trans.Name = companyInfo[1];
 
             //insert the data to Table "Transcation"
             db.AddPortTransaction(trans);
 
             //update the transcation data, dgTranscation
-            transactionList.Add(trans);
+            //transactionList.Add(trans);
+            getAllPortTransactions(currentPortId);
             dgTranscation.Items.Refresh();
 
             //update the portfolio data, dgPortfolio
-            portfolioList.Add(trans);
+            //portfolioList.Add(trans);
             dgPortfolio.Items.Refresh();
 
             //insert the data to Table "Transcation

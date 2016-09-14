@@ -143,8 +143,8 @@ namespace FrameWork
     [Share]       INT           NULL,
     [Price]       FLOAT (53)    NULL,
     [Notes]       VARCHAR (250) NULL,*/
-            using (SqlCommand cmd = new SqlCommand("INSERT INTO PortTransaction (portId,StockTicker,Type,Date,Share,Price,Notes)"+
-                " VALUES (@portId,@StockTicker,@Type,@Date,@Share,@Price,@Notes)", conn))
+            using (SqlCommand cmd = new SqlCommand("INSERT INTO PortTransaction (portId,StockTicker,Type,Date,Share,Price,Cashvalue,Notes)"+
+                " VALUES (@portId,@StockTicker,@Type,@Date,@Share,@Price,@Cashvalue,@Notes)", conn))
             {
                 cmd.CommandType = System.Data.CommandType.Text;
                 //cmd.Connection = conn;
@@ -154,12 +154,49 @@ namespace FrameWork
                 cmd.Parameters.AddWithValue("@Date", p.Date);
                 cmd.Parameters.AddWithValue("@Share", p.Share);
                 cmd.Parameters.AddWithValue("@Price", p.Price);
+                cmd.Parameters.AddWithValue("@Cashvalue", p.Cashvalue);
                 cmd.Parameters.AddWithValue("@Notes", p.Notes);
                 cmd.ExecuteNonQuery();
             }
             /*  */
         }
+        public List<TransactionView> GetAllTranscationsByPortId( int portId)
+        {
+            List<TransactionView> list = new List<TransactionView>();
+            using (SqlCommand cmd = new SqlCommand("select s.StockName, p.* from PortTransaction p left join Stock s on p.StockTicker=s.StockTicker and p.portId=@portId", conn))
+            {
+                cmd.Parameters.AddWithValue("@portId", portId);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            // column by name - the better (preferred) way
 
+                            string ticker = reader.GetString(reader.GetOrdinal("StockTicker"));
+
+                            string name;
+                            if ( reader.IsDBNull(reader.GetOrdinal("StockName"))) { name = ""; }
+                            else { name = reader.GetString(reader.GetOrdinal("StockName")); }
+                            
+                            int id = reader.GetInt32(reader.GetOrdinal("Id"));
+                            TransType type = (TransType)reader.GetInt32(reader.GetOrdinal("Type"));
+                            DateTime date = reader.GetDateTime(reader.GetOrdinal("Date"));
+                            int share = reader.GetInt32(reader.GetOrdinal("Share"));
+                            double price = reader.GetDouble(reader.GetOrdinal("Price"));
+                            double cash = reader.GetDouble(reader.GetOrdinal("Cashvalue"));
+                            string notes = reader.GetString(reader.GetOrdinal("Notes"));
+                            TransactionView p = new TransactionView() { Id = id, portId=portId, Name = name, Symbol=ticker, Type=type, Date=date,
+                            Share=share, Price=price, Cashvalue=cash, Notes=notes};
+                            list.Add(p);
+                        }
+                    }
+                }
+            }
+            return list;
+
+        }
         public List<string> GetAllStockNames()
         {
             List<string> list = new List<string>();
@@ -172,8 +209,8 @@ namespace FrameWork
                     while (reader.Read())
                     {
                         // column by name - the better (preferred) way
-                        string ticker = reader.GetString(reader.GetOrdinal("StockTicker"));
                         string name = reader.GetString(reader.GetOrdinal("StockName"));
+                        string ticker = reader.GetString(reader.GetOrdinal("StockTicker"));
                         string p = ticker + " | " + name;
                         list.Add(p);
                     }

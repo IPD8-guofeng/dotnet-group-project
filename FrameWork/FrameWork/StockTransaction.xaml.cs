@@ -76,7 +76,8 @@ namespace FrameWork
                 return;
             }
             trans.Price = amt;
-
+            if (type == "Buy") { trans.Cashvalue = (-1) * share * amt; }
+            else { trans.Cashvalue = share * amt; }
             trans.Notes = tbNotes.Text;
 
             this.DialogResult = true;

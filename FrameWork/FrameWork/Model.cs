@@ -19,12 +19,25 @@ namespace FrameWork
         public int portId { get; set; }
         public string Symbol { get; set; }
         public TransType Type { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
         public int Share { get; set; }
         public double Price { get; set; }
+        public double Cashvalue { get; set; }
         public string Notes { get; set; }
     }
-
+    public class TransactionView
+    {
+        public string Name { get; set; }
+        public int Id { get; set; }
+        public int portId { get; set; }
+        public string Symbol { get; set; }
+        public TransType Type { get; set; }
+        public DateTime? Date { get; set; }
+        public int Share { get; set; }
+        public double Price { get; set; }
+        public double Cashvalue { get; set; }
+        public string Notes { get; set; }
+    }
     class Transaction
     {
         public int TransId { get; set; }
