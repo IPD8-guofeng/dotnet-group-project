@@ -81,7 +81,7 @@ namespace FrameWork
             if (lbSuggestion.SelectedIndex > -1)
             {
                 tbTicker.Text = lbSuggestion.SelectedItem.ToString();
-                lbSuggestion.Visibility = Visibility.Hidden;
+                //lbSuggestion.Visibility = Visibility.Hidden;
 
             }
         }
