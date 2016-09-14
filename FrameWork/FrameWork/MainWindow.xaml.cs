@@ -18,15 +18,20 @@ namespace FrameWork
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
     public partial class MainWindow : Window
     {
+
         Database db;
         //const double defaultStartBalance = 100000;
+
+        
+
         public MainWindow()
         {
             try
             {
-                db = new Database();
+                GlobalVariable.db = new Database();
                 //MessageBox.Show("database is connected", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception e)
@@ -38,8 +43,11 @@ namespace FrameWork
             }
             InitializeComponent();
             Application.Current.MainWindow.WindowState = WindowState.Maximized;
+
             //GlobalVariable.defaultStartBalance = defaultStartBalance;
-            GlobalVariable.Balance = db.getBalance();
+             
+            //GlobalVariable.Balance = GlobalVariable.db.getBalance();
+
             //MessageBox.Show("balance: "+db.getBalance());
         }
 
@@ -47,7 +55,7 @@ namespace FrameWork
         {
             // open Trade  window and put it in the center 
             StockTrade stockTradeWindow = new StockTrade();
-            stockTradeWindow.Owner = Application.Current.MainWindow; 
+            stockTradeWindow.Owner = Application.Current.MainWindow;
             stockTradeWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             stockTradeWindow.Show();
         }
@@ -60,7 +68,7 @@ namespace FrameWork
         private void menuChart_Click(object sender, RoutedEventArgs e)
         {
             // open Trade  window and put it in the center 
-            StockChart c = new StockChart();
+            StockChart c = new StockChart("A");
             c.Owner = Application.Current.MainWindow;
             c.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             c.Show();
@@ -81,8 +89,5 @@ namespace FrameWork
             w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             w.Show();
         }
-
-        
-        
     }
 }

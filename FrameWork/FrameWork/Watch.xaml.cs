@@ -39,10 +39,10 @@ namespace FrameWork
             WatchList w = (WatchList)dgWatchList.SelectedItem;
             if (w != null)
             {
-                StockTrade stockTradeWindow = new StockTrade(w);
-                stockTradeWindow.Owner = Application.Current.MainWindow;
-                stockTradeWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-                stockTradeWindow.Show();
+                StockChart c = new StockChart(w.StockTicker);
+                c.Owner = Application.Current.MainWindow;
+                c.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                c.Show();
             }
         }
     }

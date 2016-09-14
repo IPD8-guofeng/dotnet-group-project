@@ -8,7 +8,7 @@
         Title="Watch List" Height="220" Width="700">
     <Grid>
         <DataGrid x:Name="dgWatchList" Margin="0,20,0,0" VerticalAlignment="Top" SelectionMode="Single" IsReadOnly="True" 
-                  AutoGenerateColumns="False"  MouseDoubleClick="dgWatchList_MouseDoubleClick" AlternatingRowBackground="LightGray"  >
+                  AutoGenerateColumns="False"   MouseDoubleClick="dgWatchList_MouseDoubleClick" AlternatingRowBackground="LightGray"  >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Stock" Width="1*" IsReadOnly="True"  Binding="{Binding Path=StockTicker, ValidatesOnExceptions=True}" Foreground="Blue"/>
                 <DataGridTextColumn Header="Current Price" Width="1.5*" IsReadOnly="True" Binding="{Binding Path=ClosePrice, ValidatesOnExceptions=True}" Foreground="Red"/>

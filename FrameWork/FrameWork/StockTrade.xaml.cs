@@ -19,8 +19,6 @@ namespace FrameWork
     /// </summary>
     public partial class StockTrade : Window
     {
-        Database db = new Database();
-        const int defaultTransQuantity = 1;
         public StockTrade()
         {
             InitializeComponent();
@@ -33,6 +31,12 @@ namespace FrameWork
             tbTicker.Text = w.StockTicker;
             tbPrice.Text = w.ClosePrice.ToString();
         }
+        public StockTrade(string ticker)
+        {
+            InitializeComponent();
+            Initial();
+            tbTicker.Text = ticker;
+        }
         private void Initial()
         {
             string[] limitArray = { "Limit", "Market", "Stop" };
@@ -41,7 +45,7 @@ namespace FrameWork
                 cbLimit.Items.Add(limit);
             }
             cbLimit.SelectedIndex = 0;
-            tbQuantity.Text = defaultTransQuantity.ToString();
+            tbQuantity.Text = "100";
             lblBalance.Content = "Balance: $" + GlobalVariable.Balance.ToString();
         }
 
@@ -52,9 +56,9 @@ namespace FrameWork
             lbSuggestion.Items.Clear();
             if (tbTicker.Text != "")
             {
-                tbPrice.Text = db.getLatestPriceByTicker(tbTicker.Text).ToString();
+                tbPrice.Text = GlobalVariable.db.getLatestPriceByTicker(tbTicker.Text).ToString();
                 //List<Stock> namelist = CustomerGatewayObj.listShow(tbTicker.Text);
-                List<string> tickerList = db.getTicker(tbTicker.Text);
+                List<string> tickerList = GlobalVariable.db.getTicker(tbTicker.Text);
                 if (tickerList.Count > 0)
                 {
                     lbSuggestion.Visibility = Visibility.Visible;
@@ -112,7 +116,7 @@ namespace FrameWork
         // check all the input are valid 
         private bool IsValidFormatInput()
         {
-            if (!db.IsValidTicker(tbTicker.Text)) return false;
+            if (!GlobalVariable.db.IsValidTicker(tbTicker.Text)) return false;
             int quantity;
             if (!int.TryParse(tbQuantity.Text, out quantity)) return false;
             if (quantity <= 0) return false;
@@ -143,7 +147,7 @@ namespace FrameWork
             {
                 if (GlobalVariable.Balance >= (t.Quantity * t.Price))
                 {
-                    db.stockActionByTicker(t);
+                    GlobalVariable.db.stockActionByTicker(t);
                     GlobalVariable.Balance -= t.Quantity * t.Price;
                     MessageBox.Show("Success bought the stock " + t.StockTicker + " " + t.Quantity + " share at $" + t.Price + ".\n"
                                      + "Total price: $" + t.Quantity * t.Price + "\n" + " Account balance: $" + GlobalVariable.Balance);
@@ -156,7 +160,7 @@ namespace FrameWork
 
             if (t.ActionType == 2)
             {
-                List<StockOwned> sList = db.getAllStockOwned();
+                List<StockOwned> sList = GlobalVariable.db.getAllStockOwned();
                 if (sList != null)
                 {
                     bool ableSell = false;
@@ -170,7 +174,7 @@ namespace FrameWork
                     }
                     if (ableSell)
                     {
-                        db.stockActionByTicker(t);
+                        GlobalVariable.db.stockActionByTicker(t);
                         GlobalVariable.Balance += t.Quantity * t.Price;
                         MessageBox.Show("Success sold the stock " + t.StockTicker + " " + t.Quantity + " share at $" + t.Price + ".\n"
                                          + "Total price: $" + t.Quantity * t.Price + "\n" + " Account balance: $" + GlobalVariable.Balance);
@@ -195,7 +199,7 @@ namespace FrameWork
             }
             if (t != null)
             {
-                double closePrice = db.getLatestPriceByTicker(t.StockTicker); // get latest close price
+                double closePrice = GlobalVariable.db.getLatestPriceByTicker(t.StockTicker); // get latest close price
                 if (closePrice > 0)
                 {
                     switch (cbLimit.SelectedValue.ToString())
@@ -259,7 +263,7 @@ namespace FrameWork
         {
             if (cbLimit.SelectedItem.ToString() == "Market")
             {
-                double closePrice = db.getLatestPriceByTicker(tbTicker.Text);
+                double closePrice = GlobalVariable.db.getLatestPriceByTicker(tbTicker.Text);
                 if (closePrice > 0)
                 {
                     tbPrice.Text = closePrice.ToString();
@@ -279,7 +283,7 @@ namespace FrameWork
 
         private void rbSell_Checked(object sender, RoutedEventArgs e)
         {
-            List<StockOwned> sList = db.getAllStockOwned();
+            List<StockOwned> sList = GlobalVariable.db.getAllStockOwned();
             if ( sList.Count != 0 )
             {
                 foreach (StockOwned s in sList)
