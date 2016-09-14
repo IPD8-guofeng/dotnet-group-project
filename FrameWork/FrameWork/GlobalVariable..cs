@@ -10,5 +10,6 @@ namespace FrameWork
     {
         public static double Balance { get; set; }
         public static double defaultStartBalance { get; set; }
+        public static Database db;
     }
 }

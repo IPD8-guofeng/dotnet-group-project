@@ -18,15 +18,16 @@ namespace FrameWork
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
     public partial class MainWindow : Window
     {
-        Database db;
+        
         const double defaultStartBalance = 100000;
         public MainWindow()
         {
             try
             {
-                db = new Database();
+                GlobalVariable.db = new Database();
                 //MessageBox.Show("database is connected", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception e)
@@ -39,7 +40,7 @@ namespace FrameWork
             InitializeComponent();
             Application.Current.MainWindow.WindowState = WindowState.Maximized;
             GlobalVariable.defaultStartBalance = defaultStartBalance;
-            GlobalVariable.Balance = db.getBalance();
+            GlobalVariable.Balance = GlobalVariable.db.getBalance();
             //MessageBox.Show("balance: "+db.getBalance());
         }
 
