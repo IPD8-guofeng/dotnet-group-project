@@ -20,7 +20,7 @@ namespace FrameWork
     public partial class StockTrade : Window
     {
         Database db = new Database();
-        const int defaultTransQuantity = 100;
+        const int defaultTransQuantity = 1;
         public StockTrade()
         {
             InitializeComponent();
