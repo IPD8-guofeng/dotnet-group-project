@@ -14,9 +14,9 @@ namespace FrameWork
     {
         Database db = new Database();
         public PlotModel ChartModel { get; set; }
-        public StockChartModel()
+        public StockChartModel(string ticker)
         {
-            string ticker = "A";
+            //string ticker = "A";
             DateTime startDate = DateTime.Parse("01/01/2016");
             DateTime endDate = DateTime.Now;
             List<StockPriceByDay> list = db.GetStockPriceByDayByTicker(ticker, startDate);

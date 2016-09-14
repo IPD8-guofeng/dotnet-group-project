@@ -21,10 +21,14 @@ namespace FrameWork
     public partial class StockChart : Window
     {
         Database db = new Database();
-        public StockChart()
+        private string ticker;
+        public StockChart(string ticker)
         {
             InitializeComponent();
+            this.ticker = ticker;
+            tbTicker.Text = ticker;
         }
+
         private void tbTicker_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -81,10 +85,19 @@ namespace FrameWork
             if (lbSuggestion.SelectedIndex > -1)
             {
                 tbTicker.Text = lbSuggestion.SelectedItem.ToString();
+                
                 //lbSuggestion.Visibility = Visibility.Hidden;
 
             }
         }
 
+        private void btnTrade_Click(object sender, RoutedEventArgs e)
+        {
+                StockTrade s = new StockTrade(ticker);
+                s.Owner = Application.Current.MainWindow;
+                s.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                s.Show();
+
+        }
     }
 }

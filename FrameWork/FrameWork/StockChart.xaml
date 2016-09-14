@@ -8,19 +8,26 @@
         mc:Ignorable="d"
         Title="StockChart" Height="740" Width="1080">
     <Window.DataContext>
-        <local:StockChartModel/>
+         <ObjectDataProvider ObjectType="local:StockChartModel"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib">
+            <ObjectDataProvider.ConstructorParameters>
+                <sys:String>ABT</sys:String>
+            </ObjectDataProvider.ConstructorParameters>
+        </ObjectDataProvider>
     </Window.DataContext>
-    <Grid>
-        <Label x:Name="lblStartDate" Content="Choose the start Date" HorizontalAlignment="Left" Margin="900,10,0,0" VerticalAlignment="Top" Width="125"/>
-        <DatePicker x:Name="dpStartDate" HorizontalAlignment="Left" Margin="900,40,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblEndDate" Content="Choose the end date" HorizontalAlignment="Left" Margin="900,70,0,0" VerticalAlignment="Top" Width="125"/>
-        <DatePicker x:Name="dpEndDate" HorizontalAlignment="Left" Margin="900,100,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblTicker" Content="Enter the stock ticker" HorizontalAlignment="Left" Margin="900,130,0,0" VerticalAlignment="Top" Width="125"/>
-        <TextBox x:Name="tbTicker" HorizontalAlignment="Left" Height="23" Margin="900,160,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="100"
+    <Grid Background="Cyan">
+        <Button x:Name="btnTrade" Content="Click to trade" HorizontalAlignment="Left" Margin="900,10,0,0" VerticalAlignment="Top" Width="125" Click="btnTrade_Click"/>
+        <Label x:Name="lblStartDate" Content="Choose the start Date" HorizontalAlignment="Left" Margin="900,40,0,0" VerticalAlignment="Top" Width="125"/>
+        <DatePicker x:Name="dpStartDate" HorizontalAlignment="Left" Margin="900,70,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblEndDate" Content="Choose the end date" HorizontalAlignment="Left" Margin="900,100,0,0" VerticalAlignment="Top" Width="125"/>
+        <DatePicker x:Name="dpEndDate" HorizontalAlignment="Left" Margin="900,130,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblTicker" Content="Enter the stock ticker" HorizontalAlignment="Left" Margin="900,160,0,0" VerticalAlignment="Top" Width="125"/>
+        <TextBox x:Name="tbTicker" HorizontalAlignment="Left" Height="23" Margin="900,190,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="100"
                  PreviewKeyDown="tbTicker_PreviewKeyDown" TextChanged="tbTicker_TextChanged" />
-        <ListBox x:Name="lbSuggestion" Height="Auto" HorizontalAlignment="Left" Margin="900,193,0,0"  VerticalAlignment="Top" Width="100"  Visibility="Hidden"
+        <ListBox x:Name="lbSuggestion" Height="Auto" HorizontalAlignment="Left" Margin="900,223,0,0"  VerticalAlignment="Top" Width="100"  Visibility="Hidden"
                  PreviewKeyDown="lbSuggestion_PreviewKeyDown" KeyDown="lbSuggestion_KeyDown" MouseDoubleClick="lbSuggestion_MouseDoubleClick"/>
         <oxy:PlotView Background="Cyan" Model="{Binding ChartModel}" Margin="0,0,200,0"/>
+
     </Grid>
 </Window>
 

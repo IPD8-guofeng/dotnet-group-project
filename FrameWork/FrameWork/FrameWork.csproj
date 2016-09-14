@@ -97,9 +97,6 @@
     <Compile Include="CashTransaction.xaml.cs">
       <DependentUpon>CashTransaction.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ChartControl.xaml.cs">
-      <DependentUpon>ChartControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="GlobalVariable..cs" />
     <Compile Include="PortfolioWin.xaml.cs">
       <DependentUpon>PortfolioWin.xaml</DependentUpon>
@@ -118,10 +115,6 @@
       <DependentUpon>Watch.xaml</DependentUpon>
     </Compile>
     <Page Include="CashTransaction.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ChartControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

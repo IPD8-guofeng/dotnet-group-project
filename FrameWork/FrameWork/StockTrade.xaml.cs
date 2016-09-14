@@ -33,6 +33,12 @@ namespace FrameWork
             tbTicker.Text = w.StockTicker;
             tbPrice.Text = w.ClosePrice.ToString();
         }
+        public StockTrade(string ticker)
+        {
+            InitializeComponent();
+            Initial();
+            tbTicker.Text = ticker;
+        }
         private void Initial()
         {
             string[] limitArray = { "Limit", "Market", "Stop" };
