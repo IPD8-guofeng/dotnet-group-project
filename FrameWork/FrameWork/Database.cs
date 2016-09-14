@@ -426,12 +426,13 @@ namespace FrameWork
             return list;
         }
 
-        public List<StockPriceByDay> GetStockPriceByDayByTicker(string ticker, DateTime startDate)
+        public List<StockPriceByDay> GetStockPriceByDayByTicker(string ticker, DateTime startDate, DateTime endDate)
         {
             List<StockPriceByDay> list = new List<StockPriceByDay>();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM StockPriceByDay WHERE StockTicker = @Ticker AND PriceDate>@StartDate ORDER BY PriceDate", conn);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM StockPriceByDay WHERE StockTicker = @Ticker AND PriceDate>@StartDate AND PriceDate<@EndDate ORDER BY PriceDate", conn);
             cmd.Parameters.AddWithValue("@Ticker", ticker);
             cmd.Parameters.AddWithValue("@StartDate", startDate);
+            cmd.Parameters.AddWithValue("@EndDate", endDate);
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
                 if (reader.HasRows)

@@ -23,8 +23,8 @@ namespace FrameWork
     {
 
         Database db;
-        //public static StockTrade tradeFirst = new StockTrade()
-        //public static StockTrade tradeSecond = new StockTrade()
+        //public static StockTrade tradeFirst = new StockTrade();
+        //public static StockTrade tradeSecond = new StockTrade();
         public MainWindow()
         {
             try
@@ -43,25 +43,19 @@ namespace FrameWork
             Application.Current.MainWindow.WindowState = WindowState.Maximized;
             GlobalVariable.Balance = db.getBalance();
             this.Show();
-            StockChart chart = new StockChart("A","2016/01/01","2016/08/31");
-            chart.Owner = Application.Current.MainWindow;
-            chart.Show();
-            /*
+
+            
             StockTrade trade1 = new StockTrade();
             trade1.Owner = Application.Current.MainWindow;
             trade1.Show();
-
-            StockTrade trade2 = new StockTrade();
-            trade2.Owner = Application.Current.MainWindow;
-            trade2.Show();*/
-
-            StockTrade trade1 = new StockTrade();
-            trade1.Owner = Application.Current.MainWindow;
-            trade1.Show();
-
+            
             StockTrade trade2 = new StockTrade();
             trade2.Owner = Application.Current.MainWindow;
             trade2.Show();
+
+            StockChart chart = new StockChart("A", "2016/01/01", "2016/08/31");
+            chart.Owner = Application.Current.MainWindow;
+            chart.Show();
 
             Watch watch = new Watch();
             watch.Owner = Application.Current.MainWindow;
