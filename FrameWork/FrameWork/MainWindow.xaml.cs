@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using DevExpress.Xpf.Core.Serialization;
 
 namespace FrameWork
 {
@@ -48,7 +47,7 @@ namespace FrameWork
         {
             // open Trade  window and put it in the center 
             StockTrade stockTradeWindow = new StockTrade();
-            stockTradeWindow.Owner = Application.Current.MainWindow; 
+            stockTradeWindow.Owner = Application.Current.MainWindow;
             stockTradeWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             stockTradeWindow.Show();
         }
@@ -82,21 +81,5 @@ namespace FrameWork
             w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             w.Show();
         }
-
-
-
-private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-    {
-        //Save the layout of serializable DevExpress controls starting with the current object (specified by "this"). 
-        //If the current object ("this") is also a serializable DevExpress control, its layout is saved as well. 
-        DXSerializer.Serialize(this, "c:\\my-app-layout.xml", "applicationName", null);
     }
-
-    private void Window_Loaded(object sender, RoutedEventArgs e)
-    {
-        //... 
-        DXSerializer.Deserialize(this, "c:\\my-app-layout.xml", "applicationName", null);
-    }
-
-}
 }
