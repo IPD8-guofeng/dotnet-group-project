@@ -52,11 +52,13 @@ namespace FrameWork
             {
                 this.Left = 710;
                 this.Top = 792;
+                tbTicker.Text = "A";
             }
             else if (count == 2)
             {
                 this.Left = 1315;
                 this.Top = 792;
+                tbTicker.Text = "B";
             }
             else
             {

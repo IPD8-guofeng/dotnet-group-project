@@ -40,7 +40,7 @@ namespace FrameWork
             if (ticker != null && ticker != "")
             {
                 DateTime startDate = DateTime.Parse(startDateStr);
-                DateTime endDate = DateTime.Now;
+                DateTime endDate = DateTime.Parse(endDateStr);
                 List<StockPriceByDay> list = db.GetStockPriceByDayByTicker(ticker, startDate);
                 string title = "Stock " + ticker + ": From " + startDate.ToShortDateString() + " to " + endDate.ToShortDateString() + "\n" + "Candle line, Channel, Volumn";
 

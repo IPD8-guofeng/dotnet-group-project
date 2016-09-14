@@ -43,10 +43,14 @@ namespace FrameWork
             {
                 string selectedTicker = lbSuggestion.SelectedItem.ToString();
                 model.SetStockTicker(selectedTicker,dpStartDate.SelectedDate.Value.ToShortDateString(), dpEndDate.SelectedDate.Value.ToShortDateString() );
+                lblError.Visibility = Visibility.Hidden;
             }
             else
             {
                 model.SetStockTicker("A","2016/01/01","2016/08/31");
+                lblError.Content = "Error";
+                lblError.Visibility = Visibility.Visible;
+
             }
 
             Plot.InvalidatePlot(true);
