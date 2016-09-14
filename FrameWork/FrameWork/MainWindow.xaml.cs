@@ -21,8 +21,12 @@ namespace FrameWork
     /// 
     public partial class MainWindow : Window
     {
+
+        Database db;
+        //const double defaultStartBalance = 100000;
+
         
-        const double defaultStartBalance = 100000;
+
         public MainWindow()
         {
             try
@@ -39,8 +43,11 @@ namespace FrameWork
             }
             InitializeComponent();
             Application.Current.MainWindow.WindowState = WindowState.Maximized;
-            GlobalVariable.defaultStartBalance = defaultStartBalance;
-            GlobalVariable.Balance = GlobalVariable.db.getBalance();
+
+            //GlobalVariable.defaultStartBalance = defaultStartBalance;
+             
+            //GlobalVariable.Balance = GlobalVariable.db.getBalance();
+
             //MessageBox.Show("balance: "+db.getBalance());
         }
 

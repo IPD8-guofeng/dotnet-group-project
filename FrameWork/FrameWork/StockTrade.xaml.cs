@@ -45,7 +45,8 @@ namespace FrameWork
                 cbLimit.Items.Add(limit);
             }
             cbLimit.SelectedIndex = 0;
-            tbQuantity.Text = GlobalVariable.defaultTransQuantity.ToString();
+            //tbQuantity.Text = GlobalVariable.defaultTransQuantity.ToString();
+            tbQuantity.Text = "100";
             lblBalance.Content = "Balance: $" + GlobalVariable.Balance.ToString();
         }
 
