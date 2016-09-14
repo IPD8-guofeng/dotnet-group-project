@@ -27,6 +27,9 @@ namespace FrameWork
             {
                 List<WatchList> list = db.getWatchList();
                 dgWatchList.ItemsSource = list;
+                this.WindowStartupLocation = WindowStartupLocation.Manual;
+                this.Left = 5;
+                this.Top = 795;
             }
             catch (Exception e)
             {
@@ -39,9 +42,9 @@ namespace FrameWork
             WatchList w = (WatchList)dgWatchList.SelectedItem;
             if (w != null)
             {
-                StockChart c = new StockChart(w.StockTicker);
+                StockChart c = new StockChart(w.StockTicker, "2016/01/01","2016/08/31");
                 c.Owner = Application.Current.MainWindow;
-                c.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                //c.WindowStartupLocation = WindowStartupLocation.Manual;
                 c.Show();
             }
         }

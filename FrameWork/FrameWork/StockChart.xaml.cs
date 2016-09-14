@@ -22,15 +22,34 @@ namespace FrameWork
     {
         Database db = new Database();
         private string ticker;
-        public StockChart(string ticker)
+        public StockChart(string ticker, string startDateStr, string endDateStr)
         {
             InitializeComponent();
             this.ticker = ticker;
             tbTicker.Text = ticker;
+            this.WindowStartupLocation = WindowStartupLocation.Manual;
+            this.Left = 5;
+            this.Top = 50;
         }
+        private void refreshChart()
+        {
 
+        }
         private void tbTicker_TextChanged(object sender, TextChangedEventArgs e)
         {
+            ObjectDataProvider data = (ObjectDataProvider)this.DataContext;
+            StockChartModel model = (StockChartModel)data.Data;
+            if (lbSuggestion.SelectedItem != null && dpStartDate.SelectedDate != null && dpEndDate.SelectedDate != null)
+            {
+                string selectedTicker = lbSuggestion.SelectedItem.ToString();
+                model.SetStockTicker(selectedTicker,dpStartDate.SelectedDate.Value.ToShortDateString(), dpEndDate.SelectedDate.Value.ToShortDateString() );
+            }
+            else
+            {
+                model.SetStockTicker("A","2016/01/01","2016/08/31");
+            }
+
+            Plot.InvalidatePlot(true);
 
             lbSuggestion.Items.Clear();
             if (tbTicker.Text != "")
@@ -48,7 +67,7 @@ namespace FrameWork
             }
             else
             {
-                lbSuggestion.Visibility = Visibility.Hidden;
+                //lbSuggestion.Visibility = Visibility.Hidden;
             }
         }
 
@@ -76,7 +95,7 @@ namespace FrameWork
                 //???????? if (e.Key == Key.Enter)
                 {
                     tbTicker.Text = lbSuggestion.SelectedItem.ToString();
-                    lbSuggestion.Visibility = Visibility.Hidden;
+                    //lbSuggestion.Visibility = Visibility.Hidden;
                 }
             }
         }
@@ -85,19 +104,16 @@ namespace FrameWork
             if (lbSuggestion.SelectedIndex > -1)
             {
                 tbTicker.Text = lbSuggestion.SelectedItem.ToString();
-                
+                ticker = tbTicker.Text;
                 //lbSuggestion.Visibility = Visibility.Hidden;
-
             }
         }
 
         private void btnTrade_Click(object sender, RoutedEventArgs e)
         {
-                StockTrade s = new StockTrade(ticker);
-                s.Owner = Application.Current.MainWindow;
-                s.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                s.Show();
-
+            StockTrade s = new StockTrade(ticker);
+            //s.Owner = Application.Current.MainWindow;
+            s.Show();
         }
     }
 }

@@ -11,7 +11,9 @@
          <ObjectDataProvider ObjectType="local:StockChartModel"
         xmlns:sys="clr-namespace:System;assembly=mscorlib">
             <ObjectDataProvider.ConstructorParameters>
-                <sys:String>ABT</sys:String>
+                <sys:String>A</sys:String>
+                <sys:String>2016/01/01</sys:String>
+                <sys:String>2016/08/31</sys:String>
             </ObjectDataProvider.ConstructorParameters>
         </ObjectDataProvider>
     </Window.DataContext>
@@ -25,8 +27,8 @@
         <TextBox x:Name="tbTicker" HorizontalAlignment="Right" Height="23" Margin="0,190,30,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="125"
                  PreviewKeyDown="tbTicker_PreviewKeyDown" TextChanged="tbTicker_TextChanged" />
         <ListBox x:Name="lbSuggestion" Height="Auto" HorizontalAlignment="Right" Margin="0,223,30,0"  VerticalAlignment="Top" Width="125"  Visibility="Hidden"
-                 PreviewKeyDown="lbSuggestion_PreviewKeyDown" KeyDown="lbSuggestion_KeyDown" MouseDoubleClick="lbSuggestion_MouseDoubleClick"/>
-        <oxy:PlotView Background="Cyan" Model="{Binding ChartModel}" Margin="0,0,200,0"/>
+                 PreviewKeyDown="lbSuggestion_PreviewKeyDown" KeyDown="lbSuggestion_KeyDown" MouseDoubleClick="lbSuggestion_MouseDoubleClick" />
+        <oxy:PlotView x:Name="Plot" Background="Cyan" Model="{Binding ChartModel}" Margin="0,0,200,0"/>
 
     </Grid>
 </Window>

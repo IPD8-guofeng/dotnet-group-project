@@ -11,7 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using System.Runtime.InteropServices;
+using System.Diagnostics;
 namespace FrameWork
 {
     /// <summary>
@@ -19,10 +20,14 @@ namespace FrameWork
     /// </summary>
     public partial class StockTrade : Window
     {
+        private static int count;
         public StockTrade()
         {
             InitializeComponent();
             Initial();
+            startPosition();
+            //MessageBox.Show(Application.Current.MainWindow.Top.ToString() + " " + Application.Current.MainWindow.Left.ToString());
+            //GetNotePadLocation.p();
         }
         public StockTrade(WatchList w)
         {
@@ -30,12 +35,33 @@ namespace FrameWork
             Initial();
             tbTicker.Text = w.StockTicker;
             tbPrice.Text = w.ClosePrice.ToString();
+            startPosition();
         }
         public StockTrade(string ticker)
         {
             InitializeComponent();
             Initial();
             tbTicker.Text = ticker;
+            startPosition();
+        }
+        private void startPosition()
+        {
+            count++;
+            this.WindowStartupLocation = WindowStartupLocation.Manual;
+            if (count == 1)
+            {
+                this.Left = 710;
+                this.Top = 792;
+            }
+            else if (count == 2)
+            {
+                this.Left = 1315;
+                this.Top = 792;
+            }
+            else
+            {
+                this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            }
         }
         private void Initial()
         {
@@ -191,11 +217,12 @@ namespace FrameWork
         }
         private void btnTrade_Click(object sender, RoutedEventArgs e)
         {
-            Transaction t =  new Transaction();
+            Transaction t = new Transaction();
             if ((bool)rbBuy.IsChecked) { t = getTransObj(1); } // buy action type is 1
             else if ((bool)rbSell.IsChecked) { t = getTransObj(2); } // sell action type is 2
-            else {
-                MessageBox.Show("Your have to choose buy or sell" );
+            else
+            {
+                MessageBox.Show("Your have to choose buy or sell");
                 return;
             }
             if (t != null)
@@ -206,7 +233,7 @@ namespace FrameWork
                     switch (cbLimit.SelectedValue.ToString())
                     {
                         case "Limit":
-                            if(t.ActionType == 1)
+                            if (t.ActionType == 1)
                             {
                                 if (t.Price >= closePrice)
                                 {
@@ -285,7 +312,7 @@ namespace FrameWork
         private void rbSell_Checked(object sender, RoutedEventArgs e)
         {
             List<StockOwned> sList = GlobalVariable.db.getAllStockOwned();
-            if ( sList.Count != 0 )
+            if (sList.Count != 0)
             {
                 foreach (StockOwned s in sList)
                 {
@@ -297,5 +324,32 @@ namespace FrameWork
             }
 
         }
+
+
     }
+    /*
+    public class GetNotePadLocation
+    {
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr FindWindow(string strClassName, string strWindowName);
+        [DllImport("user32.dll")]
+        public static extern bool GetWindowRect(IntPtr hwnd, ref Rect rectangle);
+        public struct Rect {
+            public int Left { get; set; }
+            public int Top { get; set; }
+            public int Right { get; set; }
+            public int Bottom { get; set; }
+        }
+        public static void p()
+        {
+            Process[] processes = Process.GetProcessesByName("notepad");
+            Process lol = processes[0];
+            IntPtr ptr = lol.MainWindowHandle;
+            Rect NotepadRect = new Rect();
+            GetWindowRect(ptr, ref NotepadRect);
+            //return NotepadRect;
+        }
+
+    }*/
 }
+

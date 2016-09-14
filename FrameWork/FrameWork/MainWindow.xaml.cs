@@ -23,16 +23,14 @@ namespace FrameWork
     {
 
         Database db;
-        //const double defaultStartBalance = 100000;
-
-        
-
+        //public static StockTrade tradeFirst = new StockTrade()
+        //public static StockTrade tradeSecond = new StockTrade()
         public MainWindow()
         {
             try
             {
-                GlobalVariable.db = new Database();
-                //MessageBox.Show("database is connected", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                db = new Database();
+               
             }
             catch (Exception e)
             {
@@ -43,21 +41,44 @@ namespace FrameWork
             }
             InitializeComponent();
             Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            GlobalVariable.Balance = db.getBalance();
+            this.Show();
+            StockChart chart = new StockChart("A","2016/01/01","2016/08/31");
+            chart.Owner = Application.Current.MainWindow;
+            chart.Show();
+            /*
+            StockTrade trade1 = new StockTrade();
+            trade1.Owner = Application.Current.MainWindow;
+            trade1.Show();
 
-            //GlobalVariable.defaultStartBalance = defaultStartBalance;
-             
-            //GlobalVariable.Balance = GlobalVariable.db.getBalance();
+            StockTrade trade2 = new StockTrade();
+            trade2.Owner = Application.Current.MainWindow;
+            trade2.Show();*/
 
-            //MessageBox.Show("balance: "+db.getBalance());
+            StockTrade trade1 = new StockTrade();
+            trade1.Owner = Application.Current.MainWindow;
+            trade1.Show();
+
+            StockTrade trade2 = new StockTrade();
+            trade2.Owner = Application.Current.MainWindow;
+            trade2.Show();
+
+            Watch watch = new Watch();
+            watch.Owner = Application.Current.MainWindow;
+            watch.Show();
+
+            PortfolioWin portfolioWin = new PortfolioWin();
+            portfolioWin.Owner = Application.Current.MainWindow;
+            portfolioWin.Show();
         }
 
         private void menuTrade_Click(object sender, RoutedEventArgs e)
         {
             // open Trade  window and put it in the center 
-            StockTrade stockTradeWindow = new StockTrade();
-            stockTradeWindow.Owner = Application.Current.MainWindow;
-            stockTradeWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            stockTradeWindow.Show();
+            StockTrade s = new StockTrade();
+            s.Owner = Application.Current.MainWindow;
+            //s.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            s.Show();
         }
 
         private void menuExit_Click(object sender, RoutedEventArgs e)
@@ -68,9 +89,9 @@ namespace FrameWork
         private void menuChart_Click(object sender, RoutedEventArgs e)
         {
             // open Trade  window and put it in the center 
-            StockChart c = new StockChart("A");
+            StockChart c = new StockChart("A","2016/01/01","2016/08/31");
             c.Owner = Application.Current.MainWindow;
-            c.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+           // c.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             c.Show();
         }
 
@@ -78,7 +99,7 @@ namespace FrameWork
         {
             Watch w = new Watch();
             w.Owner = Application.Current.MainWindow;
-            w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            //w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             w.Show();
         }
 
@@ -86,7 +107,7 @@ namespace FrameWork
         {
             PortfolioWin w = new PortfolioWin();
             w.Owner = Application.Current.MainWindow;
-            w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            //w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             w.Show();
         }
     }
