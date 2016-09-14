@@ -19,7 +19,6 @@ namespace FrameWork
     /// </summary>
     public partial class StockTrade : Window
     {
-        const int defaultTransQuantity = 100;
         public StockTrade()
         {
             InitializeComponent();
@@ -46,7 +45,7 @@ namespace FrameWork
                 cbLimit.Items.Add(limit);
             }
             cbLimit.SelectedIndex = 0;
-            tbQuantity.Text = defaultTransQuantity.ToString();
+            tbQuantity.Text = GlobalVariable.defaultTransQuantity.ToString();
             lblBalance.Content = "Balance: $" + GlobalVariable.Balance.ToString();
         }
 

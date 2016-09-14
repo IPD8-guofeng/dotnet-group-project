@@ -9,7 +9,8 @@ namespace FrameWork
     static class GlobalVariable
     {
         public static double Balance { get; set; }
-        public static double defaultStartBalance { get; set; }
         public static Database db;
+        public const int defaultTransQuantity = 100;
+        public const double defaultStartBalance = 100000;
     }
 }
