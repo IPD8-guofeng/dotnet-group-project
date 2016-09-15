@@ -291,6 +291,7 @@ namespace FrameWork
 
             //update the portfolio data, dgPortfolio
             //portfolioList.Add(trans);
+            getPortTransactionSum(currentPortId);
             dgPortfolio.Items.Refresh();
 
         }
@@ -322,6 +323,7 @@ namespace FrameWork
 
             //update the portfolio data, dgPortfolio
             //portfolioList.Add(trans);
+            getPortTransactionSum(currentPortId);
             dgPortfolio.Items.Refresh();
 
         }
@@ -331,15 +333,16 @@ namespace FrameWork
             PortTransaction trans = new PortTransaction();
 
             //check if an stock ticker is selected
-            string ticker = cmbStock.SelectedItem.ToString();
-            //string ticker = cmbItem.Content.ToString();
-
-            if (ticker == "")
+            if (cmbStock.SelectedItem==null)
             {
                 MessageBox.Show("Please select a sotck!", "Input Error",
               MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+            string ticker = cmbStock.SelectedItem.ToString();
+            //string ticker = cmbItem.Content.ToString();
+
+           
             string[] companyInfo = ticker.ToString().Split('|');
 
             StockTransaction dialog = new StockTransaction(string.Join(" | ", companyInfo));
@@ -366,6 +369,7 @@ namespace FrameWork
 
             //update the portfolio data, dgPortfolio
             //portfolioList.Add(trans);
+            getPortTransactionSum(currentPortId);
             dgPortfolio.Items.Refresh();
 
         }
@@ -377,13 +381,14 @@ namespace FrameWork
             //check if an stock ticker is selected
             //ComboBoxItem cmbItem = (ComboBoxItem)cmbStock.SelectedItem;
             //string ticker = cmbItem.Content.ToString();
-            string ticker = cmbStock.SelectedItem.ToString();
-            if (ticker == "")
+            if (cmbStock.SelectedItem==null)
             {
                 MessageBox.Show("Please select a sotck!", "Input Error",
                 MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+            string ticker = cmbStock.SelectedItem.ToString();
+            
             string[] companyInfo = ticker.ToString().Split('|');
 
             trans.portId = currentPortId;
@@ -402,6 +407,7 @@ namespace FrameWork
 
             //update the portfolio data, dgPortfolio
             //portfolioList.Add(trans);
+            getPortTransactionSum(currentPortId);
             dgPortfolio.Items.Refresh();
 
             //insert the data to Table "Transcation
@@ -410,8 +416,9 @@ namespace FrameWork
 
         private void lbPortfolio_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (lbPortfolio.SelectedItem==null) return;
+
             string item = lbPortfolio.SelectedItem.ToString();
-            if (item == "") return;
             lblPortName.Content = item;
 
             //find the portid from Table Portfolio and assigned to currentPortId;
