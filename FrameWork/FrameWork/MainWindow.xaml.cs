@@ -23,8 +23,8 @@ namespace FrameWork
     {
 
         Database db;
-        //public static StockTrade tradeFirst = new StockTrade()
-        //public static StockTrade tradeSecond = new StockTrade()
+        //public static StockTrade tradeFirst = new StockTrade();
+        //public static StockTrade tradeSecond = new StockTrade();
         public MainWindow()
         {
             try
@@ -43,33 +43,9 @@ namespace FrameWork
             Application.Current.MainWindow.WindowState = WindowState.Maximized;
             GlobalVariable.Balance = db.getBalance();
             this.Show();
-            StockChart chart = new StockChart("A","2016/01/01","2016/08/31");
-            chart.Owner = Application.Current.MainWindow;
-            chart.Show();
-            /*
-            StockTrade trade1 = new StockTrade();
-            trade1.Owner = Application.Current.MainWindow;
-            trade1.Show();
 
-            StockTrade trade2 = new StockTrade();
-            trade2.Owner = Application.Current.MainWindow;
-            trade2.Show();*/
+            
 
-            StockTrade trade1 = new StockTrade();
-            trade1.Owner = Application.Current.MainWindow;
-            trade1.Show();
-
-            StockTrade trade2 = new StockTrade();
-            trade2.Owner = Application.Current.MainWindow;
-            trade2.Show();
-
-            Watch watch = new Watch();
-            watch.Owner = Application.Current.MainWindow;
-            watch.Show();
-
-            PortfolioWin portfolioWin = new PortfolioWin();
-            portfolioWin.Owner = Application.Current.MainWindow;
-            portfolioWin.Show();
         }
 
         private void menuTrade_Click(object sender, RoutedEventArgs e)
@@ -109,6 +85,38 @@ namespace FrameWork
             w.Owner = Application.Current.MainWindow;
             //w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             w.Show();
+        }
+
+        private void menuCloseAllWindows_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (Window item in App.Current.Windows)
+            {
+                if (item != this)
+                    item.Close();
+            }
+        }
+
+        private void menuOpenAllWindows_Click(object sender, RoutedEventArgs e)
+        {
+            StockTrade trade1 = new StockTrade();
+            trade1.Owner = Application.Current.MainWindow;
+            trade1.Show();
+
+            StockTrade trade2 = new StockTrade();
+            trade2.Owner = Application.Current.MainWindow;
+            trade2.Show();
+
+            StockChart chart = new StockChart("A", "2016/01/01", "2016/08/31");
+            chart.Owner = Application.Current.MainWindow;
+            chart.Show();
+
+            Watch watch = new Watch();
+            watch.Owner = Application.Current.MainWindow;
+            watch.Show();
+
+            PortfolioWin portfolioWin = new PortfolioWin();
+            portfolioWin.Owner = Application.Current.MainWindow;
+            portfolioWin.Show();
         }
     }
 }

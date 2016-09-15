@@ -138,6 +138,31 @@ namespace FrameWork
                 tbTicker.Text = lbSuggestion.SelectedItem.ToString();
                 lbSuggestion.Visibility = Visibility.Hidden;
 
+                // check if sell, then show the quantity available to sell
+                bool hasFound = false;
+                if (rbSell.IsChecked == true)
+                {
+                    List<StockOwned> sList = GlobalVariable.db.getAllStockOwned();
+                    if (sList.Count != 0)
+                    {
+                        foreach (StockOwned s in sList)
+                        {
+                            lbSuggestion.Items.Clear();
+                            lbSuggestion.Items.Add(s.StockTicker);
+                            if (tbTicker.Text == s.StockTicker)
+                            {
+                                tbQuantity.Text = s.Quantity.ToString();
+                                hasFound = true;
+
+                            }
+
+                            //tbQuantity.Text = s.Quantity.ToString();
+                        }
+                        if (!hasFound) tbQuantity.Text = "N/A";
+                        lbSuggestion.Visibility = Visibility.Visible;
+                    }
+                }
+
             }
         }
 
@@ -187,7 +212,7 @@ namespace FrameWork
                 }
             }
 
-            if (t.ActionType == 2)
+            if (t.ActionType == -1)
             {
                 List<StockOwned> sList = GlobalVariable.db.getAllStockOwned();
                 if (sList != null)
@@ -221,7 +246,7 @@ namespace FrameWork
         {
             Transaction t = new Transaction();
             if ((bool)rbBuy.IsChecked) { t = getTransObj(1); } // buy action type is 1
-            else if ((bool)rbSell.IsChecked) { t = getTransObj(2); } // sell action type is 2
+            else if ((bool)rbSell.IsChecked) { t = getTransObj(-1); } // sell action type is -1
             else
             {
                 MessageBox.Show("Your have to choose buy or sell");
@@ -247,7 +272,7 @@ namespace FrameWork
                                     MessageBox.Show("Your buy order is waiting to perform");
                                 }
                             };
-                            if (t.ActionType == 2)
+                            if (t.ActionType == -1)
                             {
                                 if (t.Price <= closePrice)
                                 {
@@ -313,6 +338,8 @@ namespace FrameWork
 
         private void rbSell_Checked(object sender, RoutedEventArgs e)
         {
+            // check if sell, then show the quantity available to sell
+            bool hasFound = false;
             List<StockOwned> sList = GlobalVariable.db.getAllStockOwned();
             if (sList.Count != 0)
             {
@@ -320,11 +347,18 @@ namespace FrameWork
                 {
                     lbSuggestion.Items.Clear();
                     lbSuggestion.Items.Add(s.StockTicker);
-                    tbQuantity.Text = s.Quantity.ToString();
+                    if (tbTicker.Text == s.StockTicker)
+                    {
+                        tbQuantity.Text = s.Quantity.ToString();
+                        hasFound = true;
+
+                    }
+
+                    //tbQuantity.Text = s.Quantity.ToString();
                 }
+                if (!hasFound) tbQuantity.Text = "N/A";
                 lbSuggestion.Visibility = Visibility.Visible;
             }
-
         }
 
 

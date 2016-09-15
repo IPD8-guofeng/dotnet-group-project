@@ -1,0 +1,8 @@
+ <Window.DataContext>
+<ObjectDataProvider ObjectType="local:StockChartModel"/>
+<oxy:PlotView x:Name="Plot" Model="{Binding ChartModel}"/>
+ObjectDataProvider data = (ObjectDataProvider)this.DataContext;
+StockChartModel model = (StockChartModel)data.Data;
+class StockChartModel : INotifyPropertyChanged
+    private PlotModel _ChartModel;
+	var model = new PlotModel...this.ChartModel = model;

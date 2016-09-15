@@ -11,3 +11,7 @@ SELECT StockTicker,
 FROM[Transaction] 
 GROUP BY StockTicker
 
+
+
+SELECT  StockTicker, SUM(Quantity*ActionType) AS sumQty FROM [Transaction]  GROUP BY StockTicker
+SELECT  StockTicker, SUM(Quantity*ActionType) AS sumQty, SUM(Quantity*Price*ActionType) AS sumCost FROM [Transaction]  GROUP BY StockTicker

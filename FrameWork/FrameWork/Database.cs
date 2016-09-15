@@ -349,7 +349,7 @@ namespace FrameWork
         }
         public void stockActionByTicker(Transaction t)
         {
-            using (SqlCommand cmd = new SqlCommand("INSERT INTO [Transaction] (StockTicker,Price,Quantity, ActionType) VALUES (@StockTicker,@Price,@Quantity, @ActionType)"))
+            using (SqlCommand cmd = new SqlCommand("INSERT INTO [Transaction] (StockTicker,Price,Quantity, ActionType, TransDate) VALUES (@StockTicker,@Price,@Quantity, @ActionType, @TransDate)"))
             {
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.Connection = conn;
@@ -357,6 +357,7 @@ namespace FrameWork
                 cmd.Parameters.AddWithValue("@Price", t.Price);
                 cmd.Parameters.AddWithValue("@Quantity", t.Quantity);
                 cmd.Parameters.AddWithValue("@ActionType", t.ActionType);
+                cmd.Parameters.AddWithValue("@TransDate", DateTime.Now);
                 //MessageBox.Show(cmd.CommandText.ToString());
                 cmd.ExecuteNonQuery();
             }
@@ -454,7 +455,7 @@ namespace FrameWork
         public List<StockOwned> getAllStockOwned()
         {
             List<StockOwned> list = new List<StockOwned>();
-            SqlCommand cmd = new SqlCommand("SELECT StockTicker, ((SELECT SUM(Quantity) AS sumBuy FROM [Transaction] WHERE ActionType = 1 GROUP BY StockTicker, ActionType) - (SELECT SUM(Quantity) AS sumSell FROM[Transaction] WHERE ActionType = 2 GROUP BY StockTicker, ActionType)) AS StockQuantity, ((SELECT SUM(Quantity*Price) AS sumBuyCost FROM [Transaction] WHERE ActionType = 1 GROUP BY StockTicker, ActionType) - (SELECT SUM(Quantity*Price) AS sumSellMoney FROM[Transaction] WHERE ActionType = 2 GROUP BY StockTicker, ActionType)) AS sumTotalCost FROM[Transaction] GROUP BY StockTicker", conn);
+            SqlCommand cmd = new SqlCommand("SELECT  StockTicker, SUM(Quantity*ActionType) AS sumQty, SUM(Quantity*Price*ActionType) AS sumCost FROM [Transaction]  GROUP BY StockTicker", conn);
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
                 if (reader.HasRows)
@@ -462,9 +463,9 @@ namespace FrameWork
                     while (reader.Read())
                     {
                         string ticker = reader.GetString(reader.GetOrdinal("StockTicker"));
-                        int quantity = reader.GetInt32(reader.GetOrdinal("StockQuantity"));
-                        double sumTotalCost = reader.GetDouble(reader.GetOrdinal("sumTotalCost"));
-                        StockOwned s = new StockOwned { StockTicker = ticker, Quantity = quantity, TotalCost = sumTotalCost };
+                        int quantity = reader.GetInt32(reader.GetOrdinal("sumQty"));
+                        double sumCost = reader.GetDouble(reader.GetOrdinal("sumCost"));
+                        StockOwned s = new StockOwned { StockTicker = ticker, Quantity = quantity, TotalCost = sumCost };
                         list.Add(s);
                     }
                 }
@@ -499,12 +500,13 @@ namespace FrameWork
             return list;
         }
 
-        public List<StockPriceByDay> GetStockPriceByDayByTicker(string ticker, DateTime startDate)
+        public List<StockPriceByDay> GetStockPriceByDayByTicker(string ticker, DateTime startDate, DateTime endDate)
         {
             List<StockPriceByDay> list = new List<StockPriceByDay>();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM StockPriceByDay WHERE StockTicker = @Ticker AND PriceDate>@StartDate ORDER BY PriceDate", conn);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM StockPriceByDay WHERE StockTicker = @Ticker AND PriceDate>@StartDate AND PriceDate<@EndDate ORDER BY PriceDate", conn);
             cmd.Parameters.AddWithValue("@Ticker", ticker);
             cmd.Parameters.AddWithValue("@StartDate", startDate);
+            cmd.Parameters.AddWithValue("@EndDate", endDate);
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
                 if (reader.HasRows)

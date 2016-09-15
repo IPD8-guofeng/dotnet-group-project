@@ -41,7 +41,7 @@ namespace FrameWork
             {
                 DateTime startDate = DateTime.Parse(startDateStr);
                 DateTime endDate = DateTime.Parse(endDateStr);
-                List<StockPriceByDay> list = db.GetStockPriceByDayByTicker(ticker, startDate);
+                List<StockPriceByDay> list = db.GetStockPriceByDayByTicker(ticker, startDate, endDate);
                 string title = "Stock " + ticker + ": From " + startDate.ToShortDateString() + " to " + endDate.ToShortDateString() + "\n" + "Candle line, Channel, Volumn";
 
                 var model = new PlotModel { Title = title };
