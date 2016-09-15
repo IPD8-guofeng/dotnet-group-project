@@ -38,6 +38,26 @@ namespace FrameWork
         public double Cashvalue { get; set; }
         public string Notes { get; set; }
     }
+    public class PortTransactionSum
+    {
+        public string Name { get; set; }
+        public string Symbol { get; set; }
+        public TransType Type { get; set; }
+        public int Share { get; set; }
+        
+        public double Cashvalue { get; set; }
+    }
+    public class PortTransactionSumView
+    {
+        public string Name { get; set; }
+        public string Symbol { get; set; }
+        public double LastPrice { get; set; }
+        public double AvgPrice { get; set; }
+        public int Share { get; set; }
+        public double CostBase { get; set; }
+        public double MarketValue { get; set; }
+        public double Return { get; set; }
+    }
     class Transaction
     {
         public int TransId { get; set; }

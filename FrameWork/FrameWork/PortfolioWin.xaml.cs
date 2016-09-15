@@ -21,7 +21,8 @@ namespace FrameWork
     {
         Database db = new Database();
         int currentPortId;
-        List<PortTransaction> portfolioList = new List<PortTransaction>();
+        List<PortTransactionSum> portfolioList = new List<PortTransactionSum>();
+        List<PortTransactionSumView> performanceList = new List<PortTransactionSumView>();
         List<TransactionView> transactionList = new List<TransactionView>();
 
         public PortfolioWin()
@@ -37,18 +38,146 @@ namespace FrameWork
 
             //get sumarized transcation data for default portfolio from Table"Transcation", 
             //assign to data grid "dgPortfolio"
-            dgPortfolio.ItemsSource = portfolioList;
+            //dgPortfolio.ItemsSource = portfolioList;
+            getPortTransactionSum(currentPortId);
 
             //get all transcation data for default portfolio from Table"Transcation", 
             //assign to data grid "dgTranscation"
-            getAllPortTransactions(currentPortId);
             //dgTranscation.ItemsSource = transactionList;
-
-   
+            getAllPortTransactions(currentPortId);
 
             //get all Company data from Table"Company", 
             //assign to combox "cmbStock"
             getStockNames();
+        }
+        private void getPortTransactionSum(int portId)
+        {
+            //List<TransactionView> list = new List<TransactionView>();
+            try
+            {
+
+                portfolioList = db.GetPortTranscationSumByPortId(portId);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to fetch records from database" + e.Message, "Database Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+                //throw;
+            }
+
+            //if no transcation in the portflio, return
+            if (portfolioList.Count == 0) return;
+
+            //processing the data in the portfolio transcation list
+            double cashBal = 0;
+            int shareAmt = 0; double shareValue = 0;
+            double lastPrice = 0;
+            double totalCost = 0, totalMarketvalue = 0;
+            string symbol = "", name = "";
+            PortTransactionSumView p;
+            double avg, ret;
+
+            for (var i = 0; i < portfolioList.Count; i++)
+            {
+
+                // create a new record for display when the symbol changed
+                if (portfolioList[i].Symbol != symbol && symbol.Length>0 && i != 0)
+                {
+                    //get last price for the Stock("Symbol")
+                    lastPrice = db.getLatestPriceByTicker(symbol);
+
+                    totalMarketvalue += lastPrice * shareAmt;
+                    if (shareAmt == 0) { avg = 0; }
+                    else { avg = shareValue / shareAmt; }
+
+                    if (shareValue < 0.1) { ret = 0; }
+                    else { ret = ((lastPrice * shareAmt - shareValue) / shareValue) * 100.0; }
+
+                    p = new PortTransactionSumView()
+                    {
+                        Name = name,
+                        Symbol = symbol,
+                        LastPrice = lastPrice,
+                        AvgPrice = avg,
+                        Share = shareAmt,
+                        CostBase = shareValue,
+                        MarketValue = lastPrice * shareAmt,
+                        Return = ret
+                    };
+
+                    performanceList.Add(p);
+                    shareAmt = 0; shareValue = 0;
+                }
+                name = portfolioList[i].Name;
+                symbol = portfolioList[i].Symbol;
+                switch (portfolioList[i].Type)
+                {
+                    case TransType.Deposit:
+                        //cashBal += portfolioList[i].Cashvalue;
+                        break;
+                    case TransType.Withdraw:
+                        //cashBal += portfolioList[i].Cashvalue;
+                        break;
+                    case TransType.Buy:
+                        shareAmt += portfolioList[i].Share;
+                        shareValue += (-1) * portfolioList[i].Cashvalue;
+                        totalCost += (-1) * portfolioList[i].Cashvalue;
+                        //cashBal += portfolioList[i].Cashvalue;
+                        break;
+                    case TransType.Sell:
+                        shareAmt -= portfolioList[i].Share;
+                        shareValue += (-1) * portfolioList[i].Cashvalue;
+                        totalCost += (-1) * portfolioList[i].Cashvalue;
+                        //cashBal += portfolioList[i].Cashvalue;
+                        break;
+                    default:
+                        break;
+                }
+                cashBal += portfolioList[i].Cashvalue;
+
+            }
+            // add the last Stock record
+            if (symbol != "")
+            {
+                lastPrice = db.getLatestPriceByTicker(symbol);
+
+                totalMarketvalue += lastPrice * shareAmt;
+                if (shareAmt == 0) { avg = 0; }
+                else { avg = shareValue / shareAmt; }
+
+                if (shareValue < 0.1) { ret = 0; }
+                else { ret = ((lastPrice * shareAmt - shareValue) / shareValue) * 100.0; }
+
+                p = new PortTransactionSumView()
+                {
+                    Name = name,
+                    Symbol = symbol,
+                    LastPrice = lastPrice,
+                    AvgPrice = avg,
+                    Share = shareAmt,
+                    CostBase = shareValue,
+                    MarketValue = lastPrice * shareAmt,
+                    Return = ret
+                };
+
+                performanceList.Add(p);
+            }
+            // add the summary record
+            if (totalCost < 0.1) { ret = 0; }
+            else { ret = ((totalMarketvalue - totalCost) / totalCost) * 100.0; }
+            p = new PortTransactionSumView()
+            {
+                Name = "Cash on hand",
+                Symbol = "",
+                LastPrice = cashBal,
+                //AvgPrice = null,
+                //Share = shareAmt,
+                CostBase = totalCost,
+                MarketValue = totalMarketvalue,
+                Return = ret
+            };
+            performanceList.Add(p);
+            dgPortfolio.ItemsSource = performanceList;
         }
         private void getAllPortTransactions(int portId)
         {
@@ -255,6 +384,7 @@ namespace FrameWork
             trans.portId = currentPortId;
             trans.Symbol = companyInfo[0];
             trans.Date = null;
+            trans.Notes = "";
             //trans.Name = companyInfo[1];
 
             //insert the data to Table "Transcation"

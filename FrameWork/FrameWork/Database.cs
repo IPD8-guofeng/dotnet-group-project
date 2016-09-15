@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -134,6 +135,27 @@ namespace FrameWork
         }
          */
         }
+        public double GetStockLastPriceByTicker(string ticker)
+        {
+            double lastprice=0;
+
+            using (SqlCommand cmd = new SqlCommand("select ClosePrice from StockPriceByDay where StockTicker=@ticker and PriceDate='2016-08-31'", conn))
+            {
+                cmd.Parameters.AddWithValue("@ticker", ticker);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            lastprice = reader.GetDouble(reader.GetOrdinal("ClosePrice"));
+                        }
+                    }
+                }
+            }
+            return lastprice;
+
+        }
         public void AddPortTransaction(PortTransaction p)
         {
             /* [portId]      INT           NOT NULL,
@@ -151,7 +173,13 @@ namespace FrameWork
                 cmd.Parameters.AddWithValue("@portId", p.portId);
                 cmd.Parameters.AddWithValue("@StockTicker", p.Symbol);
                 cmd.Parameters.AddWithValue("@Type", p.Type);
-                cmd.Parameters.AddWithValue("@Date", p.Date);
+
+                //cmd.Parameters.AddWithValue("@Date", (p.Date== null) ? DBNull.Value : p.Date;);
+                if (p.Date.HasValue)
+                    cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value= p.Date;
+                else
+                    cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = DBNull.Value;
+                
                 cmd.Parameters.AddWithValue("@Share", p.Share);
                 cmd.Parameters.AddWithValue("@Price", p.Price);
                 cmd.Parameters.AddWithValue("@Cashvalue", p.Cashvalue);
@@ -182,13 +210,58 @@ namespace FrameWork
                             
                             int id = reader.GetInt32(reader.GetOrdinal("Id"));
                             TransType type = (TransType)reader.GetInt32(reader.GetOrdinal("Type"));
-                            DateTime date = reader.GetDateTime(reader.GetOrdinal("Date"));
+
+                            DateTime? date;
+                            if (reader.IsDBNull(reader.GetOrdinal("Date"))) { date = null; }
+                            else { date = reader.GetDateTime(reader.GetOrdinal("Date")); }
+                            
+
                             int share = reader.GetInt32(reader.GetOrdinal("Share"));
                             double price = reader.GetDouble(reader.GetOrdinal("Price"));
                             double cash = reader.GetDouble(reader.GetOrdinal("Cashvalue"));
                             string notes = reader.GetString(reader.GetOrdinal("Notes"));
                             TransactionView p = new TransactionView() { Id = id, portId=portId, Name = name, Symbol=ticker, Type=type, Date=date,
                             Share=share, Price=price, Cashvalue=cash, Notes=notes};
+                            list.Add(p);
+                        }
+                    }
+                }
+            }
+            return list;
+
+        }
+        public List<PortTransactionSum> GetPortTranscationSumByPortId(int portId)
+        {
+            List<PortTransactionSum> list = new List<PortTransactionSum>();
+            using (SqlCommand cmd = new SqlCommand("select s.StockName, pt.StockTicker, pt.Type, sum(pt.Share) as Share, sum(pt.Cashvalue) as Cashvalue" +
+                " from PortTransaction pt left join Stock s on  pt.portId=@portId and pt.StockTicker=s.StockTicker" + 
+                " group by pt.StockTicker, pt.Type, s.StockName order by pt.StockTicker", conn))
+            {
+                cmd.Parameters.AddWithValue("@portId", portId);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            // column by name - the better (preferred) way
+                            string name;
+                            if (reader.IsDBNull(reader.GetOrdinal("StockName"))) { name = ""; }
+                            else { name = reader.GetString(reader.GetOrdinal("StockName")); }
+
+                            string ticker = reader.GetString(reader.GetOrdinal("StockTicker"));
+                            TransType type = (TransType)reader.GetInt32(reader.GetOrdinal("Type"));
+
+                            int share = reader.GetInt32(reader.GetOrdinal("Share"));
+                            double cash = reader.GetDouble(reader.GetOrdinal("Cashvalue"));
+                            PortTransactionSum p = new PortTransactionSum()
+                            {
+                                Name = name,
+                                Symbol = ticker,
+                                Type = type,
+                                Share = share,
+                                Cashvalue = cash,
+                            };
                             list.Add(p);
                         }
                     }

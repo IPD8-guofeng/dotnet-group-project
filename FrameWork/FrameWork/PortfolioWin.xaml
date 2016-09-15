@@ -19,11 +19,12 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
                         <DataGridTextColumn Header="Symbol" Binding="{Binding Symbol}" />
-                        <DataGridTextColumn Header="Last Price" Binding="{Binding Price}" />
+                        <DataGridTextColumn Header="Last Price" Binding="{Binding LastPrice, StringFormat={}{0:n2}}" />
+                        <DataGridTextColumn Header="Average Price" Binding="{Binding AvgPrice, StringFormat={}{0:n2}}" />
                         <DataGridTextColumn Header="Share" Binding="{Binding Share}" />
-                        <DataGridTextColumn Header="Cost" Binding="{Binding Symbol}" />
-                        <DataGridTextColumn Header="Return" Binding="{Binding Name}" />
-                        <DataGridTextColumn Header="%" Binding="{Binding Symbol}" />
+                        <DataGridTextColumn Header="Cost basis" Binding="{Binding CostBase, StringFormat={}{0:n2}}" />
+                        <DataGridTextColumn Header="Market value" Binding="{Binding MarketValue, StringFormat={}{0:n2}}" />
+                        <DataGridTextColumn Header="Return(%)" Binding="{Binding Return, StringFormat={}{0:n2}}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
@@ -35,8 +36,8 @@
                         <DataGridTextColumn Header="Type" Binding="{Binding Type}" />
                         <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat=d}" />
                         <DataGridTextColumn Header="Share" Binding="{Binding Share}" />
-                        <DataGridTextColumn Header="Price" Binding="{Binding Price}" />
-                        <DataGridTextColumn Header="Cash value" Binding="{Binding Cashvalue}" />
+                        <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat={}{0:n2}}" />
+                        <DataGridTextColumn Header="Cash value" Binding="{Binding Cashvalue, StringFormat={}{0:n2}}" />
                         <DataGridTextColumn Header="Notes" Binding="{Binding Notes}" />
                     </DataGrid.Columns>
                 </DataGrid>
