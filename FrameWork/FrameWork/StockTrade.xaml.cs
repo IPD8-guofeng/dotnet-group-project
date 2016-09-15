@@ -187,7 +187,7 @@ namespace FrameWork
                 }
             }
 
-            if (t.ActionType == 2)
+            if (t.ActionType == -1)
             {
                 List<StockOwned> sList = GlobalVariable.db.getAllStockOwned();
                 if (sList != null)
@@ -221,7 +221,7 @@ namespace FrameWork
         {
             Transaction t = new Transaction();
             if ((bool)rbBuy.IsChecked) { t = getTransObj(1); } // buy action type is 1
-            else if ((bool)rbSell.IsChecked) { t = getTransObj(2); } // sell action type is 2
+            else if ((bool)rbSell.IsChecked) { t = getTransObj(-1); } // sell action type is -1
             else
             {
                 MessageBox.Show("Your have to choose buy or sell");
@@ -247,7 +247,7 @@ namespace FrameWork
                                     MessageBox.Show("Your buy order is waiting to perform");
                                 }
                             };
-                            if (t.ActionType == 2)
+                            if (t.ActionType == -1)
                             {
                                 if (t.Price <= closePrice)
                                 {

@@ -381,7 +381,7 @@ namespace FrameWork
         public List<StockOwned> getAllStockOwned()
         {
             List<StockOwned> list = new List<StockOwned>();
-            SqlCommand cmd = new SqlCommand("SELECT StockTicker, ((SELECT SUM(Quantity) AS sumBuy FROM [Transaction] WHERE ActionType = 1 GROUP BY StockTicker, ActionType) - (SELECT SUM(Quantity) AS sumSell FROM[Transaction] WHERE ActionType = 2 GROUP BY StockTicker, ActionType)) AS StockQuantity, ((SELECT SUM(Quantity*Price) AS sumBuyCost FROM [Transaction] WHERE ActionType = 1 GROUP BY StockTicker, ActionType) - (SELECT SUM(Quantity*Price) AS sumSellMoney FROM[Transaction] WHERE ActionType = 2 GROUP BY StockTicker, ActionType)) AS sumTotalCost FROM[Transaction] GROUP BY StockTicker", conn);
+            SqlCommand cmd = new SqlCommand("SELECT  StockTicker, SUM(Quantity*ActionType) AS sumQty, SUM(Quantity*Price*ActionType) AS sumCost FROM [Transaction]  GROUP BY StockTicker", conn);
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
                 if (reader.HasRows)
@@ -389,9 +389,9 @@ namespace FrameWork
                     while (reader.Read())
                     {
                         string ticker = reader.GetString(reader.GetOrdinal("StockTicker"));
-                        int quantity = reader.GetInt32(reader.GetOrdinal("StockQuantity"));
-                        double sumTotalCost = reader.GetDouble(reader.GetOrdinal("sumTotalCost"));
-                        StockOwned s = new StockOwned { StockTicker = ticker, Quantity = quantity, TotalCost = sumTotalCost };
+                        int quantity = reader.GetInt32(reader.GetOrdinal("sumQty"));
+                        double sumCost = reader.GetDouble(reader.GetOrdinal("sumCost"));
+                        StockOwned s = new StockOwned { StockTicker = ticker, Quantity = quantity, TotalCost = sumCost };
                         list.Add(s);
                     }
                 }
