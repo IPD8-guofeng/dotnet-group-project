@@ -4,12 +4,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace NUnitTest
 {
     [TestClass]
-    public class UnitTest1
+    public class portfolioUnitTest
     {
         [TestMethod]
         public void TestMethod1()
         {
-            Assert.IsTrue(false);
         }
     }
 }

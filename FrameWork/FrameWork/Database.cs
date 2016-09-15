@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 namespace FrameWork
 {
     //all the operations related to the database objects(Tables, Views, Stroed Procedures etc.)
-    class Database
+    public class Database
     {
         //const string CONN_STRING = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\ipd\Documents\peopledb1.mdf;Integrated Security=True;Connect Timeout=30";
         //Login: ipd8abbott@gmail.com Pass: Abbott2000
@@ -411,20 +411,26 @@ namespace FrameWork
         }
         public double getLatestPriceByTicker(string ticker)
         {
-            // sql query -- get specific stock latest close price 
-            SqlCommand cmd = new SqlCommand(
-                "SELECT ClosePrice FROM (SELECT    ClosePrice, StockTicker, PriceDate, max_date = MAX(PriceDate) OVER(PARTITION BY StockTicker)   FROM[StockPriceByDay]) as s  WHERE StockTicker = @Ticker AND PriceDate = max_date", conn);
-            cmd.Parameters.AddWithValue("@Ticker", ticker);
-            using (SqlDataReader reader = cmd.ExecuteReader())
+            // sql query from table-- get specific stock latest close price 
+            //SqlCommand cmd = new SqlCommand(
+            //    "SELECT ClosePrice FROM (SELECT    ClosePrice, StockTicker, PriceDate, max_date = MAX(PriceDate) OVER(PARTITION BY StockTicker)   FROM[StockPriceByDay]) as s  WHERE StockTicker = @Ticker AND PriceDate = max_date", conn);
+            // sql query get from view
+            if (ticker != null && ticker != "")
             {
-                if (reader.HasRows)
+                SqlCommand cmd = new SqlCommand( "SELECT ClosePrice FROM [viewClosePriceByTicker] WHERE StockTicker = @Ticker", conn);
+                cmd.Parameters.AddWithValue("@Ticker", ticker);
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
+                    if (reader.HasRows)
                     {
-                        return reader.GetDouble(reader.GetOrdinal("ClosePrice"));
+                        while (reader.Read())
+                        {
+                            return reader.GetDouble(reader.GetOrdinal("ClosePrice"));
+                        }
                     }
                 }
             }
+
             return 0;
         }
 

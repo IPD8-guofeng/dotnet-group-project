@@ -58,7 +58,7 @@ namespace FrameWork
         public double MarketValue { get; set; }
         public double Return { get; set; }
     }
-    class Transaction
+    public class Transaction
     {
         public int TransId { get; set; }
         public string StockTicker { get; set; }
@@ -67,14 +67,14 @@ namespace FrameWork
         public int ActionType { get; set; }
         public DateTime TransDate { get; set; } 
     }
-    class Stock
+    public class Stock
     {
         public string StockTicker { get; set; }
         public string StockName { get; set; }
         public string StockCatagory { get; set; }
         public int StockCommonShare { get; set; }
     }
-    class StockPriceByDay
+    public class StockPriceByDay
     {
         public string StockTicker { get; set; }
         public DateTime PriceDate { get; set; }
@@ -85,7 +85,7 @@ namespace FrameWork
         public double TransAmount { get; set; }
     }
 
-    class TrendLine
+    public class TrendLine
     {
         public int TrendLineID { get; set; }
         public double PositionStartX { get; set; }
@@ -98,10 +98,8 @@ namespace FrameWork
         public string StockTicker { get; set; }
 
     }
-
-
-
-    class StockOwned
+    
+    public class StockOwned
     {
         public string StockTicker { get; set; }
         public int Quantity { get; set; }

@@ -20,7 +20,7 @@ namespace FrameWork
     /// </summary>
     public partial class StockTrade : Window
     {
-        private static int count;
+        public static int count {get;set;}
         public StockTrade()
         {
             InitializeComponent();

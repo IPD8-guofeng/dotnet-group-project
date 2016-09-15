@@ -98,6 +98,7 @@ namespace FrameWork
 
         private void menuOpenAllWindows_Click(object sender, RoutedEventArgs e)
         {
+            StockTrade.count = 0;
             StockTrade trade1 = new StockTrade();
             trade1.Owner = Application.Current.MainWindow;
             trade1.Show();
