@@ -45,6 +45,7 @@ namespace FrameWork
         public double Price { get; set; }
         public int Quantity { get; set; }
         public int ActionType { get; set; }
+        public DateTime TransDate { get; set; } 
     }
     class Stock
     {

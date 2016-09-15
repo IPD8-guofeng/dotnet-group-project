@@ -276,7 +276,7 @@ namespace FrameWork
         }
         public void stockActionByTicker(Transaction t)
         {
-            using (SqlCommand cmd = new SqlCommand("INSERT INTO [Transaction] (StockTicker,Price,Quantity, ActionType) VALUES (@StockTicker,@Price,@Quantity, @ActionType)"))
+            using (SqlCommand cmd = new SqlCommand("INSERT INTO [Transaction] (StockTicker,Price,Quantity, ActionType, TransDate) VALUES (@StockTicker,@Price,@Quantity, @ActionType, @TransDate)"))
             {
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.Connection = conn;
@@ -284,6 +284,7 @@ namespace FrameWork
                 cmd.Parameters.AddWithValue("@Price", t.Price);
                 cmd.Parameters.AddWithValue("@Quantity", t.Quantity);
                 cmd.Parameters.AddWithValue("@ActionType", t.ActionType);
+                cmd.Parameters.AddWithValue("@TransDate", DateTime.Now);
                 //MessageBox.Show(cmd.CommandText.ToString());
                 cmd.ExecuteNonQuery();
             }
