@@ -29,8 +29,12 @@ namespace FrameWork
         {
 
             InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.Manual;
+            this.Left = 1080;
+            this.Top = 50;
             //get all portfolio name from Table "Portfolio", assign to listbox "lbPortfolio"
             //get the default portfolio name and assigne it to the Title "lblPortName"
+
 
             getPortfolio();
             currentPortId = 1;
@@ -49,6 +53,7 @@ namespace FrameWork
             //get all Company data from Table"Company", 
             //assign to combox "cmbStock"
             getStockNames();
+
         }
         private void getPortTransactionSum(int portId)
         {
