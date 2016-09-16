@@ -191,7 +191,10 @@ namespace FrameWork
         public List<TransactionView> GetAllTranscationsByPortId( int portId)
         {
             List<TransactionView> list = new List<TransactionView>();
-            using (SqlCommand cmd = new SqlCommand("select s.StockName, p.* from PortTransaction p left join Stock s on p.StockTicker=s.StockTicker and p.portId=@portId", conn))
+            //select p.* from PortTransaction p where p.portId=
+            //using (SqlCommand cmd = new SqlCommand("select s.StockName, p.* from PortTransaction p left join Stock s on p.StockTicker=s.StockTicker and p.portId=@portId", conn))
+            using (SqlCommand cmd = new SqlCommand("(select s.StockName, p.* from PortTransaction as p,Stock as s where p.StockTicker=s.StockTicker and p.portId=@portId)" +
+                " union (select '' as StockName, * from PortTransaction where portId=@portId and StockTicker='')", conn))
             {
                 cmd.Parameters.AddWithValue("@portId", portId);
                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -203,10 +206,11 @@ namespace FrameWork
                             // column by name - the better (preferred) way
 
                             string ticker = reader.GetString(reader.GetOrdinal("StockTicker"));
-
+                            
                             string name;
                             if ( reader.IsDBNull(reader.GetOrdinal("StockName"))) { name = ""; }
                             else { name = reader.GetString(reader.GetOrdinal("StockName")); }
+                            /*string name = ""; */
                             
                             int id = reader.GetInt32(reader.GetOrdinal("Id"));
                             TransType type = (TransType)reader.GetInt32(reader.GetOrdinal("Type"));
@@ -233,9 +237,11 @@ namespace FrameWork
         public List<PortTransactionSum> GetPortTranscationSumByPortId(int portId)
         {
             List<PortTransactionSum> list = new List<PortTransactionSum>();
-            using (SqlCommand cmd = new SqlCommand("select s.StockName, pt.StockTicker, pt.Type, sum(pt.Share) as Share, sum(pt.Cashvalue) as Cashvalue" +
-                " from PortTransaction pt left join Stock s on  pt.portId=@portId and pt.StockTicker=s.StockTicker" + 
-                " group by pt.StockTicker, pt.Type, s.StockName order by pt.StockTicker", conn))
+            using (SqlCommand cmd = new SqlCommand("(select s.StockName, pt.StockTicker, pt.Type, sum(pt.Share) as Share, sum(pt.Cashvalue) as Cashvalue" +
+                " from PortTransaction pt, Stock s where  pt.portId=@portId and pt.StockTicker=s.StockTicker" + 
+                " group by pt.StockTicker, pt.Type, s.StockName) union" +
+                " (select '' as StockName, '' as StockTicker, Type, 0 as Share, sum(Cashvalue) as Cashvalue" +
+                " from PortTransaction pt where  pt.portId=@portId and pt.StockTicker='' group by pt.Type)", conn))
             {
                 cmd.Parameters.AddWithValue("@portId", portId);
                 using (SqlDataReader reader = cmd.ExecuteReader())

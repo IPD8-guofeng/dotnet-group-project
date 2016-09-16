@@ -82,12 +82,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WPFVisifire.Charts">
-      <HintPath>..\..\VisiFire\Binaries\.net 4.0\WPFVisifire.Charts.dll</HintPath>
-    </Reference>
-    <Reference Include="WPFVisifire.Gauges">
-      <HintPath>..\..\VisiFire\Binaries\.net 4.0\WPFVisifire.Gauges.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

@@ -29,13 +29,12 @@ namespace FrameWork
         {
 
             InitializeComponent();
-            this.WindowStartupLocation = WindowStartupLocation.Manual;
-            this.Left = 1080;
-            this.Top = 50;
+            //this.WindowStartupLocation = WindowStartupLocation.Manual;
+            //this.Left = 1080;
+            //this.Top = 50;
+
             //get all portfolio name from Table "Portfolio", assign to listbox "lbPortfolio"
             //get the default portfolio name and assigne it to the Title "lblPortName"
-
-
             getPortfolio();
             currentPortId = 1;
             lblPortName.Content = lbPortfolio.Items.GetItemAt(currentPortId - 1);
@@ -89,7 +88,8 @@ namespace FrameWork
                 if (portfolioList[i].Symbol != symbol && symbol.Length>0 && i != 0)
                 {
                     //get last price for the Stock("Symbol")
-                    lastPrice = db.getLatestPriceByTicker(symbol);
+                    lastPrice = db.GetStockLastPriceByTicker(symbol);
+                    //lastPrice = db.getLatestPriceByTicker(symbol);
 
                     totalMarketvalue += lastPrice * shareAmt;
                     if (shareAmt == 0) { avg = 0; }
@@ -144,7 +144,8 @@ namespace FrameWork
             // add the last Stock record
             if (symbol != "")
             {
-                lastPrice = db.getLatestPriceByTicker(symbol);
+                lastPrice = db.GetStockLastPriceByTicker(symbol);
+                //lastPrice = db.getLatestPriceByTicker(symbol);
 
                 totalMarketvalue += lastPrice * shareAmt;
                 if (shareAmt == 0) { avg = 0; }
@@ -410,8 +411,6 @@ namespace FrameWork
             getPortTransactionSum(currentPortId);
             dgPortfolio.Items.Refresh();
 
-            //insert the data to Table "Transcation
-
         }
 
         private void lbPortfolio_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -424,13 +423,30 @@ namespace FrameWork
             //find the portid from Table Portfolio and assigned to currentPortId;
             int id = db.PortIdByName(item);
             //MessageBox.Show("" + id, "Database Error", MessageBoxButton.OK, MessageBoxImage.Information);
-            if (id == 0)
+            if (id == 0||id==currentPortId)
             {
-                MessageBox.Show("Cannot get the Portfolil Id!", "Database Error",
-                MessageBoxButton.OK, MessageBoxImage.Information);
+                //MessageBox.Show("Cannot get the Portfolil Id!", "Database Error",
+                //MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             currentPortId = id;
+            dgPortfolio.ItemsSource = null;
+            dgPortfolio.Items.Clear();
+            dgPortfolio.Items.Refresh();
+            dgTranscation.ItemsSource = null;
+            dgTranscation.Items.Clear();
+            dgTranscation.Items.Refresh();
+
+            //update the transcation data, dgTranscation
+            //transactionList.Add(trans);
+            transactionList.Clear();
+            portfolioList.Clear();
+            getAllPortTransactions(currentPortId);
+            
+            //update the portfolio data, dgPortfolio
+            //portfolioList.Add(trans);
+            getPortTransactionSum(currentPortId);
+            
         }
     }
 }

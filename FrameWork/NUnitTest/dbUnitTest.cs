@@ -52,29 +52,6 @@ namespace NUnitTest
             t.TransDate = DateTime.Parse("01/01/2016");
 
         }
-
-
-
-
     }
 }
 
-/*            PortTransaction p = new PortTransaction();
-    p.portId = 1;
-    p.Symbol = "AAPL";
-    p.Type = TransType.Withdraw;
-    p.Date = DateTime.Parse("01/01/2016");
-    p.Share = 100000;
-    p.Price = 30;
-    p.Cashvalue = 3000;
-    p.Notes = "sdsd";
-    db.AddPortTransaction(p);
-    //Assert.IsNull();
-
-    Transaction t = new Transaction();
-    t.TransId = 0;
-    t.StockTicker = "dasdasd";
-    t.Price = 23.45;
-    t.Quantity = 50;
-    t.ActionType = 1;
-    t.TransDate = DateTime.Parse("01/01/2016");*/
