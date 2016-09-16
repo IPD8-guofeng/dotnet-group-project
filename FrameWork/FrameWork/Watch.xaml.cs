@@ -46,7 +46,15 @@ namespace FrameWork
                 c.Owner = Application.Current.MainWindow;
                 //c.WindowStartupLocation = WindowStartupLocation.Manual;
                 c.Show();
+
+                /*
+                StockTrade s = new StockTrade(w);
+                s.Owner = Application.Current.MainWindow;
+                //c.WindowStartupLocation = WindowStartupLocation.Manual;
+                s.Show();
+                */
             }
+
         }
     }
 }
