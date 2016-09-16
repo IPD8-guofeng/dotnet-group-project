@@ -287,6 +287,10 @@ namespace FrameWork
             //update the transcation data, dgTranscation
             //transactionList.Add(trans);
             //dgTranscation.Items.Clear();
+            performanceList.Clear();
+            portfolioList.Clear();
+            transactionList.Clear();
+
             getAllPortTransactions(currentPortId);
             dgTranscation.Items.Refresh();
 
@@ -319,6 +323,9 @@ namespace FrameWork
 
             //update the transcation data, dgTranscation
             //transactionList.Add(trans);
+            performanceList.Clear();
+            portfolioList.Clear();
+            transactionList.Clear();
             getAllPortTransactions(currentPortId);
             dgTranscation.Items.Refresh();
 
@@ -365,6 +372,9 @@ namespace FrameWork
 
             //update the transcation data, dgTranscation
             //transactionList.Add(trans);
+            performanceList.Clear();
+            portfolioList.Clear();
+            transactionList.Clear();
             getAllPortTransactions(currentPortId);
             dgTranscation.Items.Refresh();
 
@@ -403,6 +413,9 @@ namespace FrameWork
 
             //update the transcation data, dgTranscation
             //transactionList.Add(trans);
+            performanceList.Clear();
+            portfolioList.Clear();
+            transactionList.Clear();
             getAllPortTransactions(currentPortId);
             dgTranscation.Items.Refresh();
 
@@ -441,6 +454,7 @@ namespace FrameWork
             //transactionList.Add(trans);
             transactionList.Clear();
             portfolioList.Clear();
+            performanceList.Clear();
             getAllPortTransactions(currentPortId);
             
             //update the portfolio data, dgPortfolio
