@@ -43,9 +43,6 @@ namespace FrameWork
             Application.Current.MainWindow.WindowState = WindowState.Maximized;
             GlobalVariable.Balance = db.getBalance();
             this.Show();
-
-            
-
         }
 
         private void menuTrade_Click(object sender, RoutedEventArgs e)
