@@ -56,7 +56,6 @@
   <ItemGroup>
     <Compile Include="dbUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="portfolioUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FrameWork\FrameWork.csproj">

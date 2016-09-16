@@ -42,7 +42,7 @@ CREATE TABLE [dbo].[StockPriceByDay](
 	primary key (StockTicker, PriceDate),
 )
 
-/****** TrendLine******/
+/****** TrendLine ******/
 CREATE TABLE [dbo].[TrendLine](
 	[TrendLineID] [int] IDENTITY(1,1) PRIMARY KEY,
 	[PositionStartX] [float] NOT NULL,
@@ -54,6 +54,22 @@ CREATE TABLE [dbo].[TrendLine](
 	[Width] [int] NOT NULL,
 	[StockTicker] [varchar](10) NOT NULL,
 )
+
+/********* PortTransaction **********/
+CREATE TABLE [dbo].[PortTransaction] (
+    [Id]          INT           IDENTITY (1, 1) PRIMARY KEY,
+    [portId]      INT           NOT NULL,
+    [StockTicker] VARCHAR (10)  NULL,
+    [Type]        INT           NULL,
+    [Date]        DATE          NULL,
+    [Share]       INT           NULL,
+    [Price]       FLOAT (53)    NULL,
+    [Notes]       VARCHAR (250) NULL,
+    [Cashvalue]   FLOAT (53)    NULL
+);
+
+
+
 
 SET ANSI_PADDING OFF
 GO

@@ -21,9 +21,9 @@
         <Label x:Name="lblError" Content="" HorizontalAlignment="Right" Margin="900,10,0,0" VerticalAlignment="Top" Width="200" Visibility="Hidden" />
         <Button x:Name="btnTrade" Content="Click to trade" HorizontalAlignment="Right" Margin="0,60,30,0" VerticalAlignment="Top" Width="125" Click="btnTrade_Click"/>
         <Label x:Name="lblStartDate" Content="Choose the start Date" HorizontalAlignment="Right" Margin="900,90,20,0" VerticalAlignment="Top" Width="125"/>
-        <DatePicker x:Name="dpStartDate" HorizontalAlignment="Right" Margin="0,120,30,0" VerticalAlignment="Top" Width="125"/>
+        <DatePicker x:Name="dpStartDate" HorizontalAlignment="Right" Margin="0,120,30,0" VerticalAlignment="Top" Width="125"  SelectedDateChanged="dpStartDate_SelectedDateChanged"/>
         <Label x:Name="lblEndDate" Content="Choose the end date" HorizontalAlignment="Right" Margin="900,150,20,0" VerticalAlignment="Top" Width="125"/>
-        <DatePicker x:Name="dpEndDate" HorizontalAlignment="Right" Margin="0,180,30,0" VerticalAlignment="Top" Width="125"/>
+        <DatePicker x:Name="dpEndDate" HorizontalAlignment="Right" Margin="0,180,30,0" VerticalAlignment="Top" Width="125" SelectedDateChanged="dpEndDate_SelectedDateChanged"/>
         <Label x:Name="lblTicker" Content="Enter the stock ticker" HorizontalAlignment="Right" Margin="0,210,20,0" VerticalAlignment="Top" Width="125"/>
         <TextBox x:Name="tbTicker" HorizontalAlignment="Right" Height="23" Margin="0,240,30,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="125"
                  PreviewKeyDown="tbTicker_PreviewKeyDown" TextChanged="tbTicker_TextChanged" />

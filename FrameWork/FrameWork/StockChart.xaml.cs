@@ -33,21 +33,17 @@ namespace FrameWork
         }
         private void refreshChart()
         {
-
-        }
-        private void tbTicker_TextChanged(object sender, TextChangedEventArgs e)
-        {
             ObjectDataProvider data = (ObjectDataProvider)this.DataContext;
             StockChartModel model = (StockChartModel)data.Data;
             if (lbSuggestion.SelectedItem != null && dpStartDate.SelectedDate != null && dpEndDate.SelectedDate != null)
             {
                 string selectedTicker = lbSuggestion.SelectedItem.ToString();
-                model.SetStockTicker(selectedTicker,dpStartDate.SelectedDate.Value.ToShortDateString(), dpEndDate.SelectedDate.Value.ToShortDateString() );
+                model.SetStockTicker(selectedTicker, dpStartDate.SelectedDate.Value.ToShortDateString(), dpEndDate.SelectedDate.Value.ToShortDateString());
                 lblError.Visibility = Visibility.Hidden;
             }
             else
             {
-                model.SetStockTicker("A","2016/01/01","2016/08/31");
+                model.SetStockTicker("A", "2016/01/01", "2016/08/31");
                 lblError.Content = "Error";
                 lblError.Visibility = Visibility.Visible;
 
@@ -73,6 +69,10 @@ namespace FrameWork
             {
                 //lbSuggestion.Visibility = Visibility.Hidden;
             }
+        }
+        private void tbTicker_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            refreshChart();
         }
 
         private void tbTicker_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -118,6 +118,20 @@ namespace FrameWork
             StockTrade s = new StockTrade(ticker);
             //s.Owner = Application.Current.MainWindow;
             s.Show();
+        }
+
+
+            
+
+
+        private void dpEndDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            refreshChart();
+        }
+
+        private void dpStartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            refreshChart();
         }
     }
 }

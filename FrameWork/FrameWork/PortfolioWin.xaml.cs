@@ -29,9 +29,9 @@ namespace FrameWork
         {
 
             InitializeComponent();
-            //this.WindowStartupLocation = WindowStartupLocation.Manual;
-            //this.Left = 1080;
-            //this.Top = 50;
+            this.WindowStartupLocation = WindowStartupLocation.Manual;
+            this.Left = 1080;
+            this.Top = 50;
 
             //get all portfolio name from Table "Portfolio", assign to listbox "lbPortfolio"
             //get the default portfolio name and assigne it to the Title "lblPortName"
