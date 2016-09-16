@@ -443,12 +443,14 @@ namespace FrameWork
                 return;
             }
             currentPortId = id;
+            /*
             dgPortfolio.ItemsSource = null;
             dgPortfolio.Items.Clear();
             dgPortfolio.Items.Refresh();
             dgTranscation.ItemsSource = null;
             dgTranscation.Items.Clear();
             dgTranscation.Items.Refresh();
+            */
 
             //update the transcation data, dgTranscation
             //transactionList.Add(trans);
@@ -456,10 +458,12 @@ namespace FrameWork
             portfolioList.Clear();
             performanceList.Clear();
             getAllPortTransactions(currentPortId);
+            dgTranscation.Items.Refresh();
             
             //update the portfolio data, dgPortfolio
             //portfolioList.Add(trans);
             getPortTransactionSum(currentPortId);
+            dgPortfolio.Items.Refresh();
             
         }
     }
